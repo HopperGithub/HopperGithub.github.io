@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Conference," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="这篇文章解释了Promise的创建流程，使用技巧和需要注意的地方，让你知道如何更好地运用 Promise 开发。">
-<meta name="keywords" content="Git">
+<meta name="description" content="这篇文章简单聊下我在参加2018年 GMTC 大会后的一些感想，和对本次大会的一个印象。">
+<meta name="keywords" content="Conference">
 <meta property="og:type" content="article">
-<meta property="og:title" content="玩转 Promise 了解一下">
-<meta property="og:url" content="http://yoursite.com/2017/10/23/171023_enjoy_promise/index.html">
+<meta property="og:title" content="2018全球大前端技术大会（GMTC）会后简谈一二">
+<meta property="og:url" content="http://yoursite.com/2018/06/25/180625_gmtc_comment/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="这篇文章解释了Promise的创建流程，使用技巧和需要注意的地方，让你知道如何更好地运用 Promise 开发。">
+<meta property="og:description" content="这篇文章简单聊下我在参加2018年 GMTC 大会后的一些感想，和对本次大会的一个印象。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T05:59:46.658Z">
+<meta property="og:updated_time" content="2018-06-28T06:10:05.253Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="玩转 Promise 了解一下">
-<meta name="twitter:description" content="这篇文章解释了Promise的创建流程，使用技巧和需要注意的地方，让你知道如何更好地运用 Promise 开发。">
+<meta name="twitter:title" content="2018全球大前端技术大会（GMTC）会后简谈一二">
+<meta name="twitter:description" content="这篇文章简单聊下我在参加2018年 GMTC 大会后的一些感想，和对本次大会的一个印象。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/23/171023_enjoy_promise/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/25/180625_gmtc_comment/"/>
 
 
 
 
 
-  <title>玩转 Promise 了解一下 | Hopper's Blog</title>
+  <title>2018全球大前端技术大会（GMTC）会后简谈一二 | Hopper's Blog</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/171023_enjoy_promise/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/25/180625_gmtc_comment/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hopper">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">玩转 Promise 了解一下</h1>
+          <h1 class="post-title" itemprop="name headline">2018全球大前端技术大会（GMTC）会后简谈一二</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T18:30:10+08:00">
-                2017-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T14:15:10+08:00">
+                2018-06-25
               </time>
             
 
@@ -285,8 +285,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tool/" itemprop="url" rel="index">
-                    <span itemprop="name">Tool</span>
+                  <a href="/categories/Comment/" itemprop="url" rel="index">
+                    <span itemprop="name">Comment</span>
                   </a>
                 </span>
 
@@ -322,61 +322,27 @@
       
 
       
-        <p>　　这篇文章解释了Promise的创建流程，使用技巧和需要注意的地方，让你知道如何更好地运用 Promise 开发。<br><a id="more"></a></p>
-<h2 id="解释下Promise"><a href="#解释下Promise" class="headerlink" title="解释下Promise"></a>解释下Promise</h2><p>一个 Promise 对象代表一个目前还不可用，但是在未来的某个时间点可以被解析的值。采用统一的接口编写，允许你以一种同步的方式将复杂异步处理轻松模块化的规范做法。  </p>
-<p>举个例子：例如，如果你想要使用 Promise API 异步调用一个远程的服务器，你需要创建一个代表数据将会在未来由 Web 服务返回的 Promise 对象。唯一的问题是目前数据还不可用。当请求完成并从服务器返回时数据将变为可用数据。在此期间， Promise 对象将扮演一个真实数据的代理角色。接下来，你可以在 Promise 对象上绑定一个回调函数，一旦真实数据变得可用这个回调函数将会被调用。</p>
-<h2 id="创建promise对象的流程"><a href="#创建promise对象的流程" class="headerlink" title="创建promise对象的流程"></a>创建promise对象的流程</h2><ul>
-<li><figure class="highlight plain"><figcaption><span>Promise(fn)``` 返回一个romise对象。  </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    在 fn 中处理异步，处理结果正常调用 ```resolve(value)```，处理结果错误，调用```reject(error)```。</span><br><span class="line">- 针对上面创建promise对象，其实有更快捷的写法，这些静态方法是原本写法的一些语法糖。</span><br></pre></td></tr></table></figure>
-<p>  Promise.resolve(value)</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">等同于</span><br></pre></td></tr></table></figure>
-<p>  new Promise(function(resolve){</p>
-<pre><code>resolve(value);
-</code></pre><p>  });</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">处理结果</span><br></pre></td></tr></table></figure>
-<p>  Promise.resolve(value).then(function(value){</p>
-<pre><code>console.log(value);
-</code></pre><p>  });</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
-<p>  Promise.reject(error)</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">等同于</span><br></pre></td></tr></table></figure>
-<p>  new Promise(function(resolve, reject){</p>
-<pre><code>reject(error);
-</code></pre><p>  });</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">处理错误</span><br></pre></td></tr></table></figure>
-<p>  Promise.resolve(error).catch(function(error){</p>
-<pre><code>throw new Error(error);
-</code></pre><p>  });</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 具有```then()```方法的对象A（通常也称thenable的对象），可以通过Promise.resolve(A)转换为一个Promise对象，当然前提是这个对象A要遵循Promises/A+或ES6 Promises标准，否则可能会缺失部分信息。</span><br><span class="line">- ```then(fn1)```中 fn1 函数与```new Promise(fn2)```中的 fn2 函数执行顺序不同，fn1调用是异步执行,fn2调用是同步执行，举个例子：</span><br></pre></td></tr></table></figure>
-<p>  var promise = new Promise(function (resolve){</p>
-<pre><code>console.log(&quot;inner promise&quot;); // 1 -&gt;最先执行
-resolve(&quot;inner then&quot;);
-</code></pre><p>  });<br>  promise.then(function(value){</p>
-<pre><code>console.log(value); // 3 -&gt; 最后执行
-</code></pre><p>  });<br>  console.log(“outer promise”); // 2 -&gt; 然后执行<br>  // 执行结果：<br>  inner promise // 1<br>  outer promise // 2<br>  inner then    // 3</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">## 值得注意几点</span><br><span class="line">- 需要注意的一点是，Promise 只能使用异步调用方式，否则将引起同步、异步调用的混乱问题，导致栈溢出，处理顺序与预期不符或者异常处理错乱等问题。</span><br><span class="line">- 了解Chain即链式调用，这在Jquery中普遍使用，```Promise.then().catch()```，其中 then 和 catch 方法都返回了一个Promise对象，但两个Promise对象状态不同，一个是Fulfilled， 一个是Rejected，表明结果正确还是出现异常，所以在一个链式调用中，如</span><br></pre></td></tr></table></figure>
-<p> function fn1 () { </p>
-<pre><code>throw new Error(&apos;fn1出错了&apos;);
-</code></pre><p> }<br> var promise = Promise.resolve()<br> promise</p>
-<pre><code>.then(fn1)
-.then(fn2)
-.catch(fn3)
-.then(fn4)
-</code></pre> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一旦，fn1中抛出异常,```.then(fn1)```返回的将是一个Rejected状态的Promise对象，而 then 方法不接受Rejected状态的Promise对象，所以fn2、fn4将不会被执行，直接调用fn3进行异常处理。</span><br><span class="line">此外，fn1使用了throw方法来触发try...catch，进行异常捕捉。不过推荐使用reject方法，把Promise对象状态设置为Rejected，如fn1可以写为：</span><br></pre></td></tr></table></figure>
-<p> function fn1 () {</p>
-<pre><code>return Promise.reject(&apos;fn1出错了&apos;);
-</code></pre><p> }</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- 其实从上面例子不难发现三点：一个是如何在then方法中使用reject；第二点是，推荐使用reject，因为在Promise中，它比throw更安全，优雅；第三点是，如果一个错误回调中，没有重新抛出错误，promise的状态会转变为resolved，继续执行后续处理，而不会进入catch；第四点是catch方法只能捕获上一级抛出的异常。</span><br><span class="line">- 链式调用then方法和循环调用then，虽然每次都是返回一个Promise，但是前者状态可能因为then中的异常有无而不断改变，后者则每次返回一个focked Promise,状态不变，即即使上一次循环抛出异常，依然可以执行下一次循环。</span><br><span class="line"></span><br><span class="line">## 扩展与总结</span><br><span class="line">- done方法与then的区别：前者不会返回Promise对象，所以只能放在链式的最后，done中发生异常不会被Promise捕获进入catch,而是直接抛出到调用链外面。</span><br><span class="line">- all方法会同并发执行多个Promise对象，而不是按照参数顺序一个个执行。想要实现顺序执行promise，可以有几个方法，比如循环调用then。</span><br><span class="line">- race方法与all的区别在于，在执行promise数组执行过程中，当任何一个promise对象进入到确定（解决）状态后，就继续进行后续处理，即执行then方法。而all则会全部执行promise对象的数组，在继续后续处理。所以根据这一特性，可以使用race方法来实现超时机制，一旦有某个请求超时，则停止程序，处理超时。</span><br><span class="line">- 如何暂停一个Promise的执行：在想要暂停的PromiseA的then方法中，返回一个PromiseB，这样promiseA就被暂停了，等Promise的then方法执行完毕后，继续执行。举个例子：</span><br></pre></td></tr></table></figure>
-<p>  function fn1 () {</p>
-<pre><code>// to do something
-return Promise.resolve();
-</code></pre><p>  }<br>  var promise = Promise.resolve()</p>
-<pre><code>promise
-    .then(fn1)
-    .then(fn2)
-    .then(fn3)
-    .done(fn4)
-</code></pre><p>  <code>`</code></p>
-</li>
+        <p>　　这篇文章简单聊下我在参加2018年 GMTC 大会后的一些感想，和对本次大会的一个印象。<br><a id="more"></a></p>
+<h2 id="大会简介"><a href="#大会简介" class="headerlink" title="大会简介"></a>大会简介</h2><ul>
+<li>大会分2天举行，一共分为6场主题演讲和25场专题演讲。安排紧凑，全天8场左右。</li>
+<li>涉及专题有PWA、跨平台、性能优化与监控、终端AI、解决方案、IOS、Android、WEB框架、NODE、音视频、UI图形技术、工程化、编程语言等。</li>
+<li>讲师有来自阿里、腾讯、网易、百度、携程、58、美团等互联网公司，也有来自Google、Twitter的工程师，也有一些前端社区活跃的独立开发者。</li>
+</ul>
+<h2 id="内容回顾"><a href="#内容回顾" class="headerlink" title="内容回顾"></a>内容回顾</h2><ul>
+<li>大会演讲专题几乎包含大前端所涉及的技术领域，有对工程实践、前端研发体系建设和工程化演进的介绍，如微服务平台下基于GraphQL构建BFF的实践和思考；也有谈讲在跨平台，各端应用上的实践经验和解决方案；也有着重前端一些专业领域的技术应用分享，如WebAssembly在音视频领域的应用、图形技术、HTML5游戏引擎渲染原理和动画性能优化。</li>
+<li>其中涌现出较多对新兴技术的分享和实践上的思考，如谷歌最近推出的基于Dart编写的移动端框架Flutter、GraphQL应用的一些最佳实践、PWA技术在提升性能和用户体验上实践探索、Kotlin语言及其协程的力量、WebAssembly在音视频领域的应用、微服务下构建BBF层的实践、基于Cocos开发微信小游戏、Node.js全栈开发模式探究、摩拜多类型SSR业务框架的实践优化、AI技术在一些公司的实践和应用、Native与Hybird App的实践经验。</li>
+<li>也有一些对与前端团队成长性的探讨，包括前后端分离、全栈开发模式等技术管理上的经验介绍。</li>
+</ul>
+<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><ul>
+<li>上面简单说了下2018年GMTC大会整体的一个情况，据我个人而言，很荣幸代表团队参加这次会议，参会的2天里，虽然无法每个专题都能去听，但是在和其他参会者的交流中也对其他专题有所了解。对目前前端的融合、吸纳、有轻到重的发展趋势，和前端技术的发展动态、实践和应用情况有所体会。</li>
+<li>和一些受邀的讲师和参会者聊天了解到，大部分参与人员都是前端的一线研发，更希望听到的分享是大家工作中的深刻体会和独到见解，比如技术应用中遇到过哪些坑，怎么解决的，对新兴技术的最佳实践、有那些自研的成熟的优化、解决方案、对团队、产品成长的探讨等等干货。</li>
+<li>虽然涌现出的专题很多，但整体上给参会者带来的收益差强人意。比如AI专题大部分没有实质内容，像在为公司或产品宣传，如“AI在叮咚智能音箱中的演进和应用”、“AR在直播系统中的应用”，对技术探讨的篇幅和宣传实践达成效果的篇幅相较远远不如。同样的例子还有很多，如“阿里Node.js运维和开发最佳实践”，大家都兴奋的挤满了会议室，结果听到的内容，大部分是最佳实践带来了哪些效果和成绩云云。</li>
+<li>排除技术保密的成分，一些演讲好似培训，资料内容网上随手可查，如果只是将这些资料随意整合一番，照本宣科，或一味讲述其团队对某些技术领域的应用影响、成效，自然破环了技术氛围，就会出现参与者渐渐离席，“始乱终弃”的情况。</li>
+<li>虽然水分较多，但也有很多可圈可点之处，从我自己所听了专场中来看，我觉得PWA专场、工程化专场、node专场、Web框架专场的其中几场，讲师分享的内容还是令我有所感悟和启发的，有些分享的场景都是移动端App、跨平台、工程化、性能监控优化的实践，虽可能没太多实践机会，但对于一些前端技术的发展趋势、某些专业领域的优化实践、解决方案有了较为明确的认知，当然对于不熟知的领域也有了大体上的了解，有所学习、有所启发。</li>
+<li>没有探讨“微前端”的课题，有些遗憾，不过此类课题是前端发展的一个趋势，大部分团队虽尚未有较成熟的解决方案，但也基本在自研的路上。以后继续关注前端的技术分享和实践经验，将经验和知识转化为实体产出。</li>
+</ul>
+<h2 id="会议资料"><a href="#会议资料" class="headerlink" title="会议资料"></a>会议资料</h2><ul>
+<li><a href="https://gmtc.geekbang.org/" target="_blank" rel="noopener">https://gmtc.geekbang.org/</a> （大会日程板块处可下载PPT、可以查阅技术专栏了解大会相关专题）</li>
 </ul>
 
       
@@ -395,7 +361,7 @@ return Promise.resolve();
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/Conference/" rel="tag"># Conference</a>
           
         </div>
       
@@ -408,8 +374,8 @@ return Promise.resolve();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/19/161019_mobile_debugger/" rel="next" title="实战搞定移动端真机调试">
-                <i class="fa fa-chevron-left"></i> 实战搞定移动端真机调试
+              <a href="/2017/10/23/171023_enjoy_promise/" rel="next" title="玩转 Promise 了解一下">
+                <i class="fa fa-chevron-left"></i> 玩转 Promise 了解一下
               </a>
             
           </div>
@@ -417,10 +383,6 @@ return Promise.resolve();
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/25/180625_gmtc_comment/" rel="prev" title="2018全球大前端技术大会（GMTC）会后简谈一二">
-                2018全球大前端技术大会（GMTC）会后简谈一二 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -562,7 +524,7 @@ return Promise.resolve();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解释下Promise"><span class="nav-number">1.</span> <span class="nav-text">解释下Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建promise对象的流程"><span class="nav-number">2.</span> <span class="nav-text">创建promise对象的流程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大会简介"><span class="nav-number">1.</span> <span class="nav-text">大会简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内容回顾"><span class="nav-number">2.</span> <span class="nav-text">内容回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#心得体会"><span class="nav-number">3.</span> <span class="nav-text">心得体会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会议资料"><span class="nav-number">4.</span> <span class="nav-text">会议资料</span></a></li></ol></div>
             
 
           </div>
