@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Javascript," />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -80,16 +80,16 @@
 
 
 <meta name="description" content="在JavaScript的使用过程中，我们经常会遇到prototype，可能了解一点，它是一个对象的原型，用来做原型继承的。这样去理解就有点不准确了，今天就让我们深入的去了解它。">
-<meta name="keywords" content="Javascript">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="带你理解 Javascript 的原型(prototype)和原型链(\__proto__)">
+<meta property="og:title" content="带你理解 JavaScript 的原型(prototype)和原型链(\__proto__)">
 <meta property="og:url" content="http://yoursite.com/2015/08/24/150824_javascript_proto/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="在JavaScript的使用过程中，我们经常会遇到prototype，可能了解一点，它是一个对象的原型，用来做原型继承的。这样去理解就有点不准确了，今天就让我们深入的去了解它。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T06:46:51.496Z">
+<meta property="og:updated_time" content="2018-06-28T06:58:06.129Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="带你理解 Javascript 的原型(prototype)和原型链(\__proto__)">
+<meta name="twitter:title" content="带你理解 JavaScript 的原型(prototype)和原型链(\__proto__)">
 <meta name="twitter:description" content="在JavaScript的使用过程中，我们经常会遇到prototype，可能了解一点，它是一个对象的原型，用来做原型继承的。这样去理解就有点不准确了，今天就让我们深入的去了解它。">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>带你理解 Javascript 的原型(prototype)和原型链(\__proto__) | Hopper's Blog</title>
+  <title>带你理解 JavaScript 的原型(prototype)和原型链(\__proto__) | Hopper's Blog</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">带你理解 Javascript 的原型(prototype)和原型链(\__proto__)</h1>
+          <h1 class="post-title" itemprop="name headline">带你理解 JavaScript 的原型(prototype)和原型链(\__proto__)</h1>
         
 
         <div class="post-meta">
@@ -355,12 +355,11 @@
 <h2 id="constructor属性"><a href="#constructor属性" class="headerlink" title="constructor属性"></a>constructor属性</h2><p>原型对象prototype中都有个预定义的constructor属性，用来引用它的函数对象。这是一种循环引用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor === Person); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.constructor === <span class="built_in">Function</span>); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.constructor === <span class="built_in">Object</span>); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 <p>用构造函数创建的对象，它的constructor属性就是它的构造函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.constructor === Person); <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ol>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
 <li><a href="https://www.toptal.com/javascript/javascript-prototypes-scopes-and-performance-what-you-need-to-know" target="_blank" rel="noopener">JavaScript Prototype Chains</a>  </li>
 <li><a href="https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/" target="_blank" rel="noopener">Understanding JavaScript Prototypes</a>  </li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="noopener">继承与原型链</a>  </li>
-<li><a href="http://blog.xieliqun.com/2016/08/20/prototype/" target="_blank" rel="noopener">原型|原型链</a></li>
-</ol>
+</ul>
 
       
     </div>
@@ -378,7 +377,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
         </div>
       
@@ -391,14 +390,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2015/08/24/151118_javascript_call/" rel="next" title="详解 JavaScript 的 call、apply、bind 方法">
+                <i class="fa fa-chevron-left"></i> 详解 JavaScript 的 call、apply、bind 方法
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/12/151012_git_how_to_use/" rel="prev" title="Git实践">
-                Git实践 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/10/12/150910_javascript_closure/" rel="prev" title="JavaScript 闭包（closure）是个啥">
+                JavaScript 闭包（closure）是个啥 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -476,7 +479,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
