@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="call()、apply()、bind()都是函数对象的一个方法，它们的作用都是改变函数的调用对象。它的使用极大的简化了代码的调用。">
+<meta name="description" content="JavaScript 的 call()、apply()、bind()都是函数对象的一个方法，它们的作用都是改变函数的调用对象。它的使用极大的简化了代码的调用。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="详解 JavaScript 的 call、apply、bind 方法">
+<meta property="og:title" content="详解 call、apply、bind 方法">
 <meta property="og:url" content="http://yoursite.com/2015/08/24/151118_javascript_call/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="call()、apply()、bind()都是函数对象的一个方法，它们的作用都是改变函数的调用对象。它的使用极大的简化了代码的调用。">
+<meta property="og:description" content="JavaScript 的 call()、apply()、bind()都是函数对象的一个方法，它们的作用都是改变函数的调用对象。它的使用极大的简化了代码的调用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T07:01:15.950Z">
+<meta property="og:updated_time" content="2018-06-28T08:23:44.756Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="详解 JavaScript 的 call、apply、bind 方法">
-<meta name="twitter:description" content="call()、apply()、bind()都是函数对象的一个方法，它们的作用都是改变函数的调用对象。它的使用极大的简化了代码的调用。">
+<meta name="twitter:title" content="详解 call、apply、bind 方法">
+<meta name="twitter:description" content="JavaScript 的 call()、apply()、bind()都是函数对象的一个方法，它们的作用都是改变函数的调用对象。它的使用极大的简化了代码的调用。">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>详解 JavaScript 的 call、apply、bind 方法 | Hopper's Blog</title>
+  <title>详解 call、apply、bind 方法 | Hopper's Blog</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">详解 JavaScript 的 call、apply、bind 方法</h1>
+          <h1 class="post-title" itemprop="name headline">详解 call、apply、bind 方法</h1>
         
 
         <div class="post-meta">
@@ -322,7 +322,7 @@
       
 
       
-        <p>　　call()、apply()、bind()都是函数对象的一个方法，它们的作用都是改变函数的调用对象。它的使用极大的简化了代码的调用。<br><a id="more"></a></p>
+        <p>　　JavaScript 的 call()、apply()、bind()都是函数对象的一个方法，它们的作用都是改变函数的调用对象。它的使用极大的简化了代码的调用。<br><a id="more"></a></p>
 <h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><h3 id="call方法"><a href="#call方法" class="headerlink" title="call方法"></a>call方法</h3><p>语法：<code>call([thisObj[,arg1[, arg2[,   [,.argN]]]]])</code><br>定义：调用一个对象的一个方法，以另一个对象替换当前对象。<br>说明：call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。<br>arg1 … argN为被调用方法的传参。</p>
 <h3 id="apply方法"><a href="#apply方法" class="headerlink" title="apply方法"></a>apply方法</h3><p>语法：<code>apply([thisObj[,argArray]])</code><br>定义：应用某一对象的一个方法，用另一个对象替换当前对象。<br>说明：apply的第一个参数thisObj和call方法的一样，第二个参数argArray为一个传参数组。thisObj如果未传，那么 Global 对象被用作 thisObj。</p>
 <h3 id="bind方法"><a href="#bind方法" class="headerlink" title="bind方法"></a>bind方法</h3><p>在ECMAScript5中扩展了叫bind的方法（IE6,7,8不支持）<br>语法：<code>bind([thisObj[,arg1[, arg2[,   [,.argN]]]]])</code><br>定义：应用某一对象的一个方法，用另一个对象替换当前对象。<br>说明：bind的thisObj参数也和call方法一样，thisObj如果未传，那么 Global 对象被用作 thisObj。arg1 … argN可传可不传。如果不传，可以在调用的时候再传。如果传了，调用的时候则可以不传，调用的时候如果你还是传了，则不生效。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name:<span class="string">"tsrot"</span>,</span><br><span class="line">    age:<span class="number">24</span>,</span><br><span class="line">    sayHello:<span class="function"><span class="keyword">function</span>(<span class="params">age</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        <span class="built_in">console</span>.log(age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> son = &#123;</span><br><span class="line">	name:<span class="string">"xieliqun"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> boundFunc = person.sayHello.bind(son);</span><br><span class="line">boundFunc(<span class="number">25</span>); <span class="comment">// xieliqun  25</span></span><br></pre></td></tr></table></figure></p>
@@ -363,10 +363,6 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/08/24/150824_javascript_proto/" rel="next" title="深入理解 JavaScript 的原型(prototype)和原型链(\__proto__)">
-                <i class="fa fa-chevron-left"></i> 深入理解 JavaScript 的原型(prototype)和原型链(\__proto__)
-              </a>
             
           </div>
 
