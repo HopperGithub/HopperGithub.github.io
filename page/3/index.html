@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -104,7 +104,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -198,26 +198,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -260,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/08/24/151209_javascript_scope/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/08/24/160110_javascript_this/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hopper">
@@ -279,7 +259,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/08/24/151209_javascript_scope/" itemprop="url">作用域深入探究</a></h1>
+                <a class="post-title-link" href="/2015/08/24/160110_javascript_this/" itemprop="url">理清 JavaScript 中 this 指向</a></h1>
         
 
         <div class="post-meta">
@@ -352,10 +332,10 @@
 
       
         
-          <p>　　作用域是每种计算机语言最重要的基础之一，也是JavaScript最重要的概念之一。要想真正的深入了解JavaScript，了解其作用域链非常必要。而且作用域链的层级关系是JavaScript性能优化的一个重要部分，这关系到变量在内存里的读写速度。<br>   本文将帮助大家深入了解JavaScript作用域和作用域链的工作原理。<br>
+          <p>　　对于JavaScript初学者来说，this指针的指向问题一直是很混乱的问题。在不同的场景下，this会化身不同的对象。有一种观点认为，只有正确掌握了 JavaScript 中的 this 关键字，才算是迈入了 JavaScript 这门语言的门槛。在主流的面向对象的语言中（例如Java,C#等)，this 含义是明确且具体的，即指向当前对象。一般在编译期绑定。而 JavaScript 中 this 在运行期进行绑定的，这是JavaScript 中 this 关键字具备多重含义的本质原因。随着函数使用场合的不同，this的值会发生变化，但是有一个总的原则，那就是 this 指向的是，<strong>调用函数的那个对象</strong>。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/08/24/151209_javascript_scope/#more" rel="contents">
+            <a class="btn" href="/2015/08/24/160110_javascript_this/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -783,6 +763,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
 
