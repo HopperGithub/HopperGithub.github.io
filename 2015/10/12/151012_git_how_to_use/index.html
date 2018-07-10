@@ -14,6 +14,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
 
 
 
@@ -212,6 +219,26 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -223,43 +250,9 @@
       
 
       
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
     </ul>
   
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
   
 </nav>
 
@@ -400,7 +393,7 @@
 <p>~/alpha $ git commit -m ‘a1’<br>          [master (root-commit) 774b54a] a<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">进行`a1`提交，Git打印了这次提交的相关信息。</span><br><span class="line">commit命令有三个步骤。</span><br><span class="line"></span><br><span class="line">1. 创建一个树形图来表示正在提交的项目版本的内容。 </span><br><span class="line">2. 创建一个提交对象。 </span><br><span class="line">3. 将当前分支指向新的提交对象。</span><br><span class="line"></span><br><span class="line">## 创建树形图</span><br><span class="line"></span><br><span class="line">Git通过从索引创建树图来记录项目的当前状态。 此树图记录项目中每个文件的位置和内容。该图由两种类型的对象组成：blob和树。Blob是通过git add 存储的。 它们表示文件的内容。在commit时存储树。 树表示工作副本中的目录。下面是记录新提交的data目录的内容的树对象：</span><br></pre></td></tr></table></figure></p>
 <p>100664 blob 2e65efe2a145dda7ee51d1741299f848e5bf752e letter.txt<br>100664 blob 56a6051ca2b02b04ef92d5150c9ef600403cb1de number.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第一行记录展示了`data/letter.txt` 文件的信息。 第一部分是文件的权限。 第二部表示此条目的内容由 blob 而不是树表示。 第三部分描述了 blob 的 Hash 。第四部分描述文件的名称。第二行当然就是文件 `data/number.txt` 文件的信息。 下面是 alpha 的树对象：</span><br></pre></td></tr></table></figure></p>
 <p>040000 tree 0eed1217a2947f4930583229987d90fe5e8e0b74 data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">alpha 树对象只包含了一个指向 data 树指针。(译著：如果`alpha` 目录下还有一个文件， `alpha` 树对象就还会多一行，就是指向多出文件的blob 对象)  </span><br><span class="line">![`a1` commit object pointing at its tree graph](http://upload-images.jianshu.io/upload_images/1064727-617c76769ffc1d0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)  </span><br><span class="line"></span><br><span class="line">在上面的图中，root 树指向data 树。 data 树指向`data/letter.txt` 和`data/number.txt` 的blob。</span><br><span class="line"></span><br><span class="line">## 创建一个提交对象</span><br><span class="line">`git commit` 在创建树图后创建一个提交对象，提交对象只是 `.git/objects/` 中的另一个文本文件：</span><br></pre></td></tr></table></figure></p>
-<p>tree ffe298c3ce8bb07326f888907996eaa48d266db4<br>author Mary Rose Cook <a href="mailto:&#109;&#x61;&#114;&#x79;&#64;&#109;&#97;&#114;&#121;&#x72;&#111;&#115;&#x65;&#x63;&#x6f;&#x6f;&#x6b;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#109;&#x61;&#114;&#x79;&#64;&#109;&#97;&#114;&#121;&#x72;&#111;&#115;&#x65;&#x63;&#x6f;&#x6f;&#x6b;&#46;&#99;&#111;&#109;</a> 1424798436 -0500<br>committer Mary Rose Cook <a href="mailto:&#109;&#97;&#x72;&#121;&#x40;&#109;&#97;&#114;&#x79;&#114;&#x6f;&#x73;&#x65;&#99;&#x6f;&#111;&#107;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#109;&#97;&#x72;&#121;&#x40;&#109;&#97;&#114;&#x79;&#114;&#x6f;&#x73;&#x65;&#99;&#x6f;&#111;&#107;&#x2e;&#99;&#111;&#109;</a> 1424798436 -0500<br>a1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第一行指向树图。 Hash 是表示工作副本的根的树对象。 也就是`alpha` 目录。 最后一行是提交消息。  </span><br><span class="line">![`a1` commit object pointing at its tree graph](http://upload-images.jianshu.io/upload_images/1064727-805a1858eb60d644.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">## 将当前分支指向新的提交</span><br><span class="line">最后，`commit`命令将当前分支指向新的提交对象。哪个是当前分支？ `.git/HEAD` 文件记录了当前分支：```ref: refs/heads/master</span><br></pre></td></tr></table></figure></p>
+<p>tree ffe298c3ce8bb07326f888907996eaa48d266db4<br>author Mary Rose Cook <a href="mailto:&#109;&#97;&#x72;&#121;&#x40;&#109;&#97;&#114;&#x79;&#x72;&#111;&#x73;&#101;&#99;&#x6f;&#x6f;&#107;&#46;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#109;&#97;&#x72;&#121;&#x40;&#109;&#97;&#114;&#x79;&#x72;&#111;&#x73;&#101;&#99;&#x6f;&#x6f;&#107;&#46;&#x63;&#111;&#x6d;</a> 1424798436 -0500<br>committer Mary Rose Cook <a href="mailto:&#109;&#97;&#x72;&#x79;&#x40;&#x6d;&#97;&#114;&#x79;&#114;&#111;&#x73;&#101;&#99;&#111;&#111;&#x6b;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#109;&#97;&#x72;&#x79;&#x40;&#x6d;&#97;&#114;&#x79;&#114;&#111;&#x73;&#101;&#99;&#111;&#111;&#x6b;&#x2e;&#99;&#111;&#109;</a> 1424798436 -0500<br>a1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第一行指向树图。 Hash 是表示工作副本的根的树对象。 也就是`alpha` 目录。 最后一行是提交消息。  </span><br><span class="line">![`a1` commit object pointing at its tree graph](http://upload-images.jianshu.io/upload_images/1064727-805a1858eb60d644.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">## 将当前分支指向新的提交</span><br><span class="line">最后，`commit`命令将当前分支指向新的提交对象。哪个是当前分支？ `.git/HEAD` 文件记录了当前分支：```ref: refs/heads/master</span><br></pre></td></tr></table></figure></p>
 <p>这说明 <code>HEAD</code> 指向 <code>master</code>， <code>master</code> 是主分支。<code>HEAD</code> 和 <code>master</code> 都是<code>refs</code>。 <code>ref</code> 是 Git 用来标识特定提交的标签。表示 master 引用的文件不存在，因为这是对仓库的第一次提交。 Git 在 <code>.git/refs/heads/master</code><br>下创建文件，并将其内容设置为提交对象的哈希值：<code>74ac3ad9cde0b265d2b4f1c778b283a6e2ffbafd</code></p>
 <p>(如果你在阅读时输入这些Git命令，你的a1提交的哈希值将不同于我的哈希值。 内容对象（如blob和树）总是散列为相同的值。 提交不会，因为它们包括创建者的日期和名称。)<br>添加<code>HEAD</code>和<code>master</code>到树图：<br><img src="http://upload-images.jianshu.io/upload_images/1064727-623273180a0e5fd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="`HEAD` pointing at `master` and `master` pointing at the `a1` commit"><br><code>HEAD</code> 指向 <code>master</code> ，就像提交之前一样。 但 <code>master</code> 现在存在并指向新的提交对象<code>a1</code>。</p>
 <h2 id="再一次commit"><a href="#再一次commit" class="headerlink" title="再一次commit"></a>再一次commit</h2><p>下面是a1提交后的Git 结构图。 包含工作副本和索引。<br><img src="http://upload-images.jianshu.io/upload_images/1064727-a5fc68b7929e4de9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="`a1` commit shown with the working copy and index"><br>工作副本，索引和a1 提交都具有与<code>data/letter.txt</code> 和<code>data/number.txt</code> 相同的内容。 索引和<code>HEAD</code> 提交都使用Hash 来引用blob 对象，但是工作副本内容作为文本存储在不同的地方。</p>
@@ -591,8 +584,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/24/151209_javascript_scope/" rel="next" title="作用域深入探究">
-                <i class="fa fa-chevron-left"></i> 作用域深入探究
+              <a href="/2015/10/12/150910_javascript_closure/" rel="next" title="JavaScript 闭包（closure）是个啥">
+                <i class="fa fa-chevron-left"></i> JavaScript 闭包（closure）是个啥
               </a>
             
           </div>
@@ -601,8 +594,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/12/150910_javascript_closure/" rel="prev" title="JavaScript 闭包（closure）是个啥">
-                JavaScript 闭包（closure）是个啥 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/02/13/160213_javascript_event/" rel="prev" title="了解 Event 机制，学会事件绑定、监听和委托">
+                了解 Event 机制，学会事件绑定、监听和委托 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -779,11 +772,7 @@
 
 
 
-  <span class="post-meta-divider">|</span>
 
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
@@ -944,323 +933,6 @@
 
 
   
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
 
 
 
