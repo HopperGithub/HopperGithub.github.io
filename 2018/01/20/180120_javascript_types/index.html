@@ -88,7 +88,7 @@
 <meta property="og:description" content="JavaScript编程中，比较运算、数据转换操作等是十分常见，不过，计算机是如何工作、如何判断的，可能大部分人都不了解，想要学好 JS 这门弱类型语言，搞懂其类型判断机制很有必要，这里将从一次比较运算说起。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sfault-image.b0.upaiyun.com/471/646/471646219-582f0392e077f">
-<meta property="og:updated_time" content="2018-07-05T09:25:34.420Z">
+<meta property="og:updated_time" content="2018-07-10T08:41:34.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次比较运算符引发的 JavaScript 数据类型与类型转换的思考">
 <meta name="twitter:description" content="JavaScript编程中，比较运算、数据转换操作等是十分常见，不过，计算机是如何工作、如何判断的，可能大部分人都不了解，想要学好 JS 这门弱类型语言，搞懂其类型判断机制很有必要，这里将从一次比较运算说起。">
@@ -353,9 +353,8 @@
 <li>toString() 返回这个对象的字符串表示。<br>即用一个字符串来描述这个对象的内容。</li>
 </ul>
 <p>valueOf() 和 toString() 是定义在 Object.prototype 上的方法，但是 js 的许多内置对象都重写了这两个函数，以符合自身需求。</p>
-<h2 id="JS-内部用于实现类型转换的4个函数"><a href="#JS-内部用于实现类型转换的4个函数" class="headerlink" title="JS 内部用于实现类型转换的4个函数"></a>JS 内部用于实现类型转换的4个函数</h2><ul>
-<li><p>ToPrimitive ( input [ , PreferredType ] )   </p>
-<p>将input转化成一个原始类型的值。 PreferredType参数要么不传入，要么是 Number 或 String。  </p>
+<h2 id="JS-内部用于实现类型转换的4个函数"><a href="#JS-内部用于实现类型转换的4个函数" class="headerlink" title="JS 内部用于实现类型转换的4个函数"></a>JS 内部用于实现类型转换的4个函数</h2><p><code>ToPrimitive ( input [ , PreferredType ] )</code>   </p>
+<p>将input转化成一个原始类型的值。 PreferredType参数要么不传入，要么是 Number 或 String。</p>
 <ul>
 <li><p>如果 PreferredType 参数是 Number，ToPrimitive这样执行：</p>
 <ol>
@@ -365,22 +364,19 @@
 <li>抛出TypeError异常。</li>
 </ol>
 </li>
-<li><p>以下是 PreferredType 不为 Number 时的执行顺序。  </p>
+<li><p>以下是 PreferredType 不为 Number 时的执行顺序。</p>
 <ol>
 <li>如果PreferredType参数是String，则交换第2和第3步的顺序，其他执行过程相同。</li>
 <li>如果PreferredType参数没有传入</li>
 <li>如果input是内置的Date类型，PreferredType 视为String</li>
-<li>否则PreferredType 视为 Number  </li>
+<li>否则PreferredType 视为 Number</li>
 </ol>
 </li>
 </ul>
 <p>可以看出，ToPrimitive依赖于 valueOf 和 toString 的实现。</p>
-</li>
-<li><p>ToBoolean ( argument )</p>
-</li>
-<li>ToNumber ( argument )</li>
-<li>ToString ( argument )</li>
-</ul>
+<p><code>ToBoolean ( argument )</code></p>
+<p><code>ToNumber ( argument )</code></p>
+<p><code>ToString ( argument )</code></p>
 <h2 id="详细内容请参考"><a href="#详细内容请参考" class="headerlink" title="详细内容请参考"></a>详细内容请参考</h2><ul>
 <li><a href="https://tc39.github.io/ecma262/#sec-toboolean" target="_blank" rel="noopener">ECMA的标准</a></li>
 </ul>
