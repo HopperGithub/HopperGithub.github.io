@@ -386,7 +386,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/08/24/150824_javascript_proto/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/08/24/160110_javascript_this/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hopper">
@@ -405,7 +405,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/08/24/150824_javascript_proto/" itemprop="url">深入理解 JavaScript 的原型(prototype)和原型链(__proto__)</a></h1>
+                <a class="post-title-link" href="/2015/08/24/160110_javascript_this/" itemprop="url">理清 JavaScript 中 this 指向</a></h1>
         
 
         <div class="post-meta">
@@ -478,10 +478,10 @@
 
       
         
-          <p>　　在JavaScript的使用过程中，我们经常会遇到prototype，可能了解一点，它是一个对象的原型，用来做原型继承的。这样去理解就有点不准确了，今天就让我们深入的去了解它。<br>
+          <p>　　对于JavaScript初学者来说，this指针的指向问题一直是很混乱的问题。在不同的场景下，this会化身不同的对象。有一种观点认为，只有正确掌握了 JavaScript 中的 this 关键字，才算是迈入了 JavaScript 这门语言的门槛。在主流的面向对象的语言中（例如Java,C#等)，this 含义是明确且具体的，即指向当前对象。一般在编译期绑定。而 JavaScript 中 this 在运行期进行绑定的，这是JavaScript 中 this 关键字具备多重含义的本质原因。随着函数使用场合的不同，this的值会发生变化，但是有一个总的原则，那就是 this 指向的是，<strong>调用函数的那个对象</strong>。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/08/24/150824_javascript_proto/#more" rel="contents">
+            <a class="btn" href="/2015/08/24/160110_javascript_this/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -648,15 +648,9 @@
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
