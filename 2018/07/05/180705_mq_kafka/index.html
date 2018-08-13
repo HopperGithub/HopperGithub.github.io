@@ -86,19 +86,19 @@
 
 
 
-<meta name="description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。 一直想深入研究这两个消息中间件实现，可是实在抽不出时间看。。。借口比较多，还是按需学习吧，循序渐进。 回归正题，Kafka is">
+<meta name="description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。秉持按需学习，循序渐进的态度，逐步深入消息队列中间件的学习。本篇只是简单讲下 Kafka 的原理和概念。 回归正题，Kafka is">
 <meta name="keywords" content="MQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="消息队列中间件之 Kafka 基础篇">
 <meta property="og:url" content="https://hoppergithub.github.io/2018/07/05/180705_mq_kafka/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。 一直想深入研究这两个消息中间件实现，可是实在抽不出时间看。。。借口比较多，还是按需学习吧，循序渐进。 回归正题，Kafka is">
+<meta property="og:description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。秉持按需学习，循序渐进的态度，逐步深入消息队列中间件的学习。本篇只是简单讲下 Kafka 的原理和概念。 回归正题，Kafka is">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-kafka1.png">
-<meta property="og:updated_time" content="2018-08-13T07:29:58.615Z">
+<meta property="og:updated_time" content="2018-08-13T07:35:13.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息队列中间件之 Kafka 基础篇">
-<meta name="twitter:description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。 一直想深入研究这两个消息中间件实现，可是实在抽不出时间看。。。借口比较多，还是按需学习吧，循序渐进。 回归正题，Kafka is">
+<meta name="twitter:description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。秉持按需学习，循序渐进的态度，逐步深入消息队列中间件的学习。本篇只是简单讲下 Kafka 的原理和概念。 回归正题，Kafka is">
 <meta name="twitter:image" content="https://hoppergithub.github.io/images/img-kafka1.png">
 
 
@@ -336,7 +336,7 @@
       
 
       
-        <p>　　之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。 一直想深入研究这两个消息中间件实现，可是实在抽不出时间看。。。借口比较多，还是按需学习吧，循序渐进。</p>
+        <p>　　之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。秉持按需学习，循序渐进的态度，逐步深入消息队列中间件的学习。本篇只是简单讲下 Kafka 的原理和概念。</p>
 <p>回归正题，Kafka is a distributed,partitioned,replicated commit logservice. </p>
 <a id="more"></a>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Kafka是最初由Linkedin公司开发，是一个分布式、支持分区的（partition）、多副本的（replica），基于 zookeeper 协调的分布式消息系统。</p>
