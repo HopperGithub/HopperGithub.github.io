@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Conference," />
+  <meta name="keywords" content="MQ," />
 
 
 
@@ -86,18 +86,20 @@
 
 
 
-<meta name="description" content="这篇文章简单聊下我在参加2018年 GMTC 大会后的一些感想，和对本次大会的一个印象。">
-<meta name="keywords" content="Conference">
+<meta name="description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。 一直想深入研究这两个消息中间件实现，可是实在抽不出时间看。。。借口比较多，还是按需学习吧，循序渐进。回归正题，Kafka is a">
+<meta name="keywords" content="MQ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2018全球大前端技术大会（GMTC）会后简谈一二">
-<meta property="og:url" content="https://hoppergithub.github.io/2018/06/25/180625_gmtc_comment/index.html">
+<meta property="og:title" content="消息队列中间件之 Kafka 篇">
+<meta property="og:url" content="https://hoppergithub.github.io/2018/07/05/180705_mq_kafka/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="这篇文章简单聊下我在参加2018年 GMTC 大会后的一些感想，和对本次大会的一个印象。">
+<meta property="og:description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。 一直想深入研究这两个消息中间件实现，可是实在抽不出时间看。。。借口比较多，还是按需学习吧，循序渐进。回归正题，Kafka is a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T06:10:05.253Z">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-kafka1.png">
+<meta property="og:updated_time" content="2018-08-13T07:19:10.766Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018全球大前端技术大会（GMTC）会后简谈一二">
-<meta name="twitter:description" content="这篇文章简单聊下我在参加2018年 GMTC 大会后的一些感想，和对本次大会的一个印象。">
+<meta name="twitter:title" content="消息队列中间件之 Kafka 篇">
+<meta name="twitter:description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。 一直想深入研究这两个消息中间件实现，可是实在抽不出时间看。。。借口比较多，还是按需学习吧，循序渐进。回归正题，Kafka is a">
+<meta name="twitter:image" content="https://hoppergithub.github.io/images/img-kafka1.png">
 
 
 
@@ -127,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://hoppergithub.github.io/2018/06/25/180625_gmtc_comment/"/>
+  <link rel="canonical" href="https://hoppergithub.github.io/2018/07/05/180705_mq_kafka/"/>
 
 
 
 
 
-  <title>2018全球大前端技术大会（GMTC）会后简谈一二 | Hopper's Blog</title>
+  <title>消息队列中间件之 Kafka 篇 | Hopper's Blog</title>
   
 
 
@@ -240,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2018/06/25/180625_gmtc_comment/">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2018/07/05/180705_mq_kafka/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hopper Sun">
@@ -257,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2018全球大前端技术大会（GMTC）会后简谈一二</h1>
+          <h1 class="post-title" itemprop="name headline">消息队列中间件之 Kafka 篇</h1>
         
 
         <div class="post-meta">
@@ -269,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T14:15:10+08:00">
-                2018-06-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T18:01:18+08:00">
+                2018-07-05
               </time>
             
 
@@ -292,8 +294,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Comment/" itemprop="url" rel="index">
-                    <span itemprop="name">Comment</span>
+                  <a href="/categories/Middleware/" itemprop="url" rel="index">
+                    <span itemprop="name">Middleware</span>
                   </a>
                 </span>
 
@@ -334,28 +336,47 @@
       
 
       
-        <p>　　这篇文章简单聊下我在参加2018年 GMTC 大会后的一些感想，和对本次大会的一个印象。<br><a id="more"></a></p>
-<h2 id="大会简介"><a href="#大会简介" class="headerlink" title="大会简介"></a>大会简介</h2><ul>
-<li>大会分2天举行，一共分为6场主题演讲和25场专题演讲。安排紧凑，全天8场左右。</li>
-<li>涉及专题有PWA、跨平台、性能优化与监控、终端AI、解决方案、IOS、Android、WEB框架、NODE、音视频、UI图形技术、工程化、编程语言等。</li>
-<li>讲师有来自阿里、腾讯、网易、百度、携程、58、美团等互联网公司，也有来自Google、Twitter的工程师，也有一些前端社区活跃的独立开发者。</li>
+        <p>　　之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。 一直想深入研究这两个消息中间件实现，可是实在抽不出时间看。。。借口比较多，还是按需学习吧，循序渐进。<br>回归正题，Kafka is a distributed,partitioned,replicated commit logservice. Kafka是最初由Linkedin公司开发，是一个分布式、支持分区的（partition）、多副本的（replica），基于 zookeeper 协调的分布式消息系统。<br>它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop的批处理系统、低延迟的实时系统、storm/Spark流式处理引擎，web/nginx日志、访问日志，消息服务等等，用scala语言编写，Linkedin于2010年贡献给了Apache基金会并成为顶级开源项目。<br><a id="more"></a></p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li>高吞吐量、低延迟：kafka每秒可以处理几十万条消息，它的延迟最低只有几毫秒，每个topic可以分多个partition, consumer group 对partition进行consume操作。</li>
+<li>可扩展性：kafka集群支持热扩展</li>
+<li>持久性、可靠性：消息被持久化到本地磁盘，并且支持数据备份防止数据丢失</li>
+<li>容错性：允许集群中节点失败（若副本数量为n,则允许n-1个节点失败）</li>
+<li>高并发：支持数千个客户端同时读写</li>
 </ul>
-<h2 id="内容回顾"><a href="#内容回顾" class="headerlink" title="内容回顾"></a>内容回顾</h2><ul>
-<li>大会演讲专题几乎包含大前端所涉及的技术领域，有对工程实践、前端研发体系建设和工程化演进的介绍，如微服务平台下基于GraphQL构建BFF的实践和思考；也有谈讲在跨平台，各端应用上的实践经验和解决方案；也有着重前端一些专业领域的技术应用分享，如WebAssembly在音视频领域的应用、图形技术、HTML5游戏引擎渲染原理和动画性能优化。</li>
-<li>其中涌现出较多对新兴技术的分享和实践上的思考，如谷歌最近推出的基于Dart编写的移动端框架Flutter、GraphQL应用的一些最佳实践、PWA技术在提升性能和用户体验上实践探索、Kotlin语言及其协程的力量、WebAssembly在音视频领域的应用、微服务下构建BBF层的实践、基于Cocos开发微信小游戏、Node.js全栈开发模式探究、摩拜多类型SSR业务框架的实践优化、AI技术在一些公司的实践和应用、Native与Hybird App的实践经验。</li>
-<li>也有一些对与前端团队成长性的探讨，包括前后端分离、全栈开发模式等技术管理上的经验介绍。</li>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li>日志收集：收集各种服务的log，通过kafka以统一接口服务的方式开放给各种consumer，例如hadoop、Hbase、Solr等。</li>
+<li>消息系统：解耦和生产者和消费者、缓存消息等。</li>
+<li>用户活动跟踪：记录web用户或者app用户的各种活动，如浏览网页、搜索、点击等活动，这些活动信息被各个服务器发布到kafka的topic中，然后订阅者通过订阅这些topic来做实时的监控分析，或者装载到hadoop、数据仓库中做离线分析和挖掘。</li>
+<li>运营指标：记录运营监控数据。包括收集各种分布式应用的数据，生产各种操作的集中反馈，比如报警和报告。</li>
+<li>流式处理：比如spark streaming和storm</li>
+<li>事件源</li>
 </ul>
-<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><ul>
-<li>上面简单说了下2018年GMTC大会整体的一个情况，据我个人而言，很荣幸代表团队参加这次会议，参会的2天里，虽然无法每个专题都能去听，但是在和其他参会者的交流中也对其他专题有所了解。对目前前端的融合、吸纳、有轻到重的发展趋势，和前端技术的发展动态、实践和应用情况有所体会。</li>
-<li>和一些受邀的讲师和参会者聊天了解到，大部分参与人员都是前端的一线研发，更希望听到的分享是大家工作中的深刻体会和独到见解，比如技术应用中遇到过哪些坑，怎么解决的，对新兴技术的最佳实践、有那些自研的成熟的优化、解决方案、对团队、产品成长的探讨等等干货。</li>
-<li>虽然涌现出的专题很多，但整体上给参会者带来的收益差强人意。比如AI专题大部分没有实质内容，像在为公司或产品宣传，如“AI在叮咚智能音箱中的演进和应用”、“AR在直播系统中的应用”，对技术探讨的篇幅和宣传实践达成效果的篇幅相较远远不如。同样的例子还有很多，如“阿里Node.js运维和开发最佳实践”，大家都兴奋的挤满了会议室，结果听到的内容，大部分是最佳实践带来了哪些效果和成绩云云。</li>
-<li>排除技术保密的成分，一些演讲好似培训，资料内容网上随手可查，如果只是将这些资料随意整合一番，照本宣科，或一味讲述其团队对某些技术领域的应用影响、成效，自然破环了技术氛围，就会出现参与者渐渐离席，“始乱终弃”的情况。</li>
-<li>虽然水分较多，但也有很多可圈可点之处，从我自己所听了专场中来看，我觉得PWA专场、工程化专场、node专场、Web框架专场的其中几场，讲师分享的内容还是令我有所感悟和启发的，有些分享的场景都是移动端App、跨平台、工程化、性能监控优化的实践，虽可能没太多实践机会，但对于一些前端技术的发展趋势、某些专业领域的优化实践、解决方案有了较为明确的认知，当然对于不熟知的领域也有了大体上的了解，有所学习、有所启发。</li>
-<li>没有探讨“微前端”的课题，有些遗憾，不过此类课题是前端发展的一个趋势，大部分团队虽尚未有较成熟的解决方案，但也基本在自研的路上。以后继续关注前端的技术分享和实践经验，将经验和知识转化为实体产出。</li>
+<h2 id="名称概念"><a href="#名称概念" class="headerlink" title="名称概念"></a>名称概念</h2><ul>
+<li>Broker：Kafka节点，一个Kafka节点就是一个broker，多个broker可以组成一个Kafka集群。</li>
+<li>Topic：一类消息，消息存放的目录即主题，例如page view日志、click日志等都可以以topic的形式存在，Kafka集群能够同时负责多个topic的分发。</li>
+<li>Partition：topic物理上的分组，一个topic可以分为多个partition，每个partition是一个有序的队列</li>
+<li>Segment：partition物理上由多个segment组成，每个Segment存着message信息</li>
+<li>Producer：生产message发送到topic</li>
+<li>Consumer：订阅topic消费message, consumer作为一个线程来消费</li>
+<li>Consumer Group：一个Consumer Group包含多个consumer, 这个是预先在配置文件中配置好的。各个consumer（consumer 线程）可以组成一个组（Consumer group ），partition中的每个message只能被组（Consumer group ） 中的一个consumer（consumer 线程 ）消费，如果一个message可以被多个consumer（consumer 线程 ） 消费的话，那么这些consumer必须在不同的组。Kafka不支持一个partition中的message由两个或两个以上的consumer thread来处理，即便是来自不同的consumer group的也不行。它不能像AMQ那样可以多个BET作为consumer去处理message，这是因为多个BET去消费一个Queue中的数据的时候，由于要保证不能多个线程拿同一条message，所以就需要行级别悲观所（for update）,这就导致了consume的性能下降，吞吐量不够。而kafka为了保证吞吐量，只允许一个consumer线程去访问一个partition。如果觉得效率不高的时候，可以加partition的数量来横向扩展，那么再加新的consumer thread去消费。这样没有锁竞争，充分发挥了横向的扩展性，吞吐量极高。这也就形成了分布式消费的概念。</li>
+<li>Replica：partition 的副本，保障 partition 的高可用。</li>
+<li>Leader replica 中的一个角色， producer 和 consumer 只跟 leader 交互。</li>
+<li>Follower：replica 中的一个角色，从 leader 中复制数据。</li>
+<li>Controller：kafka 集群中的其中一个服务器，用来进行 leader election 以及 各种 failover。</li>
+<li>Zookeeper：kafka 通过 zookeeper 来存储集群的 meta 信息。</li>
 </ul>
-<h2 id="会议资料"><a href="#会议资料" class="headerlink" title="会议资料"></a>会议资料</h2><ul>
-<li><a href="https://gmtc.geekbang.org/" target="_blank" rel="noopener">https://gmtc.geekbang.org/</a> （大会日程板块处可下载PPT、可以查阅技术专栏了解大会相关专题）</li>
+<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><ul>
+<li><p>Consumer：客户端从broker拉的策略，支持批量拉和压缩，由消费者在zk记录消息offset</p>
+</li>
+<li><p>Producer：A 异步发送，支持累积数据量64k或者10毫秒；B 负载均衡，消费者发送的消息分发到不同的broker上</p>
+</li>
+<li><p>Broker：把文件系统作为存储系统，顺序写入磁盘，zero-copy方式文件传输</p>
+</li>
+<li><p>Replica：如果topic设置了replication，那意味着每个Partition都会有2个备份，对外提供服务的只有leader，follwer只是备份leader的数据；leader和follwer之间通过副本来选出leader,如果follwer跟不上leader就会被提出副本，如果leader不在，就会在副本中选取一个做为leader，如果所有的备份都down了，则选择最近down掉的一个备份作为leader</p>
+</li>
 </ul>
+<p><img src="/images/img-kafka1.png" alt=""></p>
 
       
     </div>
@@ -376,7 +397,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hoppergithub.github.io/2018/06/25/180625_gmtc_comment/" title="2018全球大前端技术大会（GMTC）会后简谈一二">https://hoppergithub.github.io/2018/06/25/180625_gmtc_comment/</a>
+    <a href="https://hoppergithub.github.io/2018/07/05/180705_mq_kafka/" title="消息队列中间件之 Kafka 篇">https://hoppergithub.github.io/2018/07/05/180705_mq_kafka/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -391,7 +412,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Conference/" rel="tag"># Conference</a>
+            <a href="/tags/MQ/" rel="tag"># MQ</a>
           
         </div>
       
@@ -404,8 +425,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/10/180510-xy-problem/" rel="next" title="又犯了 XY Problem 的病？">
-                <i class="fa fa-chevron-left"></i> 又犯了 XY Problem 的病？
+              <a href="/2018/06/25/180625_gmtc_comment/" rel="next" title="2018全球大前端技术大会（GMTC）会后简谈一二">
+                <i class="fa fa-chevron-left"></i> 2018全球大前端技术大会（GMTC）会后简谈一二
               </a>
             
           </div>
@@ -413,10 +434,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/05/180705_mq_kafka/" rel="prev" title="消息队列中间件之 Kafka 篇">
-                消息队列中间件之 Kafka 篇 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -558,7 +575,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大会简介"><span class="nav-number">1.</span> <span class="nav-text">大会简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内容回顾"><span class="nav-number">2.</span> <span class="nav-text">内容回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#心得体会"><span class="nav-number">3.</span> <span class="nav-text">心得体会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会议资料"><span class="nav-number">4.</span> <span class="nav-text">会议资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-number">2.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名称概念"><span class="nav-number">3.</span> <span class="nav-text">名称概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计思想"><span class="nav-number">4.</span> <span class="nav-text">设计思想</span></a></li></ol></div>
             
 
           </div>
