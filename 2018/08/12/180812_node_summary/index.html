@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Node," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，它诞生自 2009 年，是有史以来发展最快的开发工具，他是运行环境而不是语言。如今 Node 的使用已经较为普遍，团队的后端微服务架构中，85% 都是 Node 服务，近一两年做了不少 Node 后端的开发，最近一直在学习 Go 语法，语法学完以后，觉得很有必要将以前自己经历和累积的 Node 及相关技术整理下，为了方">
+<meta name="keywords" content="Node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node 回顾与总结（一）">
+<meta property="og:url" content="https://hoppergithub.github.io/2018/08/12/180812_node_summary/index.html">
+<meta property="og:site_name" content="Hopper&#39;s Blog">
+<meta property="og:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，它诞生自 2009 年，是有史以来发展最快的开发工具，他是运行环境而不是语言。如今 Node 的使用已经较为普遍，团队的后端微服务架构中，85% 都是 Node 服务，近一两年做了不少 Node 后端的开发，最近一直在学习 Go 语法，语法学完以后，觉得很有必要将以前自己经历和累积的 Node 及相关技术整理下，为了方">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-js-async.jpg">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-js-event-loop.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-node-event-loop.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-async-io.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-node-workflow.png">
+<meta property="og:updated_time" content="2018-09-04T07:20:59.824Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node 回顾与总结（一）">
+<meta name="twitter:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，它诞生自 2009 年，是有史以来发展最快的开发工具，他是运行环境而不是语言。如今 Node 的使用已经较为普遍，团队的后端微服务架构中，85% 都是 Node 服务，近一两年做了不少 Node 后端的开发，最近一直在学习 Go 语法，语法学完以后，觉得很有必要将以前自己经历和累积的 Node 及相关技术整理下，为了方">
+<meta name="twitter:image" content="https://hoppergithub.github.io/images/img-js-async.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoppergithub.github.io/2018/08/12/180812_node_summary/"/>
+
+
+
+
+
+  <title>Node 回顾与总结（一） | Hopper's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hopper's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活就像咖啡，酸楚苦涩却浓郁香醇、耐人回味，如果慢些喝，或许会发现，还是热的可口。。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2018/08/12/180812_node_summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hopper Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hopper's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Node 回顾与总结（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-12T10:44:17+08:00">
+                2018-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Summary/" itemprop="url" rel="index">
+                    <span itemprop="name">Summary</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，它诞生自 2009 年，是有史以来发展最快的开发工具，他是运行环境而不是语言。如今 Node 的使用已经较为普遍，团队的后端微服务架构中，85% 都是 Node 服务，近一两年做了不少 Node 后端的开发，最近一直在学习 Go 语法，语法学完以后，觉得很有必要将以前自己经历和累积的 Node 及相关技术整理下，为了方便作为题目考察面试者，特使用简洁明了的 QA 方式进行罗列。</p>
+<a id="more"></a>
+<h1 id="Node-的历史"><a href="#Node-的历史" class="headerlink" title="Node 的历史"></a>Node 的历史</h1><h2 id="Q：请简单说下-Node-的发展历史？"><a href="#Q：请简单说下-Node-的发展历史？" class="headerlink" title="Q：请简单说下 Node 的发展历史？"></a>Q：请简单说下 Node 的发展历史？</h2><ul>
+<li><p>Node 的创始人 Ryan Dahl 的工作是用 C/C++ 写高性能 Web 服务。对于高性能，异步IO、事件驱动是基本原则，但是用 C/C++ 写着实痛苦，于是他参考诸多高级语言，终选定 JavaScript，在2009年，Ryan及其团队正式推出了基于 JavaScript 语言和 V8 引擎的开源 Web 服务器项目，命名为 Node.js。</p>
+</li>
+<li><p>Node 第一次把 JavaScript 带入到后端服务器开发，成为了世界上无数 JavaScript 开发人员的宠儿，开始茁壮成长，期间 Node.js 的核心用户 Isaac Z. Schlueter 开发出奠定了 Node.js 如今地位的重要工具——NPM。</p>
+</li>
+<li><p>Node.js 基金会成立后，其生态逐渐扩张，connect, express, socket.io 等开源库层出不穷，一大波以 Node.js 作为运行环境的 CLI 工具涌现，其中不乏有用于加速前端开发的优秀工具，如 less, UglifyJS, browserify, grunt 等等。</p>
+</li>
+<li><p>大量新功能、新技术、新实践伴随 Node 版本更迭被引入，发布了LTS版本，核心 API 趋于稳定，随著 ES2015 的发展和最终定稿，一大批利用 ES2015 特性开发的新模块出现，如原 express 核心团队所开发的 koa等，Node 生态愈加完善，大型企业级应用的实践愈加成熟。</p>
+</li>
+</ul>
+<h1 id="Node-的特性"><a href="#Node-的特性" class="headerlink" title="Node 的特性"></a>Node 的特性</h1><h2 id="Q：Node-js-有哪些特性？"><a href="#Q：Node-js-有哪些特性？" class="headerlink" title="Q：Node.js 有哪些特性？"></a>Q：Node.js 有哪些特性？</h2><ul>
+<li><p>异步事件驱动</p>
+</li>
+<li><p>非阻塞I/O</p>
+</li>
+<li><p>轻量、可伸缩，适于实时数据交互应用</p>
+</li>
+<li><p>单进程，单线程（这里指主线程）</p>
+</li>
+<li><p>性能出众 （依赖 Chrome V8 引擎解释，是一个多线程平台、运行环境，对 JavaScript 层面的任务处理是单线程的）</p>
+</li>
+</ul>
+<h1 id="多进程与多线程"><a href="#多进程与多线程" class="headerlink" title="多进程与多线程"></a>多进程与多线程</h1><h2 id="Q：聊一下你对进程、线程的了解？"><a href="#Q：聊一下你对进程、线程的了解？" class="headerlink" title="Q：聊一下你对进程、线程的了解？"></a>Q：聊一下你对进程、线程的了解？</h2><ul>
+<li><p>进程：资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。（程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行）</p>
+</li>
+<li><p>线程：线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部变量。（线程由CPU独立调度执行，在多CPU环境下就允许多个线程同时运行。同样多线程也可以实现并发操作，每个请求分配一个线程来处理）</p>
+</li>
+</ul>
+<h2 id="Q：线程和进程有什么区别和优劣呢？"><a href="#Q：线程和进程有什么区别和优劣呢？" class="headerlink" title="Q：线程和进程有什么区别和优劣呢？"></a>Q：线程和进程有什么区别和优劣呢？</h2><ul>
+<li><p>概念：进程是资源分配的最小单位，线程是程序执行的最小单位。</p>
+</li>
+<li><p>资源消耗：进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵。而线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多。</p>
+</li>
+<li><p>通信方便：进程之间的通信需要以通信的方式（IPC)进行，而线程之间的通信更方便，同一进程下的线程共享全局变量、静态变量等数据。</p>
+</li>
+<li><p>健壮性：多进程程序更健壮，多线程程序只要有一个线程死掉，整个进程也死掉了，而一个进程死掉并不会对另外一个进程造成影响，因为进程有自己独立的地址空间。</p>
+</li>
+</ul>
+<h1 id="任务类型（I-O-bound-和-CPU-bound）"><a href="#任务类型（I-O-bound-和-CPU-bound）" class="headerlink" title="任务类型（I/O-bound 和 CPU-bound）"></a>任务类型（I/O-bound 和 CPU-bound）</h1><h2 id="Q：在高并发、多线程编程中经常会听到两个密集型，请解释下。"><a href="#Q：在高并发、多线程编程中经常会听到两个密集型，请解释下。" class="headerlink" title="Q：在高并发、多线程编程中经常会听到两个密集型，请解释下。"></a>Q：在高并发、多线程编程中经常会听到两个密集型，请解释下。</h2><ul>
+<li><p>I/O密集型 （I/O-bound）：</p>
+<ul>
+<li>主要是进行网络、硬盘、内存的IO操作，执行IO操作的时间较长，导致CPU的利用率不高；</li>
+<li>此时系统运作状况为 CPU 在等 I/O (硬盘/内存) 的读/写，此时 CPU Loading 不高，CPU处于空闲状态、消耗很少；</li>
+<li>例如数据库增删改查操作、文件读写、访问I/O设备等；</li>
+<li>常见的大部分任务都是IO密集型任务，比如Web应用。</li>
+</ul>
+</li>
+<li><p>计算密集型 （CPU-bound）：</p>
+<ul>
+<li>主要是执行计算任务，响应很快，CPU一直在运行，这种任务CPU的利用率很高；</li>
+<li>此时系统运作状况为 CPU Loading 100%，主要消耗CPU资源，I/O在很短时间就可以完成；</li>
+<li>例如斐波那契数列等复杂计算，对数据加解密，数据压缩和解压，长时间循环计算，对视频进行高清解码等；</li>
+<li>大部分CPU占用率超高的任务是此类型，这可能因为任务不太需要访问I/O设备，也可能因为程序是多线程实现而屏蔽掉了等待I/O的时间。</li>
+</ul>
+</li>
+<li><p>适用语言：计算密集型程序适合C语言多线程，I/O密集型适合脚本语言开发的多线程。</p>
+</li>
+</ul>
+<h2 id="Q：为了合理最大限度的使用系统资源同时也要保证的程序的高性能，如何配置CPU密集型任务和IO密集型任务的线程数？"><a href="#Q：为了合理最大限度的使用系统资源同时也要保证的程序的高性能，如何配置CPU密集型任务和IO密集型任务的线程数？" class="headerlink" title="Q：为了合理最大限度的使用系统资源同时也要保证的程序的高性能，如何配置CPU密集型任务和IO密集型任务的线程数？"></a>Q：为了合理最大限度的使用系统资源同时也要保证的程序的高性能，如何配置CPU密集型任务和IO密集型任务的线程数？</h2><ul>
+<li><p>IO密集型：线程个数 = CPU核数 * 2。（好处：其中的线程在IO操作的时候，其他线程可以继续用CPU，提高了CPU的利用率）</p>
+</li>
+<li><p>CPU密集型：线程个数 = CPU核数 || CPU核数 + 1。（好处：这些线程可并行执行，不存在线程切换的开销，提高了CPU的利用率的同时也减少了切换线程导致的性能损耗。）</p>
+</li>
+</ul>
+<h1 id="执行方式（串行、并行、并发、同步、异步、阻塞、非阻塞）"><a href="#执行方式（串行、并行、并发、同步、异步、阻塞、非阻塞）" class="headerlink" title="执行方式（串行、并行、并发、同步、异步、阻塞、非阻塞）"></a>执行方式（串行、并行、并发、同步、异步、阻塞、非阻塞）</h1><h2 id="Q：如何理解串行、并行、并发的区别？"><a href="#Q：如何理解串行、并行、并发的区别？" class="headerlink" title="Q：如何理解串行、并行、并发的区别？"></a>Q：如何理解串行、并行、并发的区别？</h2><ul>
+<li><p>串行：同步线程的实现方式，多个任务按顺序执行，单个线程只能执行一个任务，一个任务执行完成才能执行下一个。</p>
+</li>
+<li><p>并行：真正的异步，多核CUP可以同时开启多条线程供多个任务同时执行，互不干扰。</p>
+</li>
+<li><p>并发：伪异步，在单核CUP中只能有一条线程，但又想执行多个任务，只能在一条线程上不停的切换任务。由于CUP处理速度快，貌似是同时执行，其实在同一时间只会执行单个任务。</p>
+</li>
+</ul>
+<h2 id="Q：如何理解阻塞非阻塞与同步异步的区别？"><a href="#Q：如何理解阻塞非阻塞与同步异步的区别？" class="headerlink" title="Q：如何理解阻塞非阻塞与同步异步的区别？"></a>Q：如何理解阻塞非阻塞与同步异步的区别？</h2><ul>
+<li><p>同步和异步关注点在于消息通信机制。</p>
+<p>同步调用：在发起一个调用后，调用者主动等待这个调用的结果，在没有得到结果前，该调用就不返回，但是一旦调用返回，就得到返回值了。</p>
+<p>异步调用：一个异步调用发出后就直接返回了，但调用者不会立刻得到结果，而是在调用发出后，被调用者通过状态、通知来通知调用者，或通过回调函数处理这个调用。</p>
+<p>举例：以人工查话费账单为例，如果是同步通信，小李让客服A帮忙查话费账单，她可能马上查到，也可能很久，然后告诉小李结果。如果是异步，客服A会告诉小李等她查好会发短信通知，然后就挂电话。这里的短信回复便是回调。</p>
+</li>
+<li><p>阻塞和非阻塞关注点在于程序在等待调用结果（消息，返回值）时的状态.</p>
+<p>阻塞调用：调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。</p>
+<p>非阻塞调用：不能立刻得到结果之前，该调用不会阻塞当前线程。</p>
+<p>举例：还以上述为例，如果阻塞式调用，客服A在帮小李查询到账单之前，小李会被挂起，一直等待结果返回，无法做其他的事情，而非阻塞式调用，小李不用管客服A有没有告诉他，小李可以去做其他的事，只需周期性的检查是否有短信回复。</p>
+</li>
+<li><p>所谓同步异步，只是对于客服A而言。 所谓阻塞非阻塞，仅仅对于小李而言。</p>
+</li>
+</ul>
+<h1 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h1><h2 id="Q：JavaScript-运行机制是怎样的？-JavaScript的异步机制"><a href="#Q：JavaScript-运行机制是怎样的？-JavaScript的异步机制" class="headerlink" title="Q：JavaScript 运行机制是怎样的？(JavaScript的异步机制)"></a>Q：JavaScript 运行机制是怎样的？(JavaScript的异步机制)</h2><ol>
+<li><p>所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。</p>
+</li>
+<li><p>主线程之外，还存在一个线程处理”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件，只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</p>
+</li>
+<li><p>一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”中的事件，并执行事件对应的异步任务（回调函数），该异步任务结束等待状态，进入执行栈，开始执行。</p>
+</li>
+<li><p>主线程不断重复上面的第三步。如下图。</p>
+<p><img src="/images/img-js-async.jpg" alt=""></p>
+</li>
+</ol>
+<ul>
+<li><p>任务队列：是一个FIFO的数据结构，排在前面的事件，优先被主线程读取。它一个事件的队列（也可以理解成消息的队列），IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。</p>
+</li>
+<li><p>回调函数：指那些会被主线程挂起的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</p>
+</li>
+<li><p>事件：除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。如果”定时器”存在，主线程可能首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
+</li>
+<li><p>事件循环：主线程从”任务队列”中读取事件，这个过程是循环不断的，所以这种运行机制就称为 Event Loop。主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。如下图。</p>
+<p> <img src="/images/img-js-event-loop.png" alt=""></p>
+</li>
+</ul>
+<h2 id="Q-Node-js的运行机制是怎样的？"><a href="#Q-Node-js的运行机制是怎样的？" class="headerlink" title="Q: Node.js的运行机制是怎样的？"></a>Q: Node.js的运行机制是怎样的？</h2><ol>
+<li><p>V8引擎解析JavaScript脚本。</p>
+</li>
+<li><p>解析后的代码，调用Node API。</p>
+</li>
+<li><p>libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。</p>
+</li>
+<li><p>V8引擎再将结果返回给用户。如下图。</p>
+<p><img src="/images/img-node-event-loop.png" alt=""></p>
+</li>
+</ol>
+<ul>
+<li><p>图解：</p>
+<ul>
+<li><p>应用层：即 JavaScript 交互层，常见的就是 Node.js 的模块，比如 http，fs，https, util。</p>
+</li>
+<li><p>V8引擎层：即利用 V8 引擎来解析JavaScript 语法，进而和下层 API 交互。</p>
+</li>
+<li><p>NodeAPI层：为上层模块提供系统调用，一般是由 C 语言来实现，和操作系统进行交互, 比如 net, buffer, child_process, file。</p>
+</li>
+<li><p>LIBUV层：是跨平台的底层封装，实现了 事件循环、文件操作等，是 Node.js 实现异步的核心。（libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API，被很多编程语言引入，如 Rust）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Q-Node-js的异步调用、线程池、事件循环之间关系是怎样的？（Node-异步-IO-处理流程）"><a href="#Q-Node-js的异步调用、线程池、事件循环之间关系是怎样的？（Node-异步-IO-处理流程）" class="headerlink" title="Q: Node.js的异步调用、线程池、事件循环之间关系是怎样的？（Node 异步 IO 处理流程）"></a>Q: Node.js的异步调用、线程池、事件循环之间关系是怎样的？（Node 异步 IO 处理流程）</h2><ul>
+<li><p>异步机制：Node.js 在主线程里维护了一个事件队列，当接到请求后，就将该请求作为一个事件放入这个队列中，然后继续接收其他请求。当主线程空闲时(没有请求接入时)，就开始循环事件队列，检查队列中是否有要处理的事件，这时要分两种情况：如果是非 I/O 任务，就亲自处理，并通过回调函数返回到上层调用；如果是 I/O 任务，就从 线程池 中拿出一个线程来处理这个事件，并指定回调函数，然后继续循环队列中的其他事件。</p>
+</li>
+<li><p>事件循环：当线程中的 I/O 任务完成以后，就执行指定的回调函数，并把这个完成的事件放到事件队列的尾部，等待事件循环，当主线程再次循环到该事件时，就直接处理并返回给上层调用。</p>
+<p> <img src="/images/img-async-io.png" alt=""></p>
+</li>
+</ul>
+<h2 id="Q-分别说下-Node-与任务队列有关的四个定时器？"><a href="#Q-分别说下-Node-与任务队列有关的四个定时器？" class="headerlink" title="Q: 分别说下 Node 与任务队列有关的四个定时器？"></a>Q: 分别说下 Node 与任务队列有关的四个定时器？</h2><ol>
+<li><p>process.nextTick：在当前”执行栈”的尾部，下一次Event Loop（主线程读取”任务队列”）之前，触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。</p>
+</li>
+<li><p>setImmediate：在当前”任务队列”的尾部添加事件，也就是说，它指定的任务总是在下一次Event Loop时执行，这与setTimeout(fn, 0)很像。</p>
+</li>
+<li><p>setTimeout</p>
+</li>
+<li><p>setInterval</p>
+</li>
+</ol>
+<p>Node.js文档中称，setImmediate指定的回调函数，总是排在setTimeout前面。实际上，这种情况只发生在递归调用的时候。</p>
+<h2 id="Q：说下定时器的执行效率及区别？"><a href="#Q：说下定时器的执行效率及区别？" class="headerlink" title="Q：说下定时器的执行效率及区别？"></a>Q：说下定时器的执行效率及区别？</h2><ul>
+<li><p>执行效率：process.nextTick &gt; setImmediate &gt; setTimeout/setInterval</p>
+</li>
+<li><p>process.nextTick和setImmediate的一个重要区别：多个process.nextTick语句总是在当前”执行栈”一次执行完，多个setImmediate可能则需要多次loop才能执行完。事实上，这正是Node.js 10.0版添加setImmediate方法的原因，否则像下面这样的递归调用process.nextTick，将会没完没了，主线程根本不会去读取”事件队列”。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">process.nextTick(function foo() &#123;</span><br><span class="line">  process.nextTick(foo);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Q：请说下现有Web服务器的高并发策略、优劣、工作流程？"><a href="#Q：请说下现有Web服务器的高并发策略、优劣、工作流程？" class="headerlink" title="Q：请说下现有Web服务器的高并发策略、优劣、工作流程？"></a>Q：请说下现有Web服务器的高并发策略、优劣、工作流程？</h2><ul>
+<li><p>经典服务器模型：</p>
+<ul>
+<li><p>每进程/每请求：提供多进程模型，为每个请求启动一个进程，这样可以处理多个请求，但是它不具备扩展性，因为系统资源只有那么多。</p>
+</li>
+<li><p>每线程/每请求：提供多线程模型，服务器为每个客户端请求分配一个线程，使用同步 I/O，系统通过线程切换来弥补同步 I/O 调用的时间开销, Apache采用这种策略。</p>
+</li>
+</ul>
+</li>
+<li><p>Node 服务器模型：</p>
+<p>事件驱动的方式处理请求，无须为每个请求创建额外的对应线程，省掉创建和销毁线程的开销，同时操作系统在调度任务时因为线程较少，上下文切换的代价很低。这使服务器能够有条不紊地处理请求，即使在大量连接的情况下，也不受线程上下文切换开销的影响，Node 采用这种策略。处理流程如下图。</p>
+<p><img src="/images/img-node-workflow.png" alt=""></p>
+</li>
+</ul>
+<h2 id="Q-请说下-Node-的优劣势？"><a href="#Q-请说下-Node-的优劣势？" class="headerlink" title="Q: 请说下 Node 的优劣势？"></a>Q: 请说下 Node 的优劣势？</h2><ul>
+<li><p>优点：</p>
+<ul>
+<li><p>简单易学，JavaScript 前后端统一语言。</p>
+</li>
+<li><p>高性能，避免了频繁的线程切换开销。</p>
+</li>
+<li><p>线程安全，没有加锁、解锁、死锁这些问题。</p>
+</li>
+<li><p>占用资源小，因为对 JavaScript 层面的任务处理是单线程的，在大负荷情况下，对内存占用仍然很低。</p>
+</li>
+<li><p>社区活跃，生态资源丰富。</p>
+</li>
+</ul>
+</li>
+<li><p>缺点： </p>
+<ul>
+<li><p>很多包的成熟度不高，代码质量良莠不齐。</p>
+</li>
+<li><p>可靠性低、单进程，单线程，不能充分的利用多核CPU服务器。（该缺点可以通过代码的健壮性来弥补）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Q-请说下-Node-的适用和非适用场景？"><a href="#Q-请说下-Node-的适用和非适用场景？" class="headerlink" title="Q: 请说下 Node 的适用和非适用场景？"></a>Q: 请说下 Node 的适用和非适用场景？</h2><ul>
+<li><p>适用场景：</p>
+<ul>
+<li><p>RESTful JSON API</p>
+</li>
+<li><p>聊天系统、微博系统等准实时应用系统</p>
+</li>
+<li><p>电子游戏统计数据服务</p>
+</li>
+<li><p>单页面、多Ajax请求Web应用</p>
+</li>
+<li><p>基于Node.js开发Unix命令行工具</p>
+</li>
+<li><p>流式数据——传统的Web应用，通常会将HTTP请求和响应看成是原子事件</p>
+</li>
+</ul>
+</li>
+<li><p>不适用场景：</p>
+<ul>
+<li><p>计算密集型应用，如视频编码、人工智能等</p>
+</li>
+<li><p>流量低、简单物理架构的简单 Web 应用。</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Hopper Sun
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoppergithub.github.io/2018/08/12/180812_node_summary/" title="Node 回顾与总结（一）">https://hoppergithub.github.io/2018/08/12/180812_node_summary/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node/" rel="tag"># Node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/05/180705_mq_kafka/" rel="next" title="MQ Middleware 之 Kafka 基础篇">
+                <i class="fa fa-chevron-left"></i> MQ Middleware 之 Kafka 基础篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hopper Sun</p>
+              <p class="site-description motion-element" itemprop="description">双子座伪文艺男青年</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HopperGithub" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Node-的历史"><span class="nav-number">1.</span> <span class="nav-text">Node 的历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：请简单说下-Node-的发展历史？"><span class="nav-number">1.1.</span> <span class="nav-text">Q：请简单说下 Node 的发展历史？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Node-的特性"><span class="nav-number">2.</span> <span class="nav-text">Node 的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：Node-js-有哪些特性？"><span class="nav-number">2.1.</span> <span class="nav-text">Q：Node.js 有哪些特性？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程与多线程"><span class="nav-number">3.</span> <span class="nav-text">多进程与多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：聊一下你对进程、线程的了解？"><span class="nav-number">3.1.</span> <span class="nav-text">Q：聊一下你对进程、线程的了解？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：线程和进程有什么区别和优劣呢？"><span class="nav-number">3.2.</span> <span class="nav-text">Q：线程和进程有什么区别和优劣呢？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务类型（I-O-bound-和-CPU-bound）"><span class="nav-number">4.</span> <span class="nav-text">任务类型（I/O-bound 和 CPU-bound）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：在高并发、多线程编程中经常会听到两个密集型，请解释下。"><span class="nav-number">4.1.</span> <span class="nav-text">Q：在高并发、多线程编程中经常会听到两个密集型，请解释下。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：为了合理最大限度的使用系统资源同时也要保证的程序的高性能，如何配置CPU密集型任务和IO密集型任务的线程数？"><span class="nav-number">4.2.</span> <span class="nav-text">Q：为了合理最大限度的使用系统资源同时也要保证的程序的高性能，如何配置CPU密集型任务和IO密集型任务的线程数？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行方式（串行、并行、并发、同步、异步、阻塞、非阻塞）"><span class="nav-number">5.</span> <span class="nav-text">执行方式（串行、并行、并发、同步、异步、阻塞、非阻塞）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：如何理解串行、并行、并发的区别？"><span class="nav-number">5.1.</span> <span class="nav-text">Q：如何理解串行、并行、并发的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：如何理解阻塞非阻塞与同步异步的区别？"><span class="nav-number">5.2.</span> <span class="nav-text">Q：如何理解阻塞非阻塞与同步异步的区别？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行机制"><span class="nav-number">6.</span> <span class="nav-text">运行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：JavaScript-运行机制是怎样的？-JavaScript的异步机制"><span class="nav-number">6.1.</span> <span class="nav-text">Q：JavaScript 运行机制是怎样的？(JavaScript的异步机制)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-Node-js的运行机制是怎样的？"><span class="nav-number">6.2.</span> <span class="nav-text">Q: Node.js的运行机制是怎样的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-Node-js的异步调用、线程池、事件循环之间关系是怎样的？（Node-异步-IO-处理流程）"><span class="nav-number">6.3.</span> <span class="nav-text">Q: Node.js的异步调用、线程池、事件循环之间关系是怎样的？（Node 异步 IO 处理流程）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-分别说下-Node-与任务队列有关的四个定时器？"><span class="nav-number">6.4.</span> <span class="nav-text">Q: 分别说下 Node 与任务队列有关的四个定时器？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：说下定时器的执行效率及区别？"><span class="nav-number">6.5.</span> <span class="nav-text">Q：说下定时器的执行效率及区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q：请说下现有Web服务器的高并发策略、优劣、工作流程？"><span class="nav-number">6.6.</span> <span class="nav-text">Q：请说下现有Web服务器的高并发策略、优劣、工作流程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-请说下-Node-的优劣势？"><span class="nav-number">6.7.</span> <span class="nav-text">Q: 请说下 Node 的优劣势？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-请说下-Node-的适用和非适用场景？"><span class="nav-number">6.8.</span> <span class="nav-text">Q: 请说下 Node 的适用和非适用场景？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hopper Sun</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
