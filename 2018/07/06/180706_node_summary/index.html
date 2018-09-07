@@ -86,13 +86,13 @@
 
 
 
-<meta name="description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，85% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
+<meta name="description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
 <meta name="keywords" content="Node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node 回顾与总结（一）">
 <meta property="og:url" content="https://hoppergithub.github.io/2018/07/06/180706_node_summary/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，85% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
+<meta property="og:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-js-async.jpg">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-js-event-loop.png">
@@ -100,10 +100,10 @@
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-async-io.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-timer-event.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-workflow.png">
-<meta property="og:updated_time" content="2018-09-06T07:00:09.349Z">
+<meta property="og:updated_time" content="2018-09-07T01:55:22.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node 回顾与总结（一）">
-<meta name="twitter:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，85% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
+<meta name="twitter:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
 <meta name="twitter:image" content="https://hoppergithub.github.io/images/img-js-async.jpg">
 
 
@@ -341,7 +341,7 @@
       
 
       
-        <p>　　Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，85% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。</p>
+        <p>　　Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。</p>
 <p>为了简洁明了更加直观，采用互动性强的 QA 方式汇总。</p>
 <a id="more"></a>
 <h2 id="Node-的历史"><a href="#Node-的历史" class="headerlink" title="Node 的历史"></a>Node 的历史</h2><h3 id="Q：请简单说下-Node-的发展历史？"><a href="#Q：请简单说下-Node-的发展历史？" class="headerlink" title="Q：请简单说下 Node 的发展历史？"></a>Q：请简单说下 Node 的发展历史？</h3><ul>
@@ -638,8 +638,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/12/180812_high_concurrence/" rel="prev" title="高并发解决方案">
-                高并发解决方案 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/12/180812_high_concurrence/" rel="prev" title="高并发常用方案，了解一下">
+                高并发常用方案，了解一下 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

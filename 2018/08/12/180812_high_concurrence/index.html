@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="高并发通常是指并发访问，具体表现在 QPS、吞吐量、响应时间、PV、UV、带宽等方面。高并发、高性能应用也是市场上大流量应用最在乎的几个关键点，写这篇文章的初衷也是想针对高并发提供多个方面、层次的解决方案。">
+<meta name="description" content="高并发通常是指并发访问非常高，具体表现在 QPS、吞吐量、响应时间、PV、UV、带宽等方面。高并发、高性能也是市场上大流量应用最在乎的几个关键点，下面将从多个方面、多层次来理解高并发和解决措施。">
 <meta name="keywords" content="Web">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高并发解决方案">
+<meta property="og:title" content="高并发常用方案，了解一下">
 <meta property="og:url" content="https://hoppergithub.github.io/2018/08/12/180812_high_concurrence/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="高并发通常是指并发访问，具体表现在 QPS、吞吐量、响应时间、PV、UV、带宽等方面。高并发、高性能应用也是市场上大流量应用最在乎的几个关键点，写这篇文章的初衷也是想针对高并发提供多个方面、层次的解决方案。">
+<meta property="og:description" content="高并发通常是指并发访问非常高，具体表现在 QPS、吞吐量、响应时间、PV、UV、带宽等方面。高并发、高性能也是市场上大流量应用最在乎的几个关键点，下面将从多个方面、多层次来理解高并发和解决措施。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-06T10:23:43.421Z">
+<meta property="og:updated_time" content="2018-09-07T02:01:20.112Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="高并发解决方案">
-<meta name="twitter:description" content="高并发通常是指并发访问，具体表现在 QPS、吞吐量、响应时间、PV、UV、带宽等方面。高并发、高性能应用也是市场上大流量应用最在乎的几个关键点，写这篇文章的初衷也是想针对高并发提供多个方面、层次的解决方案。">
+<meta name="twitter:title" content="高并发常用方案，了解一下">
+<meta name="twitter:description" content="高并发通常是指并发访问非常高，具体表现在 QPS、吞吐量、响应时间、PV、UV、带宽等方面。高并发、高性能也是市场上大流量应用最在乎的几个关键点，下面将从多个方面、多层次来理解高并发和解决措施。">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <title>高并发解决方案 | Hopper's Blog</title>
+  <title>高并发常用方案，了解一下 | Hopper's Blog</title>
   
 
 
@@ -257,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">高并发解决方案</h1>
+          <h1 class="post-title" itemprop="name headline">高并发常用方案，了解一下</h1>
         
 
         <div class="post-meta">
@@ -334,7 +334,7 @@
       
 
       
-        <p>　高并发通常是指并发访问，具体表现在 QPS、吞吐量、响应时间、PV、UV、带宽等方面。高并发、高性能应用也是市场上大流量应用最在乎的几个关键点，写这篇文章的初衷也是想针对高并发提供多个方面、层次的解决方案。</p>
+        <p>　高并发通常是指并发访问非常高，具体表现在 QPS、吞吐量、响应时间、PV、UV、带宽等方面。高并发、高性能也是市场上大流量应用最在乎的几个关键点，下面将从多个方面、多层次来理解高并发和解决措施。</p>
 <a id="more"></a>
 <h2 id="名称解释"><a href="#名称解释" class="headerlink" title="名称解释"></a>名称解释</h2><ul>
 <li><p>QPS：每秒钟请求或者查询的数量，在互联网领域，通常指每秒HTTP响应请求数。</p>
@@ -368,7 +368,7 @@
 <p>方案：做业务分离，分布式存储</p>
 </li>
 </ul>
-<h2 id="通用解决措施"><a href="#通用解决措施" class="headerlink" title="通用解决措施"></a>通用解决措施</h2><ol>
+<h2 id="通用解决措施"><a href="#通用解决措施" class="headerlink" title="通用解决措施"></a>通用解决措施</h2><ul>
 <li><p>动态资源和静态资源分离；</p>
 </li>
 <li><p>CDN；</p>
@@ -381,7 +381,7 @@
 </li>
 <li><p>服务分布式部署。</p>
 </li>
-</ol>
+</ul>
 <h2 id="按业务场景划分的解决措施"><a href="#按业务场景划分的解决措施" class="headerlink" title="按业务场景划分的解决措施"></a>按业务场景划分的解决措施</h2><ul>
 <li><p>前端：异步请求、资源静态化、cdn</p>
 </li>
@@ -394,7 +394,7 @@
 <li><p>网络：dns轮询、DDOS攻击防护</p>
 </li>
 </ul>
-<h2 id="前端工程化层次的解决方案"><a href="#前端工程化层次的解决方案" class="headerlink" title="前端工程化层次的解决方案"></a>前端工程化层次的解决方案</h2><ul>
+<h2 id="前端工程化层面的解决方案"><a href="#前端工程化层面的解决方案" class="headerlink" title="前端工程化层面的解决方案"></a>前端工程化层面的解决方案</h2><ul>
 <li><p>将应用和静态资源分离：静态资源主要包括图片、视频、js、css和一些资源文件，直接存放到响应的服务器使用专门的域名去访问就可以了。</p>
 </li>
 <li><p>页面缓存：将应用生成的页面缓存起来，可以节省大量的CPU资源，尽可能采用静态页面来实现功能。</p>
@@ -456,7 +456,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hoppergithub.github.io/2018/08/12/180812_high_concurrence/" title="高并发解决方案">https://hoppergithub.github.io/2018/08/12/180812_high_concurrence/</a>
+    <a href="https://hoppergithub.github.io/2018/08/12/180812_high_concurrence/" title="高并发常用方案，了解一下">https://hoppergithub.github.io/2018/08/12/180812_high_concurrence/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -634,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#名称解释"><span class="nav-number">1.</span> <span class="nav-text">名称解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QPS各量级举例解决方案"><span class="nav-number">2.</span> <span class="nav-text">QPS各量级举例解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用解决措施"><span class="nav-number">3.</span> <span class="nav-text">通用解决措施</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按业务场景划分的解决措施"><span class="nav-number">4.</span> <span class="nav-text">按业务场景划分的解决措施</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端工程化层次的解决方案"><span class="nav-number">5.</span> <span class="nav-text">前端工程化层次的解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端架构层面解决方案"><span class="nav-number">6.</span> <span class="nav-text">后端架构层面解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库层面解决方案（大数据高并发的瓶颈一般在数据库层面）"><span class="nav-number">7.</span> <span class="nav-text">数据库层面解决方案（大数据高并发的瓶颈一般在数据库层面）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#名称解释"><span class="nav-number">1.</span> <span class="nav-text">名称解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QPS各量级举例解决方案"><span class="nav-number">2.</span> <span class="nav-text">QPS各量级举例解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用解决措施"><span class="nav-number">3.</span> <span class="nav-text">通用解决措施</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按业务场景划分的解决措施"><span class="nav-number">4.</span> <span class="nav-text">按业务场景划分的解决措施</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端工程化层面的解决方案"><span class="nav-number">5.</span> <span class="nav-text">前端工程化层面的解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端架构层面解决方案"><span class="nav-number">6.</span> <span class="nav-text">后端架构层面解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库层面解决方案（大数据高并发的瓶颈一般在数据库层面）"><span class="nav-number">7.</span> <span class="nav-text">数据库层面解决方案（大数据高并发的瓶颈一般在数据库层面）</span></a></li></ol></div>
             
 
           </div>
