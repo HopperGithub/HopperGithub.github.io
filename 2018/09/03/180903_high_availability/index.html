@@ -86,23 +86,23 @@
 
 
 
-<meta name="description" content="保证一个网站永远完全可用目前几乎难以达到，而网站的可用性至关重要，甚至关乎网站、企业的经营或生死存亡，怕了吧。哈哈哈，高可用往往是运维或者架构师会着重考虑的问题，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
+<meta name="description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间,是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
 <meta name="keywords" content="Web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="了解架构之高可用">
 <meta property="og:url" content="https://hoppergithub.github.io/2018/09/03/180903_high_availability/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="保证一个网站永远完全可用目前几乎难以达到，而网站的可用性至关重要，甚至关乎网站、企业的经营或生死存亡，怕了吧。哈哈哈，高可用往往是运维或者架构师会着重考虑的问题，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
+<meta property="og:description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间,是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-session-copy.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-session-bind.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-cookie-session.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-session-server.png">
-<meta property="og:image" content="https://hoppergithub.github.io/images/img-db-backup.png">
-<meta property="og:updated_time" content="2018-09-07T03:19:37.869Z">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-db-backup.jpg">
+<meta property="og:updated_time" content="2018-09-07T03:28:57.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="了解架构之高可用">
-<meta name="twitter:description" content="保证一个网站永远完全可用目前几乎难以达到，而网站的可用性至关重要，甚至关乎网站、企业的经营或生死存亡，怕了吧。哈哈哈，高可用往往是运维或者架构师会着重考虑的问题，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
+<meta name="twitter:description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间,是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
 <meta name="twitter:image" content="https://hoppergithub.github.io/images/img-session-copy.png">
 
 
@@ -340,9 +340,9 @@
       
 
       
-        <p>　保证一个网站永远完全可用目前几乎难以达到，而网站的可用性至关重要，甚至关乎网站、企业的经营或生死存亡，怕了吧。哈哈哈，高可用往往是运维或者架构师会着重考虑的问题，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。</p>
+        <p>　保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间,是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。</p>
 <a id="more"></a>
-<h2 id="如何度量和考察"><a href="#如何度量和考察" class="headerlink" title="如何度量和考察"></a>如何度量和考察</h2><p>你的网站或者应用可用性达到了几个9？我经常会听到这样的提问，其中有几个9，就代表了你网站、应用的可用性。比如 QQ 的可用性就是4个9，即99.99%。</p>
+<h2 id="如何度量和考察"><a href="#如何度量和考察" class="headerlink" title="如何度量和考察"></a>如何度量和考察</h2><p>你的网站或者应用可用性达到了几个9？我经常会听到这样的提问，其中有几个9，就代表了你网站、应用的可用性。比如 QQ 的可用性就是4个9，即99.99%。这就意味着，QQ 系统的年停机时间为8.76个小时。</p>
 <ul>
 <li><p>2个9：99% = 基本可用</p>
 </li>
@@ -416,7 +416,7 @@
 <h2 id="从数据层面保障高可用"><a href="#从数据层面保障高可用" class="headerlink" title="从数据层面保障高可用"></a>从数据层面保障高可用</h2><ul>
 <li><p>数据备份：又分为冷备份和热备份，冷备份是定期复制，不能保证数据可用性。热备份又分为异步热备和同步热备，异步热备是指多份数据副本的写入操作异步完成，而同步方式则是指多份数据副本的写入操作同时完成。</p>
 <p>关系数据库的热备机制就是通常所说的主从同步机制，实践中通常使用读写分离的方法来访问Master和Slave数据库，也就是说写操作只访问Master库，读操作均访问Slave库。如下图。</p>
-<p><img src="/images/img-db-backup.png" alt=""></p>
+<p><img src="/images/img-db-backup.jpg" alt=""></p>
 </li>
 <li><p>失效转移：若数据服务器集群中任何一台服务器宕机，那么应用程序针对这台服务器的所有读写操作都要重新路由到其他服务器，保证数据访问不会失败。</p>
 </li>
