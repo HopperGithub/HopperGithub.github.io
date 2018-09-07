@@ -86,23 +86,23 @@
 
 
 
-<meta name="description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间,是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
+<meta name="description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间，是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个总结吧。">
 <meta name="keywords" content="Web">
 <meta property="og:type" content="article">
-<meta property="og:title" content="了解架构之高可用">
+<meta property="og:title" content="如何设计高可用架构">
 <meta property="og:url" content="https://hoppergithub.github.io/2018/09/03/180903_high_availability/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间,是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
+<meta property="og:description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间，是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个总结吧。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-session-copy.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-session-bind.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-cookie-session.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-session-server.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-db-backup.jpg">
-<meta property="og:updated_time" content="2018-09-07T03:28:57.449Z">
+<meta property="og:updated_time" content="2018-09-07T03:36:23.536Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="了解架构之高可用">
-<meta name="twitter:description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间,是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。">
+<meta name="twitter:title" content="如何设计高可用架构">
+<meta name="twitter:description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间，是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个总结吧。">
 <meta name="twitter:image" content="https://hoppergithub.github.io/images/img-session-copy.png">
 
 
@@ -139,7 +139,7 @@
 
 
 
-  <title>了解架构之高可用 | Hopper's Blog</title>
+  <title>如何设计高可用架构 | Hopper's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">了解架构之高可用</h1>
+          <h1 class="post-title" itemprop="name headline">如何设计高可用架构</h1>
         
 
         <div class="post-meta">
@@ -340,7 +340,7 @@
       
 
       
-        <p>　保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间,是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个简单总结吧。</p>
+        <p>　保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间，是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个总结吧。</p>
 <a id="more"></a>
 <h2 id="如何度量和考察"><a href="#如何度量和考察" class="headerlink" title="如何度量和考察"></a>如何度量和考察</h2><p>你的网站或者应用可用性达到了几个9？我经常会听到这样的提问，其中有几个9，就代表了你网站、应用的可用性。比如 QQ 的可用性就是4个9，即99.99%。这就意味着，QQ 系统的年停机时间为8.76个小时。</p>
 <ul>
@@ -531,7 +531,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hoppergithub.github.io/2018/09/03/180903_high_availability/" title="了解架构之高可用">https://hoppergithub.github.io/2018/09/03/180903_high_availability/</a>
+    <a href="https://hoppergithub.github.io/2018/09/03/180903_high_availability/" title="如何设计高可用架构">https://hoppergithub.github.io/2018/09/03/180903_high_availability/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -559,8 +559,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/12/180812_high_concurrence/" rel="next" title="了解架构之高并发">
-                <i class="fa fa-chevron-left"></i> 了解架构之高并发
+              <a href="/2018/08/12/180812_high_concurrence/" rel="next" title="高并发架构的设计与实践">
+                <i class="fa fa-chevron-left"></i> 高并发架构的设计与实践
               </a>
             
           </div>
