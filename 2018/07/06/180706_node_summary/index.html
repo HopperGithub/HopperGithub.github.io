@@ -97,10 +97,11 @@
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-js-async.jpg">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-js-event-loop.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-event-loop.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-libuv.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-async-io.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-timer-event.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-workflow.png">
-<meta property="og:updated_time" content="2018-09-13T03:14:04.701Z">
+<meta property="og:updated_time" content="2018-09-13T09:11:15.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node 回顾与总结（一）">
 <meta name="twitter:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
@@ -421,7 +422,7 @@
 </li>
 <li><p>EventLoop中分为 内存、执行栈、WebApi、异步回调队列，而异步回调队列则包括微任务队列和宏任务队列。</p>
 </li>
-<li><p>EventLoop执行流程：</p>
+<li><p>浏览器的EventLoop执行流程：</p>
 <p>-&gt; JS 内核加载代码到执行栈。<br>-&gt; 执行栈依次执行主线程同步任务，并将异步任务加入异步回调队列。（宏任务事件压入宏任务队列、微任务事件压入微任务队列）<br>-&gt; 执行栈代码执行完毕，一次性执行当前微任务队列所有回调事件，直到清空队列。<br>-&gt; 取出宏任务队列第一条放入执行栈执行，执行过程在遇到宏、微任务各自入队，本轮执行结束，往复循环上一步骤和本步骤，构成事件循环。  </p>
 </li>
 </ul>
@@ -495,7 +496,13 @@
 </li>
 <li><p>NodeAPI层：为上层模块提供系统调用，一般是由 C 语言来实现，和操作系统进行交互, 比如 net, buffer, child_process, file。</p>
 </li>
-<li><p>LIBUV层：是跨平台的底层封装，实现了事件循环、异步IO，如文件操作等，是 Node.js 实现异步的核心。（libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API，被很多编程语言引入，如 Rust）</p>
+<li><p>LIBUV层：是跨平台的底层封装，实现了事件循环、异步IO，如文件操作等，是 Node.js 实现异步的核心。（libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API，被很多编程语言引入，如 Rust），他的事件循环中宏、微任务执行机制，如下图。</p>
+<p><img src="/images/img-libuv.png" alt=""></p>
+<p>图解如下：</p>
+<ul>
+<li>上面每个阶段对应着一个事件队列，当EventLoop执行到某阶段时，执行对应的事件队列中的事件，当该队列执行完毕或者执行数量超过上限，EventLoop就会执行下一个阶段。</li>
+<li>每当EventLoop切换一个执行队列时，就会去清空microtasks queues，然后再切换到下个队列去执行，反复循环。</li>
+</ul>
 </li>
 </ul>
 </li>
