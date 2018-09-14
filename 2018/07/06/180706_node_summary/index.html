@@ -103,7 +103,7 @@
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-async-io.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-timer-event.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-workflow.png">
-<meta property="og:updated_time" content="2018-09-14T02:22:49.680Z">
+<meta property="og:updated_time" content="2018-09-14T03:00:47.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node 回顾与总结（一）">
 <meta name="twitter:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
@@ -513,26 +513,58 @@
 <li><p>大体上分为6个阶段，执行顺序及内容如下图。</p>
 <p><img src="/images/img-libuv-loop1.jpg" alt=""></p>
 <ul>
-<li><p>timers</p>
-<p>这个是定时器阶段，处理setTimeout()和setInterval()的回调函数。进入这个阶段后，主线程会检查一下当前时间，是否满足定时器的条件。如果满足就执行回调函数，否则就离开这个阶段。</p>
+<li><p>timers（定时器阶段）</p>
+<p>定时器用途是让指定的回调函数在某个阈值后会被执行，具体的执行时间并不一定是那个精确的阈值。（定时器的回调会在制定的时间过后尽快得到执行，然而，操作系统的计划或者其他回调的执行可能会延迟该回调的执行。）</p>
+<p>定时器阶段会处理setTimeout()和setInterval()的回调函数。进入这个阶段后，主线程会检查一下当前时间，是否满足定时器的条件。如果满足就执行回调函数，否则就离开这个阶段。</p>
+<p>注：从技术上来看，轮询阶段控制了定时器的执行时机。</p>
 </li>
-<li><p>I/O callbacks</p>
-<p>除了以下操作的回调函数，其他的回调函数都在这个阶段执行。<br>setTimeout()和setInterval()、setImmediate()、用于关闭请求（比如socket.on(‘close’, …)）的回调函数</p>
+<li><p>I/O callbacks（I/O 回调阶段）</p>
+<p>除了 setTimeout 和 setInterval 、setImmediate、用于关闭请求的回调函数，如socket.on(‘close’, …)，其他的回调函数都在这个阶段执行。</p>
+<p>执行的回调函数：几乎全部发生异常的 close 回调，由定时器和setImmediate()计划的回调，TCP错误之类的系统操作的回调。</p>
 </li>
-<li><p>idle, prepare</p>
-<p>该阶段只供 libuv 内部调用，分为 idle handlers 和 prepare handlers 两部分。</p>
+<li><p>idle, prepare （空闲，预备阶段）</p>
+<p>该阶段只供 libuv 内部调用，分为 idle handlers 和 prepare handlers 两部分，prepare handlers 会为Poll阶段做些准备工作。</p>
 </li>
-<li><p>Poll</p>
-<p>该阶段是轮询时间，等待还未返回的 I/O 事件，比如服务器的回应、用户移动鼠标等等。<br>这个阶段的时间会比较长。如果没有其他异步任务要处理（比如到期的定时器），会一直停留在这个阶段，等待 I/O 请求返回结果。</p>
+<li><p>Poll（轮询阶段）</p>
+<p>该阶段获取新的 I/O 事件，轮询时间等待还未返回的 I/O 事件，比如服务器的回应、用户移动鼠标等等。</p>
+<p>该阶段时间较长，Node.js 这时会适当进行阻塞，如果没有其他异步任务要处理（比如到期的定时器），会一直停留在这个阶段，等待 I/O 请求返回结果。</p>
+<p>注：为了防止轮询阶段持续时间太长，libuv 会根据操作系统的不同设置一个轮询的上限。</p>
+<p>轮询阶段有两个主要功能或过程：</p>
+<ol>
+<li>执行已经到时的定时器脚本</li>
+<li>处理轮询队列中的事件。</li>
+</ol>
+<p>当EventLoop进入到轮询阶段，却没有发现定时器时：</p>
+<ul>
+<li><p>如果轮询队列非空：</p>
+<p>EventLoop会迭代回调队列并同步执行回调，直到队列空了或者达到了上限（前文说过的根据操作系统的不同而设定的上限）</p>
 </li>
-<li><p>check</p>
-<p>该阶段执行setImmediate()的回调函数。</p>
+<li><p>如果轮询队列是空的：</p>
+<ul>
+<li><p>如果有setImmediate()定义了回调：EventLoop终止轮询阶段，进入check阶段去执行setImmediate回调；</p>
 </li>
-<li><p>close callbacks</p>
-<p>该阶段执行关闭请求的回调函数，比如socket.on(‘close’, …)。</p>
+<li><p>如果没有setImmediate()：事件回调会等待回调被加入队列并立即执行。</p>
 </li>
 </ul>
 </li>
+</ul>
+<p>总结：一旦轮询队列空了，事件循环会查找已经到时的定时器。如果找到了，事件循环就回到定时器阶段去执行回调。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>check（检查阶段）</p>
+<p>该阶段执行setImmediate()的回调函数。</p>
+<p>setImmediate() 是个特殊的定时器，被设计成在一个单独的阶段运行, 它使用libuv的 API 来使得一旦轮询阶段完成就执行回调函数。</p>
+<p>事件循环会最终进入到等待状态的poll阶段，可能是等待一个连接、请求等。然而，如果有一个setImmediate() 设置了一个回调并且poll阶段空闲了，那么事件循环会进入到check阶段而不是等待轮询事件.</p>
+</li>
+<li><p>close callbacks</p>
+<p>该阶段执行关闭请求的回调函数，比如socket.on(‘close’, …)。</p>
+<p>如果一个 socket 或句柄（handle）被突然关闭（is closed abruptly），例如 socket.destroy()， ‘close’ 事件会被发出到这个阶段。否则这种事件会通过 process.nextTick() 被发出。</p>
+</li>
+</ul>
+<ul>
 <li><p>详细图解如下</p>
 <p><img src="/images/img-libuv-loop.jpeg" alt=""></p>
 </li>
