@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Database," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据库的设计是大多数人都会面临的问题，进行必要的优化则会使性能得到可靠的提升。日常工作中，可能没有意识已经做了某些优化，但是要将哪些手段都具体列出来、说清楚，可能一时间会不知所措，其实还是理论不够夯实。前两天回顾了一下之前的工作，查阅相关理论资料，发现数据库理论和经验仍待提升，所以打算从设计和优化两方面给自己做个总结，回顾学习。">
+<meta name="keywords" content="Database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库设计与优化手段总结">
+<meta property="og:url" content="https://hoppergithub.github.io/2018/09/17/180917_db_optimize/index.html">
+<meta property="og:site_name" content="Hopper&#39;s Blog">
+<meta property="og:description" content="数据库的设计是大多数人都会面临的问题，进行必要的优化则会使性能得到可靠的提升。日常工作中，可能没有意识已经做了某些优化，但是要将哪些手段都具体列出来、说清楚，可能一时间会不知所措，其实还是理论不够夯实。前两天回顾了一下之前的工作，查阅相关理论资料，发现数据库理论和经验仍待提升，所以打算从设计和优化两方面给自己做个总结，回顾学习。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-17T07:39:40.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库设计与优化手段总结">
+<meta name="twitter:description" content="数据库的设计是大多数人都会面临的问题，进行必要的优化则会使性能得到可靠的提升。日常工作中，可能没有意识已经做了某些优化，但是要将哪些手段都具体列出来、说清楚，可能一时间会不知所措，其实还是理论不够夯实。前两天回顾了一下之前的工作，查阅相关理论资料，发现数据库理论和经验仍待提升，所以打算从设计和优化两方面给自己做个总结，回顾学习。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoppergithub.github.io/2018/09/17/180917_db_optimize/"/>
+
+
+
+
+
+  <title>数据库设计与优化手段总结 | Hopper's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hopper's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活就像咖啡，酸楚苦涩却浓郁香醇、耐人回味，如果慢些喝，或许会发现，还是热的可口。。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2018/09/17/180917_db_optimize/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hopper Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hopper's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库设计与优化手段总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T09:00:21+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Summary/" itemprop="url" rel="index">
+                    <span itemprop="name">Summary</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　数据库的设计是大多数人都会面临的问题，进行必要的优化则会使性能得到可靠的提升。日常工作中，可能没有意识已经做了某些优化，但是要将哪些手段都具体列出来、说清楚，可能一时间会不知所措，其实还是理论不够夯实。前两天回顾了一下之前的工作，查阅相关理论资料，发现数据库理论和经验仍待提升，所以打算从设计和优化两方面给自己做个总结，回顾学习。</p>
+<a id="more"></a>
+<h2 id="关系型数据库设计"><a href="#关系型数据库设计" class="headerlink" title="关系型数据库设计"></a>关系型数据库设计</h2><h3 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h3><h4 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h4><p>第一范式（1NF）是对关系模式的基本要求，不满足第一范式（1NF）的数据库就不是关系数据库。</p>
+<p>要求数据表的每一列(字段)，必须是不可拆分的最小单元，也就是确保每一列的原子性。</p>
+<p>即同一列（字段）中不能有多个值。表的每行只包含一个实例的信息（实体中的某个属性不能有多个值或者不能有重复的属性。如果出现重复的属性，就可能需要定义一个新的实体，新的实体由重复的属性构成，新实体与原实体之间为一对多关系）。</p>
+<p>简而言之，第一范式就是无重复的列。</p>
+<h4 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h4><p>第二范式（2NF）是在第一范式（1NF）的基础上建立起来的，即满足第二范式（2NF）必须先满足第一范式（1NF）。</p>
+<p>要求数据表的每个实例或行必须可以被惟一区分。为实现区分通常需要为表加一列，以存储各个实例的惟一标识（这个惟一属性列被称为主关键字或主键、主码）。</p>
+<p>即满足1NF后，要求表的所有列或实体的所有属性完全依赖于主键，而不能有任何一列与主键没有关系（一个表只描述一件事情，所谓完全依赖是指不能存在仅依赖主关键字一部分的属性，如果存在，那么这个属性和主关键字的这一部分应该分离出来形成一个新的实体，新实体与原实体之间是一对多的关系）。</p>
+<p>简而言之，第二范式就是需要主键，非主属性完全依赖主键。</p>
+<h4 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h4><p>满足第三范式（3NF）必须先满足第二范式（2NF）。</p>
+<p>要求表中的每一列都要与主键直接相关，而不是间接相关（表中的每一列只能依赖于主键）。</p>
+<p>简而言之，第三范式就是一个数据表不要包含已存在其它表中的非主关键字信息。</p>
+<p>例如，存在一个部门信息表，其中每个部门有部门编号（dept_id）、部门名称、部门简介等信息。那么在员工信息表中列出部门编号后就不能再将部门名称、部门简介等与部门有关的信息再加入员工信息表中。如果不存在部门信息表，则根据第三范式（3NF）也应该构建它，否则就会有大量的数据冗余。简而言之，第三范式就是属性不依赖于其它非主属性。（简单理解为消除冗余）</p>
+<h4 id="反范式"><a href="#反范式" class="headerlink" title="反范式"></a>反范式</h4><p>这里的反范式主要指与第三范式相反，即在一些情况下，通过适当增加冗余，以达到优化查询 SQL 的目的。</p>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="主键约束（Primay-Key-Coustraint）"><a href="#主键约束（Primay-Key-Coustraint）" class="headerlink" title="主键约束（Primay Key Coustraint）"></a>主键约束（Primay Key Coustraint）</h4><p>约束：唯一性，非空性，表只能有一列（表约束）</p>
+<p>注意事项：</p>
+<ul>
+<li>主键默认非空，默认唯一性约束，只有主键可以设置自动增长（主键不一定自增，自增一定是主键）</li>
+<li>添加主键约束会自动创建唯一索引。</li>
+<li>如果表中尚未创建聚焦索引，则自动创建聚焦唯一索引。如果表中已存在聚焦索引，则自动创建非聚焦索引。</li>
+</ul>
+<p>设置方法：</p>
+<ul>
+<li>在定义列时设置：id INT UNSIGNED PRIMARY KEY。</li>
+<li>在列定义完成后设置：PRIMARY KEY(id)。</li>
+</ul>
+<h4 id="唯一约束-（Unique-Counstraint）"><a href="#唯一约束-（Unique-Counstraint）" class="headerlink" title="唯一约束 （Unique Counstraint）"></a>唯一约束 （Unique Counstraint）</h4><p>约束：唯一性，可以空, 主键列不能再加此约束，可以多列</p>
+<p>注意事项：</p>
+<ul>
+<li>添加唯一约束会自动创建唯一索引。</li>
+<li>如果未在unique关键字后加上［nonclustered｜clustered］, 则默认会创建非聚焦索引。</li>
+</ul>
+<h4 id="外键约束-Foreign-Key-Counstraint"><a href="#外键约束-Foreign-Key-Counstraint" class="headerlink" title="外键约束 (Foreign Key Counstraint)"></a>外键约束 (Foreign Key Counstraint)</h4><p>约束：需要建立两表间的关系并引用主表的列（表约束）</p>
+<p>注意事项：</p>
+<ul>
+<li>只有INNODB的数据库引擎支持外键，修改my.ini文件设置default-storage-engine=INNODB</li>
+<li>外键与参照列的数据类型必须相同。（数值型要求长度和无符号都相同，字符串要求类型相同，长度可以不同）</li>
+<li>设置外键的字段必须要有索引，如果没有索引，设置外键时会自动生成一个索引。</li>
+</ul>
+<p>设置方法：</p>
+<ul>
+<li>[CONSTRAINT 外键名] FOREIGN KEY(外键字段) REFERENCES 参照表(参照字段) [ON 删改操作 参照操作]</li>
+</ul>
+<p>参照操作：</p>
+<ul>
+<li>RESTRICT: 拒绝对参照字段的删除或修改（默认）；</li>
+<li>NO ACTION: 与RESTRICT相同，但这个指令只在MySql生效；</li>
+<li>CASCADE:  删除或更新参照表的参照字段时，外键表的记录同步删除或更新；</li>
+<li>SET NULL: 删除删除或更新参照表的参照字段时，外键表的外键设为NULL (此时外键不能设置为NOT NULL)。</li>
+</ul>
+<h4 id="检查约束-Check-Counstraint"><a href="#检查约束-Check-Counstraint" class="headerlink" title="检查约束 (Check Counstraint)"></a>检查约束 (Check Counstraint)</h4><p>约束：对该列数据的范围、格式的限制，可以多列（如：年龄、性别等）</p>
+<h4 id="默认约束-Default-Counstraint"><a href="#默认约束-Default-Counstraint" class="headerlink" title="默认约束 (Default Counstraint)"></a>默认约束 (Default Counstraint)</h4><p>约束：该数据的默认值，可以多列</p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><h4 id="索引是什么？"><a href="#索引是什么？" class="headerlink" title="索引是什么？"></a>索引是什么？</h4><p>索引是一个排序的数据结构，在数据库管理系统中，用以协助快速查询、更新数据库表中数据，比如用于快速找出在某个列中有一特定值的行，相当于书（表）的目录。</p>
+<p>不使用索引，MySQL必须从第1条记录开始，然后读完整个表直到找出相关的行。表越大，花费的时间越多。如果表中查询的列有一个索引，MySQL能快速到达一个位置去搜寻到数据文件的中间，没有必要看所有数据。</p>
+<p>通常使用B树及其变种B+树实现索引。大多数MySQL索引(PRIMARY KEY、UNIQUE、INDEX和FULLTEXT)在B树中存储。只是空间列类型的索引使用R-树，并且MEMORY表还支持hash索引。</p>
+<h4 id="索引类型有哪些"><a href="#索引类型有哪些" class="headerlink" title="索引类型有哪些?"></a>索引类型有哪些?</h4><h5 id="数据库功能上："><a href="#数据库功能上：" class="headerlink" title="数据库功能上："></a>数据库功能上：</h5><p>唯一索引</p>
+<p>不允许其中任何两行具有相同索引值的索引。（UNIQUE）</p>
+<p>主键索引</p>
+<p>是唯一索引的特定类型，表主键自动创建该索引，查询中使用主键索引可以允许对数据的快速访问。（PRIMARY KEY）</p>
+<p>聚集索引</p>
+<p>表中行的物理顺序与键值的逻辑（索引）顺序相同，一个表只能包含一个聚集索引。（Clustered Indexes）</p>
+<ul>
+<li><p>优缺点：如果某索引不是聚集索引，则表中行的物理顺序与键值的逻辑顺序不匹配。与非聚集索引相比，聚集索引通常提供更快的数据访问速度。</p>
+</li>
+<li><p>举例：我们如果在“姓名”这一字段上建立了聚集索引，则表中的记录将按照姓名进行排列；如果建立了聚集索引的列是数值类型的，那么记录将按照该键值的数值大小来进行排列。非聚集索引用于指定数据的逻辑顺序，也就是说，表中的数据并没有按照索引键值指定的顺序排列，而仍然按照插入记录时的顺序存放。</p>
+</li>
+</ul>
+<h5 id="逻辑上："><a href="#逻辑上：" class="headerlink" title="逻辑上："></a>逻辑上：</h5><ul>
+<li>Single column 单列索引</li>
+<li>Concatenated 多列索引</li>
+<li>Unique 唯一索引</li>
+<li>NonUnique 非唯一索引</li>
+<li>Function-based 函数索引</li>
+<li>Domain 域索引 </li>
+</ul>
+<h5 id="物理上："><a href="#物理上：" class="headerlink" title="物理上："></a>物理上：</h5><ul>
+<li>Partitioned 分区索引</li>
+<li>NonPartitioned 非分区索引</li>
+</ul>
+<h5 id="B-tree："><a href="#B-tree：" class="headerlink" title="B-tree："></a>B-tree：</h5><ul>
+<li>Normal 正常型B树</li>
+<li>Rever Key 反转型B树 Bitmap 位图索引</li>
+</ul>
+<h4 id="一次查询能用多个索引吗"><a href="#一次查询能用多个索引吗" class="headerlink" title="一次查询能用多个索引吗?"></a>一次查询能用多个索引吗?</h4><p>不能</p>
+<h4 id="什么样的字段适合建索引？"><a href="#什么样的字段适合建索引？" class="headerlink" title="什么样的字段适合建索引？"></a>什么样的字段适合建索引？</h4><p>唯一、不为空、经常被查询的字段</p>
+<h4 id="建立索引好处"><a href="#建立索引好处" class="headerlink" title="建立索引好处"></a>建立索引好处</h4><p>创建索引可以大大提高系统的性能。</p>
+<ul>
+<li>通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性。</li>
+<li>可以大大加快数据的检索速度，这也是创建索引的最主要的原因。</li>
+<li>可以加速表和表之间的连接，特别是在实现数据的参考完整性方面特别有意义。</li>
+<li>在使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间。</li>
+<li>通过使用索引，可以在查询的过程中，使用优化隐藏器，提高系统的性能。</li>
+</ul>
+<h4 id="建立索引有哪些缺点？"><a href="#建立索引有哪些缺点？" class="headerlink" title="建立索引有哪些缺点？"></a>建立索引有哪些缺点？</h4><ul>
+<li><p>索引占物理空间，如果建立聚集索引，需要的空间就会更大。（系统要占用大约为表的1.2倍的硬盘和内存空间来保存索引）</p>
+</li>
+<li><p>插入、修改、删除表数据时，索引也要创建和维护，花费时间更多(更新数据时，系统必须要有额外时间来同时更新索引，以维持数据和索引的一致性，额外时间与数据量呈正相关)。</p>
+</li>
+</ul>
+<h4 id="不适合索引场景"><a href="#不适合索引场景" class="headerlink" title="不适合索引场景"></a>不适合索引场景</h4><h5 id="查询中很少使用或者参考的列不应该创建索引。"><a href="#查询中很少使用或者参考的列不应该创建索引。" class="headerlink" title="查询中很少使用或者参考的列不应该创建索引。"></a>查询中很少使用或者参考的列不应该创建索引。</h5><p>原因：因为很少使用，所以有无索引并不能提高查询速度。相反增加索引可能会降低系统的维护速度和增大空间需求。 </p>
+<h5 id="对于那些只有很少数据值的列也不应该增加索引。"><a href="#对于那些只有很少数据值的列也不应该增加索引。" class="headerlink" title="对于那些只有很少数据值的列也不应该增加索引。"></a>对于那些只有很少数据值的列也不应该增加索引。</h5><p>原因：由于这些列的取值很少，例如人事表的性别列，在查询的结果中，结果集的数据行占了表中数据行的很大比例，即需要在表中搜索的数据行的比例很大。增加索引，并不能明显加快检索速度。 </p>
+<h5 id="对于那些定义为text-image和bit数据类型的列不应该增加索引。"><a href="#对于那些定义为text-image和bit数据类型的列不应该增加索引。" class="headerlink" title="对于那些定义为text, image和bit数据类型的列不应该增加索引。"></a>对于那些定义为text, image和bit数据类型的列不应该增加索引。</h5><p>原因：这些列的数据量要么相当大，要么取值很少。 </p>
+<h5 id="当修改性能远远大于检索性能时，不应该创建索引。"><a href="#当修改性能远远大于检索性能时，不应该创建索引。" class="headerlink" title="当修改性能远远大于检索性能时，不应该创建索引。"></a>当修改性能远远大于检索性能时，不应该创建索引。</h5><p>原因：修改性能和检索性能是互相矛盾的。当增加索引时，会提高检索性能，但是会降低修改性能。当减少索引时，会提高修改性能，降低检索性能。因此，当修改性能远远大于检索性能时，不应该创建索引。</p>
+<h4 id="聚集索引或非聚集索引比较："><a href="#聚集索引或非聚集索引比较：" class="headerlink" title="聚集索引或非聚集索引比较："></a>聚集索引或非聚集索引比较：</h4><h5 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h5><p>聚集索引和非聚集索引都采用了B+树的结构。</p>
+<h5 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h5><ul>
+<li><p>聚集索引会使数据访问速度更快，适用于少增删改操作，多查询的情况。</p>
+<ul>
+<li>适合多查询原因：聚集索引表记录的排列顺序与索引的排列顺序一致，一旦具有第一个索引值的纪录被找到，具有连续索引值的记录也一定物理的紧跟其后，聚合索引存储记录是物理上连续存在的。</li>
+<li>不适用多增删改操作原因：为了保持表中的记录的物理顺序与索引的顺序一致，而把记录插入到数据页的相应位置，必须在数据页中进行数据重排，降低了执行速度。</li>
+</ul>
+</li>
+<li><p>非聚集索引指定了表中记录的逻辑顺序，但记录的物理顺序和索引的顺序不一致。</p>
+<ul>
+<li>非聚集索引的叶子层并不与实际的数据页相重叠，而采用叶子层包含一个指向表中的记录在数据页中的指针的方式。</li>
+<li>非聚集索引比聚集索引层次多，添加记录不会引起数据顺序的重组。</li>
+</ul>
+</li>
+</ul>
+<h4 id="如何选择聚集索引或非聚集索引"><a href="#如何选择聚集索引或非聚集索引" class="headerlink" title="如何选择聚集索引或非聚集索引"></a>如何选择聚集索引或非聚集索引</h4><table>
+<thead>
+<tr>
+<th>动作描述</th>
+<th style="text-align:center">使用聚集索引</th>
+<th style="text-align:right">使用非聚集索引</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一个或极少不同值</td>
+<td style="text-align:center">不应</td>
+<td style="text-align:right">不应</td>
+</tr>
+<tr>
+<td>主键列</td>
+<td style="text-align:center">应</td>
+<td style="text-align:right">应</td>
+</tr>
+<tr>
+<td>外键列</td>
+<td style="text-align:center">应</td>
+<td style="text-align:right">应</td>
+</tr>
+<tr>
+<td>经常被分组排序的列</td>
+<td style="text-align:center">应</td>
+<td style="text-align:right">应</td>
+</tr>
+<tr>
+<td>返回某范围内数据</td>
+<td style="text-align:center">应</td>
+<td style="text-align:right">不应</td>
+</tr>
+<tr>
+<td>小数目的不同值</td>
+<td style="text-align:center">应</td>
+<td style="text-align:right">不应</td>
+</tr>
+<tr>
+<td>大数目的不同值</td>
+<td style="text-align:center">不应</td>
+<td style="text-align:right">应</td>
+</tr>
+<tr>
+<td>频繁被更新的列</td>
+<td style="text-align:center">不应</td>
+<td style="text-align:right">应</td>
+</tr>
+<tr>
+<td>频繁修改索引的列</td>
+<td style="text-align:center">不应</td>
+<td style="text-align:right">应</td>
+</tr>
+</tbody>
+</table>
+<h4 id="人工重建索引"><a href="#人工重建索引" class="headerlink" title="人工重建索引"></a>人工重建索引</h4><h5 id="为何需要重建"><a href="#为何需要重建" class="headerlink" title="为何需要重建?"></a>为何需要重建?</h5><p>随着数据行的插入、删除和数据页的分裂，有些索引页可能只包含几页数据，另外应用在执行大量I/O的时候，重建非聚聚集索引可以维护I/O的效率。</p>
+<p>重建索引实质上是重新组织B树。</p>
+<h5 id="有哪些需要重建索引的情况？"><a href="#有哪些需要重建索引的情况？" class="headerlink" title="有哪些需要重建索引的情况？"></a>有哪些需要重建索引的情况？</h5><ul>
+<li><p>数据和使用模式大幅度变化。</p>
+</li>
+<li><p>排序的顺序发生改变。</p>
+</li>
+<li><p>要进行大量插入操作或已经完成。</p>
+</li>
+<li><p>使用I/O查询的磁盘读次数比预料的要多。</p>
+</li>
+<li><p>由于大量数据修改，使得数据页和索引页没有充分使用而导致空间的使用超出估算。</p>
+</li>
+<li><p>dbcc检查出索引有问题。</p>
+</li>
+</ul>
+<h4 id="建立索引的思路"><a href="#建立索引的思路" class="headerlink" title="建立索引的思路"></a>建立索引的思路</h4><ul>
+<li><p>主键时常作为where子句的条件，应在表的主键列上建立聚聚集索引，尤其当经常用它作为连接的时候。</p>
+</li>
+<li><p>有大量重复值且经常有范围查询和排序、分组发生的列，或者非常频繁地被访问的列，可考虑建立聚聚集索引。</p>
+</li>
+<li><p>经常同时存取多列，且每列都含有重复值可考虑建立复合索引来覆盖一个或一组查询，并把查询引用最频繁的列作为前导列，如果可能尽量使关键查询形成覆盖查询。</p>
+</li>
+<li><p>如果知道索引键的所有值都是唯一的，那么确保把索引定义成唯一索引。　</p>
+</li>
+<li><p>在一个经常做插入操作的表上建索引时，使用fillfactor(填充因子)来减少页分裂，同时提高并发度降低死锁的发生。如果在只读表上建索引，则可以把fillfactor置为100。</p>
+</li>
+<li><p>在选择索引字段时，尽量选择那些小数据类型的字段作为索引键，以使每个索引页能够容纳尽可能多的索引键和指针，通过这种方式，可使一个查询必须遍历的索引页面降到最小。此外，尽可能地使用整数为键值，因为它能够提供比任何数据类型都快的访问速度。</p>
+</li>
+</ul>
+<h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><h4 id="什么是存储过程？"><a href="#什么是存储过程？" class="headerlink" title="什么是存储过程？"></a>什么是存储过程？</h4><p>存储过程是一个预编译的SQL语句，优点是允许模块化的设计，就是说只需创建一次，以后在该程序中就可以调用多次。如果某次操作需要执行多次SQL，使用存储过程比单纯SQL语句执行要快。 </p>
+<h4 id="如何调用？"><a href="#如何调用？" class="headerlink" title="如何调用？"></a>如何调用？</h4><ul>
+<li>可以用一个命令对象来调用存储过程。</li>
+<li>可以供外部程序调用，比如：java程序。</li>
+</ul>
+<h4 id="存储过程的优缺点？"><a href="#存储过程的优缺点？" class="headerlink" title="存储过程的优缺点？"></a>存储过程的优缺点？</h4><ul>
+<li><p>优点</p>
+<ul>
+<li>存储过程是预编译过的，执行效率高。 </li>
+<li>存储过程的代码直接存放于数据库中，通过存储过程名直接调用，减少网络通讯。</li>
+<li>安全性高，执行存储过程需要有一定权限的用户。 </li>
+<li>存储过程可以重复使用，可减少数据库开发人员的工作量。</li>
+</ul>
+</li>
+<li><p>缺点：移植性差</p>
+</li>
+</ul>
+<h4 id="存储过程与函数的区别"><a href="#存储过程与函数的区别" class="headerlink" title="存储过程与函数的区别"></a>存储过程与函数的区别</h4><table>
+<thead>
+<tr>
+<th>区别方面</th>
+<th style="text-align:center">存储过程</th>
+<th style="text-align:right">函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用途</td>
+<td style="text-align:center">用于在数据库中完成特定的操作或者任务（如插入、删除等）</td>
+<td style="text-align:right">用于特定的数据（如选择）</td>
+</tr>
+<tr>
+<td>声明</td>
+<td style="text-align:center">程序头部声明用procedure</td>
+<td style="text-align:right">程序头部声明用function</td>
+</tr>
+<tr>
+<td>返回类型</td>
+<td style="text-align:center">程序头部声明时不需描述返回类型</td>
+<td style="text-align:right">程序头部声明时要描述返回类型，而且PL/SQL块中至少要包括一个有效的return语句</td>
+</tr>
+<tr>
+<td>返回</td>
+<td style="text-align:center">可以通过out/in out 返回零个或多个值</td>
+<td style="text-align:right">通过return语句返回一个值，且改值要与声明部分一致，也可以是通过out类型的参数带出的变量</td>
+</tr>
+<tr>
+<td>能否独立执行</td>
+<td style="text-align:center">可作为一个独立的PL/SQL语句来执行</td>
+<td style="text-align:right">不能独立执行，必须作为表达式的一部分调用</td>
+</tr>
+<tr>
+<td>能否在SQL语句(DML 或SELECT)中调用</td>
+<td style="text-align:center">不可调用</td>
+<td style="text-align:right">可以调用</td>
+</tr>
+<tr>
+<td>能否使用in/out/in out三种模式的参数</td>
+<td style="text-align:center">可以使用</td>
+<td style="text-align:right">可以使用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><h4 id="什么是视图？"><a href="#什么是视图？" class="headerlink" title="什么是视图？"></a>什么是视图？</h4><p>视图是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，试图通常是有一个表或者多个表的行或列的子集。对视图的修改会影响基本表。它使得我们获取数据更容易，相比多表查询。</p>
+<h4 id="视图与表的关系"><a href="#视图与表的关系" class="headerlink" title="视图与表的关系"></a>视图与表的关系</h4><p>视图其实就是一条查询sql语句，用于显示一个或多个表或其他视图中的相关数据。 表就是关系数据库中实际存储数据用的。</p>
+<h4 id="什么是游标？"><a href="#什么是游标？" class="headerlink" title="什么是游标？"></a>什么是游标？</h4><p>游标是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
+<h4 id="视图的优缺点"><a href="#视图的优缺点" class="headerlink" title="视图的优缺点"></a>视图的优缺点</h4><ul>
+<li><p>优点 </p>
+<ul>
+<li>对数据库的访问，因为视图可以有选择性的选取数据库里的一部分。</li>
+<li>用户通过简单的查询可以从复杂查询中得到结果。</li>
+<li>维护数据的独立性，试图可从多个表检索数据。</li>
+<li>对于相同的数据可产生不同的视图。 </li>
+</ul>
+</li>
+<li><p>缺点：<br>影响性能：查询视图时，必须把视图的查询转化成对基本表的查询，如果这个视图是由一个复杂的多表查询所定义，那么，那么就无法更改数据。</p>
+</li>
+</ul>
+<h3 id="事务与锁"><a href="#事务与锁" class="headerlink" title="事务与锁"></a>事务与锁</h3><h4 id="什么是事务？"><a href="#什么是事务？" class="headerlink" title="什么是事务？"></a>什么是事务？</h4><p>事务就是被绑定在一起作为一个逻辑工作单元的SQL语句分组，如果任何一个语句操作失败那么整个操作就被失败，以后操作就会回滚到操作前状态，或者是上有个节点。为了确保要么执行，要么不执行，就可以使用事务。</p>
+<p>数据库事务transanction正确执行的四个基本要素。ACID,原子性(Atomicity)、一致性(Correspondence)、隔离性(Isolation)、持久性(Durability)。</p>
+<h4 id="什么是锁？"><a href="#什么是锁？" class="headerlink" title="什么是锁？"></a>什么是锁？</h4><p>锁是实现事务的关键，锁可以保证事务的完整性和并发性。与现实生活中锁一样，它可以使某些数据的拥有者，在某段时间内不能使用某些数据或数据结构。当然锁还分级别的。</p>
+<h3 id="查询语句优化"><a href="#查询语句优化" class="headerlink" title="查询语句优化"></a>查询语句优化</h3><h4 id="查询尽量避免全表扫描，首先应考虑在-where-及-order-by-涉及的列上建立索引。"><a href="#查询尽量避免全表扫描，首先应考虑在-where-及-order-by-涉及的列上建立索引。" class="headerlink" title="查询尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。"></a>查询尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</h4><h4 id="尽量避免如下-SQL-语句，会造成引擎放弃使用索引而进行全表扫描。"><a href="#尽量避免如下-SQL-语句，会造成引擎放弃使用索引而进行全表扫描。" class="headerlink" title="尽量避免如下 SQL 语句，会造成引擎放弃使用索引而进行全表扫描。"></a>尽量避免如下 SQL 语句，会造成引擎放弃使用索引而进行全表扫描。</h4><h5 id="避免在-where-子句中使用-或-lt-gt-操作符。"><a href="#避免在-where-子句中使用-或-lt-gt-操作符。" class="headerlink" title="避免在 where 子句中使用 != 或 &lt;&gt; 操作符。"></a>避免在 where 子句中使用 != 或 &lt;&gt; 操作符。</h5><h5 id="避免在-where-子句中对字段进行-null-值判断。"><a href="#避免在-where-子句中对字段进行-null-值判断。" class="headerlink" title="避免在 where 子句中对字段进行 null 值判断。"></a>避免在 where 子句中对字段进行 null 值判断。</h5><p>错误示例： <figure class="highlight plain"><figcaption><span>id from t where num is null ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：使用默认约束，设置num默认值0，确保表中num列没有null值，然后这样查询。 ``` select id from t where num=0</span><br></pre></td></tr></table></figure></p>
+<h5 id="避免在-where-子句中使用-or-来连接条件。"><a href="#避免在-where-子句中使用-or-来连接条件。" class="headerlink" title="避免在 where 子句中使用 or 来连接条件。"></a>避免在 where 子句中使用 or 来连接条件。</h5><p>错误示例：<figure class="highlight plain"><figcaption><span>id from t where num</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：</span><br></pre></td></tr></table></figure></p>
+<p>select id from t where num=10<br>union all<br>select id from t where num=20<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##### 避免模糊搜索 like 以 % 开头。</span><br><span class="line"></span><br><span class="line">错误示例：``` select id from t where name like &apos;%abc%&apos;</span><br></pre></td></tr></table></figure></p>
+<p>解决方案：对于 like ‘..%’ (不以 % 开头)，可以应用 colunm 上的 index</p>
+<h5 id="避免对于连续的数值范围使用-in-和-not-in。"><a href="#避免对于连续的数值范围使用-in-和-not-in。" class="headerlink" title="避免对于连续的数值范围使用 in 和 not in。"></a>避免对于连续的数值范围使用 in 和 not in。</h5><p>错误示例：<figure class="highlight plain"><figcaption><span>id from t where num in(1,2,3) ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：对于连续的数值，能用 between 就不要用 in 了 ``` select id from t where num between 1 and 3</span><br></pre></td></tr></table></figure></p>
+<h5 id="避免在-where-子句中使用参数。"><a href="#避免在-where-子句中使用参数。" class="headerlink" title="避免在 where 子句中使用参数。"></a>避免在 where 子句中使用参数。</h5><p>因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时, 它必须在编译时进行选择。<br>然而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。</p>
+<p>错误示例： <figure class="highlight plain"><figcaption><span>id from t where num</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　</span><br><span class="line">解决方案：可以改为强制查询使用索引：``` select id from t with(index(索引名)) where num=@num</span><br></pre></td></tr></table></figure></p>
+<h5 id="避免在-where-子句中对字段进行表达式操作"><a href="#避免在-where-子句中对字段进行表达式操作" class="headerlink" title="避免在 where 子句中对字段进行表达式操作"></a>避免在 where 子句中对字段进行表达式操作</h5><p>错误示例：<figure class="highlight plain"><figcaption><span>id from t where num/2</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：``` select id from t where num=100*2</span><br></pre></td></tr></table></figure></p>
+<h5 id="避免在where子句中对字段进行函数操作"><a href="#避免在where子句中对字段进行函数操作" class="headerlink" title="避免在where子句中对字段进行函数操作"></a>避免在where子句中对字段进行函数操作</h5><p>错误示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id from t where substring(name,1,3)=&apos;abc&apos;; --name以abc开头的id</span><br><span class="line">select id from t where datediff(day,createdate,&apos;2005-11-30&apos;)=0; --&apos;2005-11-30&apos;生成的id</span><br></pre></td></tr></table></figure></p>
+<p>解决方案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id from t where name like &apos;abc%&apos;;</span><br><span class="line">select id from t where createdate&gt;=&apos;2005-11-30&apos; and createdate&lt;&apos;2005-12-1&apos;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="不要在-where-子句中的“-”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。"><a href="#不要在-where-子句中的“-”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。" class="headerlink" title="不要在 where 子句中的“=”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。"></a>不要在 where 子句中的“=”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</h4><h4 id="在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）"><a href="#在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）" class="headerlink" title="在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）"></a>在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）</h4><h4 id="用-exists-代替-in"><a href="#用-exists-代替-in" class="headerlink" title="用 exists 代替 in"></a>用 exists 代替 in</h4><p>错误示例：<figure class="highlight plain"><figcaption><span>num from a where num in(select num from b)  ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：``` select num from a where exists(select 1 from b where num=a.num)</span><br></pre></td></tr></table></figure></p>
+<h4 id="任何地方都不要使用-select-from-t-，用具体的字段列表代替“”，不要返回用不到的任何字段。"><a href="#任何地方都不要使用-select-from-t-，用具体的字段列表代替“”，不要返回用不到的任何字段。" class="headerlink" title="任何地方都不要使用 select  from t ，用具体的字段列表代替“”，不要返回用不到的任何字段。"></a>任何地方都不要使用 select <em> from t ，用具体的字段列表代替“</em>”，不要返回用不到的任何字段。</h4><h4 id="尽可能的使用-varchar-nvarchar-代替-char-nchar-，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。"><a href="#尽可能的使用-varchar-nvarchar-代替-char-nchar-，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。" class="headerlink" title="尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。"></a>尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</h4><h4 id="避免频繁创建和删除临时表，以减少系统表资源的消耗。"><a href="#避免频繁创建和删除临时表，以减少系统表资源的消耗。" class="headerlink" title="避免频繁创建和删除临时表，以减少系统表资源的消耗。"></a>避免频繁创建和删除临时表，以减少系统表资源的消耗。</h4><h4 id="一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。"><a href="#一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。" class="headerlink" title="一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。"></a>一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</h4><h4 id="不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。"><a href="#不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。" class="headerlink" title="不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。"></a>不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。</h4><h4 id="尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。"><a href="#尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。" class="headerlink" title="尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。"></a>尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</h4><h4 id="尽量避免大事务操作，提高系统并发能力。"><a href="#尽量避免大事务操作，提高系统并发能力。" class="headerlink" title="尽量避免大事务操作，提高系统并发能力。"></a>尽量避免大事务操作，提高系统并发能力。</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Hopper Sun
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoppergithub.github.io/2018/09/17/180917_db_optimize/" title="数据库设计与优化手段总结">https://hoppergithub.github.io/2018/09/17/180917_db_optimize/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Database/" rel="tag"># Database</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/03/180903_high_availability/" rel="next" title="如何设计高可用架构">
+                <i class="fa fa-chevron-left"></i> 如何设计高可用架构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hopper Sun</p>
+              <p class="site-description motion-element" itemprop="description">双子座伪文艺男青年</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HopperGithub" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关系型数据库设计"><span class="nav-number">1.</span> <span class="nav-text">关系型数据库设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#范式"><span class="nav-number">1.1.</span> <span class="nav-text">范式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一范式（1NF）"><span class="nav-number">1.1.1.</span> <span class="nav-text">第一范式（1NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二范式（2NF）"><span class="nav-number">1.1.2.</span> <span class="nav-text">第二范式（2NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三范式（3NF）"><span class="nav-number">1.1.3.</span> <span class="nav-text">第三范式（3NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反范式"><span class="nav-number">1.1.4.</span> <span class="nav-text">反范式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#约束"><span class="nav-number">1.2.</span> <span class="nav-text">约束</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主键约束（Primay-Key-Coustraint）"><span class="nav-number">1.2.1.</span> <span class="nav-text">主键约束（Primay Key Coustraint）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#唯一约束-（Unique-Counstraint）"><span class="nav-number">1.2.2.</span> <span class="nav-text">唯一约束 （Unique Counstraint）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外键约束-Foreign-Key-Counstraint"><span class="nav-number">1.2.3.</span> <span class="nav-text">外键约束 (Foreign Key Counstraint)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查约束-Check-Counstraint"><span class="nav-number">1.2.4.</span> <span class="nav-text">检查约束 (Check Counstraint)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认约束-Default-Counstraint"><span class="nav-number">1.2.5.</span> <span class="nav-text">默认约束 (Default Counstraint)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">1.3.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引是什么？"><span class="nav-number">1.3.1.</span> <span class="nav-text">索引是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引类型有哪些"><span class="nav-number">1.3.2.</span> <span class="nav-text">索引类型有哪些?</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库功能上："><span class="nav-number">1.3.2.1.</span> <span class="nav-text">数据库功能上：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑上："><span class="nav-number">1.3.2.2.</span> <span class="nav-text">逻辑上：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#物理上："><span class="nav-number">1.3.2.3.</span> <span class="nav-text">物理上：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-tree："><span class="nav-number">1.3.2.4.</span> <span class="nav-text">B-tree：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一次查询能用多个索引吗"><span class="nav-number">1.3.3.</span> <span class="nav-text">一次查询能用多个索引吗?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么样的字段适合建索引？"><span class="nav-number">1.3.4.</span> <span class="nav-text">什么样的字段适合建索引？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立索引好处"><span class="nav-number">1.3.5.</span> <span class="nav-text">建立索引好处</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立索引有哪些缺点？"><span class="nav-number">1.3.6.</span> <span class="nav-text">建立索引有哪些缺点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不适合索引场景"><span class="nav-number">1.3.7.</span> <span class="nav-text">不适合索引场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查询中很少使用或者参考的列不应该创建索引。"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">查询中很少使用或者参考的列不应该创建索引。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对于那些只有很少数据值的列也不应该增加索引。"><span class="nav-number">1.3.7.2.</span> <span class="nav-text">对于那些只有很少数据值的列也不应该增加索引。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对于那些定义为text-image和bit数据类型的列不应该增加索引。"><span class="nav-number">1.3.7.3.</span> <span class="nav-text">对于那些定义为text, image和bit数据类型的列不应该增加索引。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#当修改性能远远大于检索性能时，不应该创建索引。"><span class="nav-number">1.3.7.4.</span> <span class="nav-text">当修改性能远远大于检索性能时，不应该创建索引。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚集索引或非聚集索引比较："><span class="nav-number">1.3.8.</span> <span class="nav-text">聚集索引或非聚集索引比较：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#相同点"><span class="nav-number">1.3.8.1.</span> <span class="nav-text">相同点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不同点"><span class="nav-number">1.3.8.2.</span> <span class="nav-text">不同点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何选择聚集索引或非聚集索引"><span class="nav-number">1.3.9.</span> <span class="nav-text">如何选择聚集索引或非聚集索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#人工重建索引"><span class="nav-number">1.3.10.</span> <span class="nav-text">人工重建索引</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为何需要重建"><span class="nav-number">1.3.10.1.</span> <span class="nav-text">为何需要重建?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#有哪些需要重建索引的情况？"><span class="nav-number">1.3.10.2.</span> <span class="nav-text">有哪些需要重建索引的情况？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立索引的思路"><span class="nav-number">1.3.11.</span> <span class="nav-text">建立索引的思路</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储过程"><span class="nav-number">1.4.</span> <span class="nav-text">存储过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是存储过程？"><span class="nav-number">1.4.1.</span> <span class="nav-text">什么是存储过程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何调用？"><span class="nav-number">1.4.2.</span> <span class="nav-text">如何调用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储过程的优缺点？"><span class="nav-number">1.4.3.</span> <span class="nav-text">存储过程的优缺点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储过程与函数的区别"><span class="nav-number">1.4.4.</span> <span class="nav-text">存储过程与函数的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图"><span class="nav-number">1.5.</span> <span class="nav-text">视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是视图？"><span class="nav-number">1.5.1.</span> <span class="nav-text">什么是视图？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图与表的关系"><span class="nav-number">1.5.2.</span> <span class="nav-text">视图与表的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是游标？"><span class="nav-number">1.5.3.</span> <span class="nav-text">什么是游标？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图的优缺点"><span class="nav-number">1.5.4.</span> <span class="nav-text">视图的优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务与锁"><span class="nav-number">1.6.</span> <span class="nav-text">事务与锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是事务？"><span class="nav-number">1.6.1.</span> <span class="nav-text">什么是事务？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是锁？"><span class="nav-number">1.6.2.</span> <span class="nav-text">什么是锁？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询语句优化"><span class="nav-number">1.7.</span> <span class="nav-text">查询语句优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询尽量避免全表扫描，首先应考虑在-where-及-order-by-涉及的列上建立索引。"><span class="nav-number">1.7.1.</span> <span class="nav-text">查询尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽量避免如下-SQL-语句，会造成引擎放弃使用索引而进行全表扫描。"><span class="nav-number">1.7.2.</span> <span class="nav-text">尽量避免如下 SQL 语句，会造成引擎放弃使用索引而进行全表扫描。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在-where-子句中使用-或-lt-gt-操作符。"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">避免在 where 子句中使用 != 或 &lt;&gt; 操作符。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在-where-子句中对字段进行-null-值判断。"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">避免在 where 子句中对字段进行 null 值判断。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在-where-子句中使用-or-来连接条件。"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">避免在 where 子句中使用 or 来连接条件。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免对于连续的数值范围使用-in-和-not-in。"><span class="nav-number">1.7.2.4.</span> <span class="nav-text">避免对于连续的数值范围使用 in 和 not in。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在-where-子句中使用参数。"><span class="nav-number">1.7.2.5.</span> <span class="nav-text">避免在 where 子句中使用参数。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在-where-子句中对字段进行表达式操作"><span class="nav-number">1.7.2.6.</span> <span class="nav-text">避免在 where 子句中对字段进行表达式操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在where子句中对字段进行函数操作"><span class="nav-number">1.7.2.7.</span> <span class="nav-text">避免在where子句中对字段进行函数操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不要在-where-子句中的“-”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。"><span class="nav-number">1.7.3.</span> <span class="nav-text">不要在 where 子句中的“=”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）"><span class="nav-number">1.7.4.</span> <span class="nav-text">在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用-exists-代替-in"><span class="nav-number">1.7.5.</span> <span class="nav-text">用 exists 代替 in</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任何地方都不要使用-select-from-t-，用具体的字段列表代替“”，不要返回用不到的任何字段。"><span class="nav-number">1.7.6.</span> <span class="nav-text">任何地方都不要使用 select  from t ，用具体的字段列表代替“”，不要返回用不到的任何字段。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽可能的使用-varchar-nvarchar-代替-char-nchar-，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。"><span class="nav-number">1.7.7.</span> <span class="nav-text">尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免频繁创建和删除临时表，以减少系统表资源的消耗。"><span class="nav-number">1.7.8.</span> <span class="nav-text">避免频繁创建和删除临时表，以减少系统表资源的消耗。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。"><span class="nav-number">1.7.9.</span> <span class="nav-text">一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。"><span class="nav-number">1.7.10.</span> <span class="nav-text">不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。"><span class="nav-number">1.7.11.</span> <span class="nav-text">尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽量避免大事务操作，提高系统并发能力。"><span class="nav-number">1.7.12.</span> <span class="nav-text">尽量避免大事务操作，提高系统并发能力。</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hopper Sun</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
