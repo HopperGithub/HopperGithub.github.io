@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="数据库的设计是大多数人都会面临的问题，进行必要的优化则会使性能得到可靠的提升。日常工作中，可能没有意识已经做了某些优化，但是要将哪些手段都具体列出来、说清楚，可能一时间会不知所措，其实还是理论不够夯实。前两天回顾了一下之前的工作，查阅相关理论资料，发现数据库理论和经验仍待提升，所以打算从设计和优化两方面给自己做个总结，回顾学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-17T07:39:40.242Z">
+<meta property="og:updated_time" content="2018-09-17T07:54:40.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库设计与优化手段总结">
 <meta name="twitter:description" content="数据库的设计是大多数人都会面临的问题，进行必要的优化则会使性能得到可靠的提升。日常工作中，可能没有意识已经做了某些优化，但是要将哪些手段都具体列出来、说清楚，可能一时间会不知所措，其实还是理论不够夯实。前两天回顾了一下之前的工作，查阅相关理论资料，发现数据库理论和经验仍待提升，所以打算从设计和优化两方面给自己做个总结，回顾学习。">
@@ -456,56 +456,56 @@
 <h4 id="如何选择聚集索引或非聚集索引"><a href="#如何选择聚集索引或非聚集索引" class="headerlink" title="如何选择聚集索引或非聚集索引"></a>如何选择聚集索引或非聚集索引</h4><table>
 <thead>
 <tr>
-<th>动作描述</th>
+<th style="text-align:center">动作描述</th>
 <th style="text-align:center">使用聚集索引</th>
-<th style="text-align:right">使用非聚集索引</th>
+<th style="text-align:center">使用非聚集索引</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>一个或极少不同值</td>
+<td style="text-align:center">一个或极少不同值</td>
 <td style="text-align:center">不应</td>
-<td style="text-align:right">不应</td>
-</tr>
-<tr>
-<td>主键列</td>
-<td style="text-align:center">应</td>
-<td style="text-align:right">应</td>
-</tr>
-<tr>
-<td>外键列</td>
-<td style="text-align:center">应</td>
-<td style="text-align:right">应</td>
-</tr>
-<tr>
-<td>经常被分组排序的列</td>
-<td style="text-align:center">应</td>
-<td style="text-align:right">应</td>
-</tr>
-<tr>
-<td>返回某范围内数据</td>
-<td style="text-align:center">应</td>
-<td style="text-align:right">不应</td>
-</tr>
-<tr>
-<td>小数目的不同值</td>
-<td style="text-align:center">应</td>
-<td style="text-align:right">不应</td>
-</tr>
-<tr>
-<td>大数目的不同值</td>
 <td style="text-align:center">不应</td>
-<td style="text-align:right">应</td>
 </tr>
 <tr>
-<td>频繁被更新的列</td>
-<td style="text-align:center">不应</td>
-<td style="text-align:right">应</td>
+<td style="text-align:center">主键列</td>
+<td style="text-align:center">应</td>
+<td style="text-align:center">应</td>
 </tr>
 <tr>
-<td>频繁修改索引的列</td>
+<td style="text-align:center">外键列</td>
+<td style="text-align:center">应</td>
+<td style="text-align:center">应</td>
+</tr>
+<tr>
+<td style="text-align:center">经常被分组排序的列</td>
+<td style="text-align:center">应</td>
+<td style="text-align:center">应</td>
+</tr>
+<tr>
+<td style="text-align:center">返回某范围内数据</td>
+<td style="text-align:center">应</td>
 <td style="text-align:center">不应</td>
-<td style="text-align:right">应</td>
+</tr>
+<tr>
+<td style="text-align:center">小数目的不同值</td>
+<td style="text-align:center">应</td>
+<td style="text-align:center">不应</td>
+</tr>
+<tr>
+<td style="text-align:center">大数目的不同值</td>
+<td style="text-align:center">不应</td>
+<td style="text-align:center">应</td>
+</tr>
+<tr>
+<td style="text-align:center">频繁被更新的列</td>
+<td style="text-align:center">不应</td>
+<td style="text-align:center">应</td>
+</tr>
+<tr>
+<td style="text-align:center">频繁修改索引的列</td>
+<td style="text-align:center">不应</td>
+<td style="text-align:center">应</td>
 </tr>
 </tbody>
 </table>
@@ -560,45 +560,45 @@
 <thead>
 <tr>
 <th>区别方面</th>
-<th style="text-align:center">存储过程</th>
-<th style="text-align:right">函数</th>
+<th>存储过程</th>
+<th>函数</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>用途</td>
-<td style="text-align:center">用于在数据库中完成特定的操作或者任务（如插入、删除等）</td>
-<td style="text-align:right">用于特定的数据（如选择）</td>
+<td>用于在数据库中完成特定的操作或者任务（如插入、删除等）</td>
+<td>用于特定的数据（如选择）</td>
 </tr>
 <tr>
 <td>声明</td>
-<td style="text-align:center">程序头部声明用procedure</td>
-<td style="text-align:right">程序头部声明用function</td>
+<td>程序头部声明用procedure</td>
+<td>程序头部声明用function</td>
 </tr>
 <tr>
 <td>返回类型</td>
-<td style="text-align:center">程序头部声明时不需描述返回类型</td>
-<td style="text-align:right">程序头部声明时要描述返回类型，而且PL/SQL块中至少要包括一个有效的return语句</td>
+<td>程序头部声明时不需描述返回类型</td>
+<td>程序头部声明时要描述返回类型，而且PL/SQL块中至少要包括一个有效的return语句</td>
 </tr>
 <tr>
 <td>返回</td>
-<td style="text-align:center">可以通过out/in out 返回零个或多个值</td>
-<td style="text-align:right">通过return语句返回一个值，且改值要与声明部分一致，也可以是通过out类型的参数带出的变量</td>
+<td>可以通过out/in out 返回零个或多个值</td>
+<td>通过return语句返回一个值，且改值要与声明部分一致，也可以是通过out类型的参数带出的变量</td>
 </tr>
 <tr>
 <td>能否独立执行</td>
-<td style="text-align:center">可作为一个独立的PL/SQL语句来执行</td>
-<td style="text-align:right">不能独立执行，必须作为表达式的一部分调用</td>
+<td>可作为一个独立的PL/SQL语句来执行</td>
+<td>不能独立执行，必须作为表达式的一部分调用</td>
 </tr>
 <tr>
 <td>能否在SQL语句(DML 或SELECT)中调用</td>
-<td style="text-align:center">不可调用</td>
-<td style="text-align:right">可以调用</td>
+<td>不可调用</td>
+<td>可以调用</td>
 </tr>
 <tr>
 <td>能否使用in/out/in out三种模式的参数</td>
-<td style="text-align:center">可以使用</td>
-<td style="text-align:right">可以使用</td>
+<td>可以使用</td>
+<td>可以使用</td>
 </tr>
 </tbody>
 </table>
@@ -620,17 +620,25 @@
 <h3 id="事务与锁"><a href="#事务与锁" class="headerlink" title="事务与锁"></a>事务与锁</h3><h4 id="什么是事务？"><a href="#什么是事务？" class="headerlink" title="什么是事务？"></a>什么是事务？</h4><p>事务就是被绑定在一起作为一个逻辑工作单元的SQL语句分组，如果任何一个语句操作失败那么整个操作就被失败，以后操作就会回滚到操作前状态，或者是上有个节点。为了确保要么执行，要么不执行，就可以使用事务。</p>
 <p>数据库事务transanction正确执行的四个基本要素。ACID,原子性(Atomicity)、一致性(Correspondence)、隔离性(Isolation)、持久性(Durability)。</p>
 <h4 id="什么是锁？"><a href="#什么是锁？" class="headerlink" title="什么是锁？"></a>什么是锁？</h4><p>锁是实现事务的关键，锁可以保证事务的完整性和并发性。与现实生活中锁一样，它可以使某些数据的拥有者，在某段时间内不能使用某些数据或数据结构。当然锁还分级别的。</p>
-<h3 id="查询语句优化"><a href="#查询语句优化" class="headerlink" title="查询语句优化"></a>查询语句优化</h3><h4 id="查询尽量避免全表扫描，首先应考虑在-where-及-order-by-涉及的列上建立索引。"><a href="#查询尽量避免全表扫描，首先应考虑在-where-及-order-by-涉及的列上建立索引。" class="headerlink" title="查询尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。"></a>查询尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</h4><h4 id="尽量避免如下-SQL-语句，会造成引擎放弃使用索引而进行全表扫描。"><a href="#尽量避免如下-SQL-语句，会造成引擎放弃使用索引而进行全表扫描。" class="headerlink" title="尽量避免如下 SQL 语句，会造成引擎放弃使用索引而进行全表扫描。"></a>尽量避免如下 SQL 语句，会造成引擎放弃使用索引而进行全表扫描。</h4><h5 id="避免在-where-子句中使用-或-lt-gt-操作符。"><a href="#避免在-where-子句中使用-或-lt-gt-操作符。" class="headerlink" title="避免在 where 子句中使用 != 或 &lt;&gt; 操作符。"></a>避免在 where 子句中使用 != 或 &lt;&gt; 操作符。</h5><h5 id="避免在-where-子句中对字段进行-null-值判断。"><a href="#避免在-where-子句中对字段进行-null-值判断。" class="headerlink" title="避免在 where 子句中对字段进行 null 值判断。"></a>避免在 where 子句中对字段进行 null 值判断。</h5><p>错误示例： <figure class="highlight plain"><figcaption><span>id from t where num is null ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：使用默认约束，设置num默认值0，确保表中num列没有null值，然后这样查询。 ``` select id from t where num=0</span><br></pre></td></tr></table></figure></p>
-<h5 id="避免在-where-子句中使用-or-来连接条件。"><a href="#避免在-where-子句中使用-or-来连接条件。" class="headerlink" title="避免在 where 子句中使用 or 来连接条件。"></a>避免在 where 子句中使用 or 来连接条件。</h5><p>错误示例：<figure class="highlight plain"><figcaption><span>id from t where num</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：</span><br></pre></td></tr></table></figure></p>
-<p>select id from t where num=10<br>union all<br>select id from t where num=20<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##### 避免模糊搜索 like 以 % 开头。</span><br><span class="line"></span><br><span class="line">错误示例：``` select id from t where name like &apos;%abc%&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="查询语句优化"><a href="#查询语句优化" class="headerlink" title="查询语句优化"></a>查询语句优化</h3><h4 id="查询尽量避免全表扫描，首先应考虑在-where-及-order-by-涉及的列上建立索引。"><a href="#查询尽量避免全表扫描，首先应考虑在-where-及-order-by-涉及的列上建立索引。" class="headerlink" title="查询尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。"></a>查询尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</h4><h4 id="尽量避免如下-SQL-语句，会造成引擎放弃使用索引而进行全表扫描。"><a href="#尽量避免如下-SQL-语句，会造成引擎放弃使用索引而进行全表扫描。" class="headerlink" title="尽量避免如下 SQL 语句，会造成引擎放弃使用索引而进行全表扫描。"></a>尽量避免如下 SQL 语句，会造成引擎放弃使用索引而进行全表扫描。</h4><h5 id="避免在-where-子句中使用-或-lt-gt-操作符。"><a href="#避免在-where-子句中使用-或-lt-gt-操作符。" class="headerlink" title="避免在 where 子句中使用 != 或 &lt;&gt; 操作符。"></a>避免在 where 子句中使用 != 或 &lt;&gt; 操作符。</h5><h5 id="避免在-where-子句中对字段进行-null-值判断。"><a href="#避免在-where-子句中对字段进行-null-值判断。" class="headerlink" title="避免在 where 子句中对字段进行 null 值判断。"></a>避免在 where 子句中对字段进行 null 值判断。</h5><p>错误示例： </p>
+<figure class="highlight plain"><figcaption><span>id from t where num is null ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：使用默认约束，设置num默认值0，确保表中num列没有null值，然后这样查询。</span><br><span class="line"></span><br><span class="line">``` select id from t where num=0</span><br></pre></td></tr></table></figure>
+<h5 id="避免在-where-子句中使用-or-来连接条件。"><a href="#避免在-where-子句中使用-or-来连接条件。" class="headerlink" title="避免在 where 子句中使用 or 来连接条件。"></a>避免在 where 子句中使用 or 来连接条件。</h5><p>错误示例：</p>
+<figure class="highlight plain"><figcaption><span>id from t where num</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：</span><br></pre></td></tr></table></figure>
+<p>select id from t where num=10<br>union all<br>select id from t where num=20<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">##### 避免模糊搜索 like 以 % 开头。</span><br><span class="line"></span><br><span class="line">错误示例：</span><br><span class="line"></span><br><span class="line">``` select id from t where name like &apos;%abc%&apos;</span><br></pre></td></tr></table></figure></p>
 <p>解决方案：对于 like ‘..%’ (不以 % 开头)，可以应用 colunm 上的 index</p>
-<h5 id="避免对于连续的数值范围使用-in-和-not-in。"><a href="#避免对于连续的数值范围使用-in-和-not-in。" class="headerlink" title="避免对于连续的数值范围使用 in 和 not in。"></a>避免对于连续的数值范围使用 in 和 not in。</h5><p>错误示例：<figure class="highlight plain"><figcaption><span>id from t where num in(1,2,3) ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：对于连续的数值，能用 between 就不要用 in 了 ``` select id from t where num between 1 and 3</span><br></pre></td></tr></table></figure></p>
+<h5 id="避免对于连续的数值范围使用-in-和-not-in。"><a href="#避免对于连续的数值范围使用-in-和-not-in。" class="headerlink" title="避免对于连续的数值范围使用 in 和 not in。"></a>避免对于连续的数值范围使用 in 和 not in。</h5><p>错误示例：</p>
+<figure class="highlight plain"><figcaption><span>id from t where num in(1,2,3) ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：对于连续的数值，能用 between 就不要用 in 了</span><br><span class="line"></span><br><span class="line">``` select id from t where num between 1 and 3</span><br></pre></td></tr></table></figure>
 <h5 id="避免在-where-子句中使用参数。"><a href="#避免在-where-子句中使用参数。" class="headerlink" title="避免在 where 子句中使用参数。"></a>避免在 where 子句中使用参数。</h5><p>因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时, 它必须在编译时进行选择。<br>然而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。</p>
-<p>错误示例： <figure class="highlight plain"><figcaption><span>id from t where num</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　</span><br><span class="line">解决方案：可以改为强制查询使用索引：``` select id from t with(index(索引名)) where num=@num</span><br></pre></td></tr></table></figure></p>
-<h5 id="避免在-where-子句中对字段进行表达式操作"><a href="#避免在-where-子句中对字段进行表达式操作" class="headerlink" title="避免在 where 子句中对字段进行表达式操作"></a>避免在 where 子句中对字段进行表达式操作</h5><p>错误示例：<figure class="highlight plain"><figcaption><span>id from t where num/2</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：``` select id from t where num=100*2</span><br></pre></td></tr></table></figure></p>
-<h5 id="避免在where子句中对字段进行函数操作"><a href="#避免在where子句中对字段进行函数操作" class="headerlink" title="避免在where子句中对字段进行函数操作"></a>避免在where子句中对字段进行函数操作</h5><p>错误示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id from t where substring(name,1,3)=&apos;abc&apos;; --name以abc开头的id</span><br><span class="line">select id from t where datediff(day,createdate,&apos;2005-11-30&apos;)=0; --&apos;2005-11-30&apos;生成的id</span><br></pre></td></tr></table></figure></p>
-<p>解决方案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id from t where name like &apos;abc%&apos;;</span><br><span class="line">select id from t where createdate&gt;=&apos;2005-11-30&apos; and createdate&lt;&apos;2005-12-1&apos;;</span><br></pre></td></tr></table></figure></p>
-<h4 id="不要在-where-子句中的“-”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。"><a href="#不要在-where-子句中的“-”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。" class="headerlink" title="不要在 where 子句中的“=”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。"></a>不要在 where 子句中的“=”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</h4><h4 id="在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）"><a href="#在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）" class="headerlink" title="在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）"></a>在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）</h4><h4 id="用-exists-代替-in"><a href="#用-exists-代替-in" class="headerlink" title="用 exists 代替 in"></a>用 exists 代替 in</h4><p>错误示例：<figure class="highlight plain"><figcaption><span>num from a where num in(select num from b)  ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：``` select num from a where exists(select 1 from b where num=a.num)</span><br></pre></td></tr></table></figure></p>
+<p>错误示例：</p>
+<figure class="highlight plain"><figcaption><span>id from t where num</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　　</span><br><span class="line">解决方案：可以改为强制查询使用索引</span><br><span class="line"></span><br><span class="line">``` select id from t with(index(索引名)) where num=@num</span><br></pre></td></tr></table></figure>
+<h5 id="避免在-where-子句中对字段进行表达式操作"><a href="#避免在-where-子句中对字段进行表达式操作" class="headerlink" title="避免在 where 子句中对字段进行表达式操作"></a>避免在 where 子句中对字段进行表达式操作</h5><p>错误示例：</p>
+<figure class="highlight plain"><figcaption><span>id from t where num/2</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：</span><br><span class="line"></span><br><span class="line">``` select id from t where num=100*2</span><br></pre></td></tr></table></figure>
+<h5 id="避免在where子句中对字段进行函数操作"><a href="#避免在where子句中对字段进行函数操作" class="headerlink" title="避免在where子句中对字段进行函数操作"></a>避免在where子句中对字段进行函数操作</h5><p>错误示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id from t where substring(name,1,3)=&apos;abc&apos;; --name以abc开头的id</span><br><span class="line">select id from t where datediff(day,createdate,&apos;2005-11-30&apos;)=0; --&apos;2005-11-30&apos;生成的id</span><br></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select id from t where name like &apos;abc%&apos;;</span><br><span class="line">select id from t where createdate&gt;=&apos;2005-11-30&apos; and createdate&lt;&apos;2005-12-1&apos;;</span><br></pre></td></tr></table></figure>
+<h4 id="不要在-where-子句中的“-”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。"><a href="#不要在-where-子句中的“-”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。" class="headerlink" title="不要在 where 子句中的“=”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。"></a>不要在 where 子句中的“=”【左边】进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</h4><h4 id="在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）"><a href="#在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）" class="headerlink" title="在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）"></a>在使用索引字段作为条件时，如果该索引是【复合索引】，那么必须使用到该索引中的【第一个字段】作为条件时才能保证系统使用该索引，否则该索引将不会被使用。并且应尽可能的让字段顺序与索引顺序相一致。（字段顺序也可以不与索引顺序一致，但是一定要包含【第一个字段】）</h4><h4 id="用-exists-代替-in"><a href="#用-exists-代替-in" class="headerlink" title="用 exists 代替 in"></a>用 exists 代替 in</h4><p>错误示例：</p>
+<figure class="highlight plain"><figcaption><span>num from a where num in(select num from b)  ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解决方案：</span><br><span class="line"></span><br><span class="line">``` select num from a where exists(select 1 from b where num=a.num)</span><br></pre></td></tr></table></figure>
 <h4 id="任何地方都不要使用-select-from-t-，用具体的字段列表代替“”，不要返回用不到的任何字段。"><a href="#任何地方都不要使用-select-from-t-，用具体的字段列表代替“”，不要返回用不到的任何字段。" class="headerlink" title="任何地方都不要使用 select  from t ，用具体的字段列表代替“”，不要返回用不到的任何字段。"></a>任何地方都不要使用 select <em> from t ，用具体的字段列表代替“</em>”，不要返回用不到的任何字段。</h4><h4 id="尽可能的使用-varchar-nvarchar-代替-char-nchar-，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。"><a href="#尽可能的使用-varchar-nvarchar-代替-char-nchar-，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。" class="headerlink" title="尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。"></a>尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</h4><h4 id="避免频繁创建和删除临时表，以减少系统表资源的消耗。"><a href="#避免频繁创建和删除临时表，以减少系统表资源的消耗。" class="headerlink" title="避免频繁创建和删除临时表，以减少系统表资源的消耗。"></a>避免频繁创建和删除临时表，以减少系统表资源的消耗。</h4><h4 id="一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。"><a href="#一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。" class="headerlink" title="一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。"></a>一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</h4><h4 id="不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。"><a href="#不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。" class="headerlink" title="不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。"></a>不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。</h4><h4 id="尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。"><a href="#尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。" class="headerlink" title="尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。"></a>尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</h4><h4 id="尽量避免大事务操作，提高系统并发能力。"><a href="#尽量避免大事务操作，提高系统并发能力。" class="headerlink" title="尽量避免大事务操作，提高系统并发能力。"></a>尽量避免大事务操作，提高系统并发能力。</h4>
       
     </div>
