@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="NoSQL诞生的是为了解决现有关系型数据库所解决不了的问题。云计算时代对技术有了更高的要求，具体总结为4点，读写速度低延迟，可支持海量数据和流量，更简单的部署和管理分布式集群，减小越来越大的运营成本。而现有的主流的存储系统大部分还是采用了关系型数据库，其限制性很难满足以上需求。下面会从 NoSQL 的优势逐步聊到 redis 的一些重要概念，以及如何在分布式系统中应用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-19T09:07:26.283Z">
+<meta property="og:updated_time" content="2018-09-20T01:44:20.688Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="非关系型数据库之 redis">
 <meta name="twitter:description" content="NoSQL诞生的是为了解决现有关系型数据库所解决不了的问题。云计算时代对技术有了更高的要求，具体总结为4点，读写速度低延迟，可支持海量数据和流量，更简单的部署和管理分布式集群，减小越来越大的运营成本。而现有的主流的存储系统大部分还是采用了关系型数据库，其限制性很难满足以上需求。下面会从 NoSQL 的优势逐步聊到 redis 的一些重要概念，以及如何在分布式系统中应用。">
@@ -398,7 +398,7 @@
 </li>
 </ol>
 <h4 id="列族数据库——不适用场景"><a href="#列族数据库——不适用场景" class="headerlink" title="列族数据库——不适用场景"></a>列族数据库——不适用场景</h4><ol>
-<li><p>如果我们需要ACID事务。Vassandra就不支持事务。</p>
+<li><p>如果我们需要ACID事务。Cassandra就不支持事务。</p>
 </li>
 <li><p>原型设计。如果我们分析Cassandra的数据结构，我们就会发现结构是基于我们期望的数据查询方式而定。在模型设计之初，我们根本不可能去预测它的查询方式，而一旦查询方式改变，我们就必须重新设计列族。</p>
 </li>
