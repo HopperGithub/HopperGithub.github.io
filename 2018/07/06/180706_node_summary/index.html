@@ -103,7 +103,7 @@
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-async-io.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-timer-event.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-workflow.png">
-<meta property="og:updated_time" content="2018-09-29T05:00:13.201Z">
+<meta property="og:updated_time" content="2018-09-29T05:14:02.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node 回顾与总结（一）">
 <meta name="twitter:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
@@ -412,7 +412,7 @@
 </li>
 <li><p>特点：宏任务队列每次只会取出一条任务到执行栈中执行。</p>
 </li>
-<li><p>Vue 中对于 macro task 的实现，优先检测是否支持原生 setImmediate，这是一个高版本 IE 和 Edge 才支持的特性，不支持再检测是否支持原生的 MessageChannel，如果也不支持的话就降级使用 setTimeout 0</p>
+<li><p>Vue 中对于 macro task 的实现：优先检测是否支持原生 setImmediate，这是一个高版本 IE 和 Edge 才支持的特性，不支持再检测是否支持原生的 MessageChannel，如果也不支持的话就降级使用 setTimeout 0</p>
 </li>
 </ul>
 </li>
@@ -422,9 +422,11 @@
 </li>
 <li><p>特点：微任务队列操作，总是会一次性执行直到清空队列。</p>
 </li>
-<li><p>Vue 对于 microTask 实现的，Vue.$nextTick 并不一定是微任务，这取决于这个函数采用 Promise/MutationObserver 还是setTimeout 实现，当前环境若不支持 Promise，然后也不支持MutationObserver（2.5+版本后由于兼容性弃用，使用 MessageChannel 替代），则降级采用 setTimeout 0 实现。</p>
+<li><p>Vue 对于 microTask 的实现：Vue.$nextTick 并不一定是微任务，这取决于这个函数采用 Promise/MutationObserver 还是setTimeout 实现，当前环境若不支持 Promise，然后也不支持MutationObserver（2.5+版本后由于兼容性弃用，使用 MessageChannel 替代），则降级采用 setTimeout 0 实现。</p>
 </li>
-<li><p>2.4版本前，Vue.$nextTick 几乎都是基于 microTask 实现的，采取的策略是默认走microTask，但是由于microTask的执行优先级非常高，在某些场景下它甚至要比事件冒泡还快，就导致一些诡异的问题；但如果全改成 macroTask，对一些有重绘和动画的场景也会有性能的影响。所以最终nextTick，采取的策略是默认走 microTask，对于一些DOM的交互事件，如v-on绑定的事件回调处理函数的处理，会强制走 macroTask，而 Vue 对于 macro task 的实现，上面已经说过了。</p>
+<li><p>2.4版本前：Vue.$nextTick 几乎都是基于 microTask 实现的，采取的策略是默认走microTask，但是由于microTask的执行优先级非常高，在某些场景下它甚至要比事件冒泡还快，就导致一些诡异的问题；但如果全改成 macroTask，对一些有重绘和动画的场景也会有性能的影响。</p>
+</li>
+<li><p>2.5+版本后：Vue.$nextTick 采取的策略是默认走 microTask，对于一些DOM的交互事件，如v-on绑定的事件回调处理函数的处理会强制走 macroTask，而 Vue 对于 macro task 的实现，上面已经说过了。</p>
 </li>
 </ul>
 </li>
