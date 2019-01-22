@@ -90,11 +90,11 @@
 <meta name="keywords" content="Database">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关系型数据库设计与优化手段总结">
-<meta property="og:url" content="https://hoppergithub.github.io/2018/09/17/180917_db_optimize/index.html">
+<meta property="og:url" content="https://hoppergithub.github.io/2018/06/10/180610_db_optimize/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="数据库的设计是大多数人都会面临的问题，进行必要的优化则会使性能得到可靠的提升。日常工作中，可能没有意识已经做了某些优化，但是要将哪些手段都具体列出来、说清楚，可能一时间会不知所措，其实还是理论不够夯实。前两天回顾了一下之前的工作，查阅相关理论资料，发现数据库理论和经验仍待提升，所以打算从设计和优化两方面给自己做个总结，回顾学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-18T08:54:42.881Z">
+<meta property="og:updated_time" content="2019-01-22T10:13:43.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关系型数据库设计与优化手段总结">
 <meta name="twitter:description" content="数据库的设计是大多数人都会面临的问题，进行必要的优化则会使性能得到可靠的提升。日常工作中，可能没有意识已经做了某些优化，但是要将哪些手段都具体列出来、说清楚，可能一时间会不知所措，其实还是理论不够夯实。前两天回顾了一下之前的工作，查阅相关理论资料，发现数据库理论和经验仍待提升，所以打算从设计和优化两方面给自己做个总结，回顾学习。">
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="https://hoppergithub.github.io/2018/09/17/180917_db_optimize/"/>
+  <link rel="canonical" href="https://hoppergithub.github.io/2018/06/10/180610_db_optimize/"/>
 
 
 
@@ -240,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2018/09/17/180917_db_optimize/">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2018/06/10/180610_db_optimize/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hopper Sun">
@@ -269,8 +269,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T09:00:21+08:00">
-                2018-09-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-10T09:00:21+08:00">
+                2018-06-10
               </time>
             
 
@@ -717,7 +717,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hoppergithub.github.io/2018/09/17/180917_db_optimize/" title="关系型数据库设计与优化手段总结">https://hoppergithub.github.io/2018/09/17/180917_db_optimize/</a>
+    <a href="https://hoppergithub.github.io/2018/06/10/180610_db_optimize/" title="关系型数据库设计与优化手段总结">https://hoppergithub.github.io/2018/06/10/180610_db_optimize/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -745,8 +745,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/03/180903_high_availability/" rel="next" title="如何设计高可用架构">
-                <i class="fa fa-chevron-left"></i> 如何设计高可用架构
+              <a href="/2018/05/05/180505_mq_kafka/" rel="next" title="MQ Middleware 之 Kafka 基础篇">
+                <i class="fa fa-chevron-left"></i> MQ Middleware 之 Kafka 基础篇
               </a>
             
           </div>
@@ -755,8 +755,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/19/180919_db_redis/" rel="prev" title="非关系型数据库之 redis">
-                非关系型数据库之 redis <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/25/180625_gmtc_comment/" rel="prev" title="2018全球大前端技术大会（GMTC）会后简谈一二">
+                2018全球大前端技术大会（GMTC）会后简谈一二 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -834,7 +834,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -845,7 +845,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -856,7 +856,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -919,7 +919,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

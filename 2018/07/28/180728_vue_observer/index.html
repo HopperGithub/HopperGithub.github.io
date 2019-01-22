@@ -90,11 +90,11 @@
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对 Vue 观察者及数据劫持的理解">
-<meta property="og:url" content="https://hoppergithub.github.io/2018/09/28/180928_vue_observer/index.html">
+<meta property="og:url" content="https://hoppergithub.github.io/2018/07/28/180728_vue_observer/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="好久之前增研读过 Vue 源码，感觉精巧优雅，着实敬佩，模块拆分也让人很舒服，但是对于观察者模式的实现以及数据劫持种种原理，了解不甚透彻，近日抽时间再读，某些淤塞的节点上有了一些豁然开朗的感觉，暂时记录下来，以后慢慢详解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-29T03:07:13.171Z">
+<meta property="og:updated_time" content="2019-01-22T10:13:04.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对 Vue 观察者及数据劫持的理解">
 <meta name="twitter:description" content="好久之前增研读过 Vue 源码，感觉精巧优雅，着实敬佩，模块拆分也让人很舒服，但是对于观察者模式的实现以及数据劫持种种原理，了解不甚透彻，近日抽时间再读，某些淤塞的节点上有了一些豁然开朗的感觉，暂时记录下来，以后慢慢详解。">
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="https://hoppergithub.github.io/2018/09/28/180928_vue_observer/"/>
+  <link rel="canonical" href="https://hoppergithub.github.io/2018/07/28/180728_vue_observer/"/>
 
 
 
@@ -240,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2018/09/28/180928_vue_observer/">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2018/07/28/180728_vue_observer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hopper Sun">
@@ -269,8 +269,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T10:36:12+08:00">
-                2018-09-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-28T21:36:12+08:00">
+                2018-07-28
               </time>
             
 
@@ -405,7 +405,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hoppergithub.github.io/2018/09/28/180928_vue_observer/" title="对 Vue 观察者及数据劫持的理解">https://hoppergithub.github.io/2018/09/28/180928_vue_observer/</a>
+    <a href="https://hoppergithub.github.io/2018/07/28/180728_vue_observer/" title="对 Vue 观察者及数据劫持的理解">https://hoppergithub.github.io/2018/07/28/180728_vue_observer/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -433,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/19/180919_db_redis/" rel="next" title="非关系型数据库之 redis">
-                <i class="fa fa-chevron-left"></i> 非关系型数据库之 redis
+              <a href="/2018/07/06/180706_node_summary/" rel="next" title="Node 回顾与总结（一）">
+                <i class="fa fa-chevron-left"></i> Node 回顾与总结（一）
               </a>
             
           </div>
@@ -442,6 +442,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/12/180812_high_concurrence/" rel="prev" title="高并发架构的设计与实践">
+                高并发架构的设计与实践 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -518,7 +522,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -529,7 +533,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -540,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -603,7 +607,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
