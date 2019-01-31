@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="在CentOS开发机上安装node、git、docker 等环境, 准备搞点事情。启动 docker 服务报错搞了半天~晕。网上说的方案试了一些，基本都行不通。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-22T10:12:21.398Z">
+<meta property="og:updated_time" content="2019-01-31T09:03:55.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS:启动 docker 报错，iptable_nat 模块未找到">
 <meta name="twitter:description" content="在CentOS开发机上安装node、git、docker 等环境, 准备搞点事情。启动 docker 服务报错搞了半天~晕。网上说的方案试了一些，基本都行不通。">
@@ -337,18 +337,19 @@
         <p>　在CentOS开发机上安装node、git、docker 等环境, 准备搞点事情。启动 docker 服务报错搞了半天~晕。网上说的方案试了一些，基本都行不通。</p>
 <a id="more"></a>
 <h3 id="问题说明"><a href="#问题说明" class="headerlink" title="问题说明"></a>问题说明</h3><ol>
-<li><p>执行systemctl start docker无法启动Docker服务，报错信息如下：</p>
+<li>执行systemctl start docker无法启动Docker服务，报错信息如下：</li>
+</ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Job for docker.service failed because the control process exited with error code. See "systemctl status docker.service" and "journalctl -xe" for details.</span><br></pre></td></tr></table></figure>
-</li>
+<ol start="2">
 <li><p>执行 <figure class="highlight plain"><figcaption><span>status docker.service```进一步查找原因，发现启动失败的原因是</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```shell</span><br><span class="line"></span><br><span class="line">Error starting daemon: Error initializing network controller: error obtaining controller instance: failed to create NAT chain DOCKER: iptables failed: iptables --wait -t nat -N DOCKER: iptables v1.4.21: can&apos;t initialize iptables table `nat&apos;: Table does not exist (do you need to insmod?)</span><br></pre></td></tr></table></figure></p>
 </li>
 <li><p>分析一下，看样子是没有找到 iptable_nat，在放上看错误信息，还有一些关于 xt_conntrack 内核模块加载失败的错误信息。</p>
 </li>
 <li><p>试了挺多网上的方法，比如</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">modinfo iptable_nat</span><br><span class="line">modprobe iptable_nat</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe ip_tables</span><br><span class="line">sudo echo 'ip_tables' &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">modinfo iptable_nat</span><br><span class="line">modprobe iptable_nat</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo modprobe ip_tables</span><br><span class="line">sudo echo 'ip_tables' &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
 <p>等等，网上的大部分方案都试过了，都没效果。。。</p>
 <p>最后发现有个黑名单的存在，可能是模块被加入了黑名单，导致无法加载。</p>
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>CentOS 默认会禁用一些内核模块，按照下图进行修改后，重新启动即可。</p>
@@ -496,7 +497,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
