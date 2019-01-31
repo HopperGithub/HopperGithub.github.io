@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="FE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="总结了写前端相关资料。">
+<meta name="keywords" content="FE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端相关资源（三）">
+<meta property="og:url" content="https://hoppergithub.github.io/2016/04/15/160415_materials_fe3/index.html">
+<meta property="og:site_name" content="Hopper&#39;s Blog">
+<meta property="og:description" content="总结了写前端相关资料。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-31T09:23:51.448Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端相关资源（三）">
+<meta name="twitter:description" content="总结了写前端相关资料。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoppergithub.github.io/2016/04/15/160415_materials_fe3/"/>
+
+
+
+
+
+  <title>前端相关资源（三） | Hopper's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hopper's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活就像咖啡，酸楚苦涩却浓郁香醇、耐人回味，如果慢些喝，或许会发现，还是热的可口。。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2016/04/15/160415_materials_fe3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hopper Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hopper's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端相关资源（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-15T00:00:00+08:00">
+                2016-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Resources/" itemprop="url" rel="index">
+                    <span itemprop="name">Resources</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　总结了写前端相关资料。<br><a id="more"></a></p>
+<h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><p><a href="http://witstudio.net/" target="_blank" rel="noopener">Assistor PS 切图标记外挂神器</a><br><a href="http://www.bigertech.com/post/assistor-ps-1/" target="_blank" rel="noopener">免费了，切图标记外挂神器 Assistor PS 深入解读(上)  </a><br><a href="http://www.bigertech.com/post/assistor-ps-2/" target="_blank" rel="noopener">免费了，切图标记外挂神器 Assistor PS 深入解读(下)  </a><br><a href="https://www.zhihu.com/question/19670020" target="_blank" rel="noopener">国外有哪些流行的图片分享网站</a><br><a href="https://www.zhihu.com/question/20857524/answer/41328995" target="_blank" rel="noopener">从零基础如何自学 UI 设计？</a>  </p>
+<h3 id="可视化库"><a href="#可视化库" class="headerlink" title="可视化库"></a>可视化库</h3><p><a href="https://www.qcloud.com/community/article/369896?fromSource=gwzcw.92829.92829.92829" target="_blank" rel="noopener">遇见大数据可视化：基础研究</a>  </p>
+<p><a href="https://modernizr.com/download?setclasses" target="_blank" rel="noopener">modernizr</a><br><a href="https://d3js.org/" target="_blank" rel="noopener">D3 三维处理</a>  </p>
+<h3 id="three-js"><a href="#three-js" class="headerlink" title="three.js"></a>three.js</h3><h4 id="全景："><a href="#全景：" class="headerlink" title="全景："></a>全景：</h4><p><a href="http://www.weiqunwang.net/three/demo.html" target="_blank" rel="noopener">去官网看看demo</a><br><a href="http://nadoopro.applinzi.com/360/index.html" target="_blank" rel="noopener">全景</a>  </p>
+<h4 id="VR"><a href="#VR" class="headerlink" title="VR"></a>VR</h4><p><a href="http://charity.kfc.com.cn/vrcharity/?share_code=29ZYN2cLxlJVgVQXgwEO10284" target="_blank" rel="noopener">肯德基VR虚拟公益艺术体验馆</a>  </p>
+<h3 id="富文本编辑器"><a href="#富文本编辑器" class="headerlink" title="富文本编辑器"></a>富文本编辑器</h3><p><a href="http://www.wangeditor.com/m/" title="真正适用于手指触摸的富文本编辑器！ 使用 javascript 开发，轻松集成到 webapp" target="_blank" rel="noopener">wangEditor-mobile</a><br><a href="http://www.jq22.com/demo/Trumbowyg-1.0/" target="_blank" rel="noopener">Examples of use Trumbowyg</a><br><a href="http://kindeditor.net/demo.php" target="_blank" rel="noopener">kindeditor</a><br><a href="http://js1k.com/2016-elemental/demos" title="javascript代码比赛" target="_blank" rel="noopener">JS1k Demo</a><br><a href="http://www.zcfy.cc/" title="每周免费获取精彩、前沿技术文章" target="_blank" rel="noopener">众成翻译</a>  </p>
+<h3 id="正则表达式调试工具"><a href="#正则表达式调试工具" class="headerlink" title="正则表达式调试工具"></a>正则表达式调试工具</h3><p><a href="http://www1.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="noopener">正则表达式调试工具</a> </p>
+<h3 id="h5"><a href="#h5" class="headerlink" title="h5"></a>h5</h3><p><a href="https://segmentfault.com/a/1190000005988744" title="随着智能硬件的普及，手机，平板，PC甚至路边的电子广告牌，现代浏览器已经无处不在。在浏览器里编织出我们自己的一片天地已经轻车熟路，但是这还不够，H5赋予了浏览器太多的新特性，等待我们去使用。这篇文章介绍利用手机浏览器的罗盘API，在PC的浏览器实时地绘制一个3D盒模型。" target="_blank" rel="noopener">多屏互动——H5 中级进阶</a><br><a href="https://segmentfault.com/a/1190000006140042" target="_blank" rel="noopener">移动端H5图片上传的那些坑</a><br><a href="https://isux.tencent.com/h5active.html" target="_blank" rel="noopener">H5动效的常见制作手法</a>  </p>
+<h3 id="前端动态"><a href="#前端动态" class="headerlink" title="前端动态"></a>前端动态</h3><p><a href="https://segmentfault.com/a/1190000003836940" target="_blank" rel="noopener">前端工具集</a><br><a href="http://www.jianshu.com/p/35e20bb361d0#" target="_blank" rel="noopener">大公司里怎样开发和部署前端代码？(附实践方案)</a><br><a href="https://www.awesomes.cn/" target="_blank" rel="noopener">看看大牛都在用什么前端框架</a><br><a href="http://www.jianshu.com/p/6620f3a8ed46" target="_blank" rel="noopener">github上值得关注的前端项目</a><br><a href="http://www.cnblogs.com/jikey/p/3613082.html" target="_blank" rel="noopener">web前端开发分享</a><br><a href="http://www.imbeta.cn/javascript-tuo-luo-yi-jian-ce-she-bei-fang-xiang-zhong-li-gan-ying.html#javascript-tuo-luo-yi-jian-ce-she-bei-fang-xiang-zhong-li-gan-ying" target="_blank" rel="noopener">JavaScript 陀螺仪检测设备方向(重力感应)</a> </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Hopper Sun
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoppergithub.github.io/2016/04/15/160415_materials_fe3/" title="前端相关资源（三）">https://hoppergithub.github.io/2016/04/15/160415_materials_fe3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/FE/" rel="tag"># FE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/25/160325_javascript_arguments/" rel="next" title="深度探究 Arguments 对象">
+                <i class="fa fa-chevron-left"></i> 深度探究 Arguments 对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/28/160528_materials_fe4/" rel="prev" title="前端相关资源（四）">
+                前端相关资源（四） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hopper Sun</p>
+              <p class="site-description motion-element" itemprop="description">双子座伪文艺男青年</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HopperGithub" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UI"><span class="nav-number">1.</span> <span class="nav-text">UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化库"><span class="nav-number">2.</span> <span class="nav-text">可视化库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#three-js"><span class="nav-number">3.</span> <span class="nav-text">three.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全景："><span class="nav-number">3.1.</span> <span class="nav-text">全景：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VR"><span class="nav-number">3.2.</span> <span class="nav-text">VR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#富文本编辑器"><span class="nav-number">4.</span> <span class="nav-text">富文本编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式调试工具"><span class="nav-number">5.</span> <span class="nav-text">正则表达式调试工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h5"><span class="nav-number">6.</span> <span class="nav-text">h5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端动态"><span class="nav-number">7.</span> <span class="nav-text">前端动态</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hopper Sun</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
