@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="素数平时用到不太多，但技术面试过程中，算法是必不或缺的一环，而斐波那契数列、素数等算法的白板考核较为常见，今天就用 Python 写几个和素数有关的例子吧。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 python 和素数来一次亲密接触">
+<meta property="og:url" content="https://hoppergithub.github.io/2019/02/11/190211_algorithms_prime/index.html">
+<meta property="og:site_name" content="Hopper&#39;s Blog">
+<meta property="og:description" content="素数平时用到不太多，但技术面试过程中，算法是必不或缺的一环，而斐波那契数列、素数等算法的白板考核较为常见，今天就用 Python 写几个和素数有关的例子吧。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-prime-test.png">
+<meta property="og:updated_time" content="2019-02-13T10:50:53.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用 python 和素数来一次亲密接触">
+<meta name="twitter:description" content="素数平时用到不太多，但技术面试过程中，算法是必不或缺的一环，而斐波那契数列、素数等算法的白板考核较为常见，今天就用 Python 写几个和素数有关的例子吧。">
+<meta name="twitter:image" content="https://hoppergithub.github.io/images/img-prime-test.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoppergithub.github.io/2019/02/11/190211_algorithms_prime/"/>
+
+
+
+
+
+  <title>用 python 和素数来一次亲密接触 | Hopper's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hopper's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活就像咖啡，酸楚苦涩却浓郁香醇、耐人回味，如果慢些喝，或许会发现，还是热的可口。。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2019/02/11/190211_algorithms_prime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hopper Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hopper's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用 python 和素数来一次亲密接触</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-11T00:00:00+08:00">
+                2019-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　素数平时用到不太多，但技术面试过程中，算法是必不或缺的一环，而斐波那契数列、素数等算法的白板考核较为常见，今天就用 Python 写几个和素数有关的例子吧。</p>
+<a id="more"></a>
+<h3 id="什么是素数？"><a href="#什么是素数？" class="headerlink" title="什么是素数？"></a>什么是素数？</h3><p>素数（prime number）又称质数，有无限个。素数定义为在大于1的自然数中，除了1和它本身以外不再有其他因数。</p>
+<h3 id="如何判断-n-是否为素数"><a href="#如何判断-n-是否为素数" class="headerlink" title="如何判断 n 是否为素数"></a>如何判断 n 是否为素数</h3><ol>
+<li><p>思路：由素数定义可知，最小的素数是 2。那么最容易想到的判断方法就是，从 2 开始遍历到 n - 1, 判断每个数是否整除 n, 即 n % i == 0, 满足条件则不是素数。</p>
+</li>
+<li><p>穷举法实现：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复杂度 O(n)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_is_prime0</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    i = <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; n - <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">if</span> n % i == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="优化穷举法（1）"><a href="#优化穷举法（1）" class="headerlink" title="优化穷举法（1）"></a>优化穷举法（1）</h3><ol>
+<li><p>复盘：很明显执行时间会很长，主要是穷举法的遍历范围太广，可以考虑缩减遍历范围入手优化。</p>
+</li>
+<li><p>启发：中学数据的因式分解可以给出一些启发，即如果一个数可以因式分解，那分解得到的两个数，必定一个小于等于 sqrt(n), 一个大于等于 sqrt(n)。（sqrt表示开方函数）</p>
+</li>
+<li><p>思路：判断 n 是否素数不需要遍历到 n-1，遍历到 sqrt(n) 即可，因为若 sqrt(n) 左侧找不到约数，那么右侧也一定找不到。</p>
+</li>
+<li><p>实现：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复杂度 O(√n)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_is_prime1</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> n == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    squareRoot = <span class="number">1</span></span><br><span class="line">    i = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> squareRoot * squareRoot &lt; n:</span><br><span class="line">        squareRoot += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> i &lt;= squareRoot:</span><br><span class="line">        <span class="keyword">if</span> n % i == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="优化穷举法（2）"><a href="#优化穷举法（2）" class="headerlink" title="优化穷举法（2）"></a>优化穷举法（2）</h3><ol>
+<li><p>复盘：开方法使得遍历范围大大缩小，那还有没有优化空间？仔细观察可以发现，对遍历次数影响的因素，除了范围还有步长。上面两种方法的遍历步长均为1，增大步长，遍历次数也会成倍减少。</p>
+</li>
+<li><p>启发：素数分布存在一个规律，即大于等于5的质数一定和6的倍数相邻。这意味步长可以增大到6，进而判断每个数是否整除 n 或 n+2，即  n % i == 0 or n % (i + 2) == 0, 满足条件则不是素数。</p>
+</li>
+<li><p>实现：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行时间比开方法小3倍左右，数据量越大，效果越明显</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_is_prime2</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">2</span> <span class="keyword">or</span> n == <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> n % <span class="number">6</span> != <span class="number">1</span> <span class="keyword">and</span> n % <span class="number">6</span> != <span class="number">5</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    squareRoot = <span class="number">3</span></span><br><span class="line">    i = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> squareRoot * squareRoot &lt; n:</span><br><span class="line">        squareRoot += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> i &lt;= squareRoot:</span><br><span class="line">        <span class="keyword">if</span> n % i == <span class="number">0</span> <span class="keyword">or</span> n % (i + <span class="number">2</span>) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        i += <span class="number">6</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="执行时间测试"><a href="#执行时间测试" class="headerlink" title="执行时间测试"></a>执行时间测试</h3><ol>
+<li>测试结果</li>
+</ol>
+<p><img src="/images/img-prime-test.png" alt=""></p>
+<ol start="2">
+<li>测试代码</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> default_timer</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_time</span><span class="params">(_is_prime, iter)</span>:</span></span><br><span class="line">    start = default_timer()</span><br><span class="line">    prime_list = filter(_is_prime, iter)</span><br><span class="line">    end = default_timer()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> end - start</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(length)</span>:</span></span><br><span class="line">    test_iter = list(range(length))</span><br><span class="line">    print(<span class="string">'遍历长度：'</span>, length)</span><br><span class="line">    print(<span class="string">'筛选素数0耗时：'</span>, test_time(_is_prime0, test_iter), <span class="string">'s'</span>)</span><br><span class="line">    print(<span class="string">'筛选素数1耗时：'</span>, test_time(_is_prime1, test_iter), <span class="string">'s'</span>)</span><br><span class="line">    print(<span class="string">'筛选素数2耗时：'</span>, test_time(_is_prime2, test_iter), <span class="string">'s'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    test(<span class="number">50000</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="实践拓展"><a href="#实践拓展" class="headerlink" title="实践拓展"></a>实践拓展</h3><ol>
+<li><p>考题：筛选出小于n内的所有素数</p>
+</li>
+<li><p>思路：上面已经知道如何高效判断素数了，那么如果高效的筛选出所有素数呢？</p>
+</li>
+<li><p>启发：有一个更为高效的算法，埃拉托斯特尼筛选法。</p>
+</li>
+<li><p>原理：埃拉托斯特尼筛法是指，要得到自然数n以内的全部素数，必须把不大于根号n的所有素数的倍数剔除，剩下的都是素数。</p>
+</li>
+<li><p>说明：简单推理下，最小素数为2，那就把小于等于根号 n 的所有2的倍数剔除，次最小素数为3，把小于等于根号 n 的所有3的倍数剔除，依次类推，最后得到的就是素数。</p>
+</li>
+<li><p>实现：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sieve_of_eratosthenes</span><span class="params">(n)</span>:</span></span><br><span class="line">    nums = [<span class="number">1</span>] * (n + <span class="number">1</span>)</span><br><span class="line">    s = <span class="number">2</span></span><br><span class="line">    <span class="comment"># 筛到sqrt(n)即可</span></span><br><span class="line">    <span class="keyword">while</span> s * s &lt;= n:</span><br><span class="line">        <span class="comment"># 若未被剔除，说明是素数，此时要筛掉它的倍数</span></span><br><span class="line">        <span class="keyword">if</span> nums[s]:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(s * <span class="number">2</span>, n + <span class="number">1</span>, s):</span><br><span class="line">                nums[i] = <span class="number">0</span></span><br><span class="line">        s += <span class="number">1</span></span><br><span class="line">    <span class="comment"># 将列表（以 0、1 标识的索引）转换成对应素数</span></span><br><span class="line">    nums = [s <span class="keyword">for</span> s <span class="keyword">in</span> range(<span class="number">2</span>, n) <span class="keyword">if</span> nums[s]]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Hopper Sun
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoppergithub.github.io/2019/02/11/190211_algorithms_prime/" title="用 python 和素数来一次亲密接触">https://hoppergithub.github.io/2019/02/11/190211_algorithms_prime/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/04/190104_suggest_cv/" rel="next" title="新人简历二三谈">
+                <i class="fa fa-chevron-left"></i> 新人简历二三谈
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hopper Sun</p>
+              <p class="site-description motion-element" itemprop="description">双子座伪文艺男青年</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HopperGithub" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是素数？"><span class="nav-number">1.</span> <span class="nav-text">什么是素数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何判断-n-是否为素数"><span class="nav-number">2.</span> <span class="nav-text">如何判断 n 是否为素数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化穷举法（1）"><span class="nav-number">3.</span> <span class="nav-text">优化穷举法（1）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化穷举法（2）"><span class="nav-number">4.</span> <span class="nav-text">优化穷举法（2）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行时间测试"><span class="nav-number">5.</span> <span class="nav-text">执行时间测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实践拓展"><span class="nav-number">6.</span> <span class="nav-text">实践拓展</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hopper Sun</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
