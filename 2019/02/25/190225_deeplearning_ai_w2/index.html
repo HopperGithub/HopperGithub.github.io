@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="因为有 Python 编程基础，数学方面还没有完全还给老师，年前加入FE 的 AI 学习小组，开始学习吴恩达老师的DeepLearning课程，记个笔记、画个重点，也方便和增强自己对该课程的进一步学习和理解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-28T08:52:52.402Z">
+<meta property="og:updated_time" content="2019-02-28T09:07:45.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微专业课程 DeepLearning.ai 学习笔记（Week 2）">
 <meta name="twitter:description" content="因为有 Python 编程基础，数学方面还没有完全还给老师，年前加入FE 的 AI 学习小组，开始学习吴恩达老师的DeepLearning课程，记个笔记、画个重点，也方便和增强自己对该课程的进一步学习和理解。">
@@ -336,8 +336,6 @@
       
         <p>　因为有 Python 编程基础，数学方面还没有完全还给老师，年前加入FE 的 AI 学习小组，开始学习吴恩达老师的DeepLearning课程，记个笔记、画个重点，也方便和增强自己对该课程的进一步学习和理解。</p>
 <a id="more"></a>
-<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-
 <h2 id="2-1-二分类-Binary-Classification"><a href="#2-1-二分类-Binary-Classification" class="headerlink" title="2.1 二分类(Binary Classification)"></a>2.1 二分类(Binary Classification)</h2><h3 id="如何处理训练集"><a href="#如何处理训练集" class="headerlink" title="如何处理训练集"></a>如何处理训练集</h3><h4 id="前向暂停-forward-pause"><a href="#前向暂停-forward-pause" class="headerlink" title="前向暂停(forward pause)"></a>前向暂停(forward pause)</h4><p>也叫做前向传播(foward propagation)</p>
 <h4 id="反向暂停-backward-pause"><a href="#反向暂停-backward-pause" class="headerlink" title="反向暂停(backward pause)"></a>反向暂停(backward pause)</h4><p>也叫做反向传播(backward propagation)</p>
 <h3 id="为什么神经网络的训练过程可以分为前向传播和反向传播两个独立的部分"><a href="#为什么神经网络的训练过程可以分为前向传播和反向传播两个独立的部分" class="headerlink" title="为什么神经网络的训练过程可以分为前向传播和反向传播两个独立的部分"></a>为什么神经网络的训练过程可以分为前向传播和反向传播两个独立的部分</h3><h3 id="使用逻辑回归-logistic-regression-来传达这些想法，以使大家能够更加容易地理解这些概念"><a href="#使用逻辑回归-logistic-regression-来传达这些想法，以使大家能够更加容易地理解这些概念" class="headerlink" title="使用逻辑回归(logistic regression)来传达这些想法，以使大家能够更加容易地理解这些概念"></a>使用逻辑回归(logistic regression)来传达这些想法，以使大家能够更加容易地理解这些概念</h3><p>逻辑回归是一个用于二分类(binary classification)的算法</p>
@@ -809,6 +807,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
   <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
