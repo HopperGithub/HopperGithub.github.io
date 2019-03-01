@@ -94,10 +94,14 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="因为有 Python 编程基础，数学方面还没有完全还给老师，年前加入FE 的 AI 学习小组，开始学习吴恩达老师的DeepLearning课程，记个笔记、画个重点，也方便和增强自己对该课程的进一步学习和理解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-28T09:14:56.003Z">
+<meta property="og:image" content="https://hoppergithub.github.io/images/WX20190228-153412@2x.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/WX20190301-145856@2x.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/WX20190301-161715@2x.png">
+<meta property="og:updated_time" content="2019-03-01T09:02:55.573Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微专业课程 DeepLearning.ai 学习笔记（Week 2）">
 <meta name="twitter:description" content="因为有 Python 编程基础，数学方面还没有完全还给老师，年前加入FE 的 AI 学习小组，开始学习吴恩达老师的DeepLearning课程，记个笔记、画个重点，也方便和增强自己对该课程的进一步学习和理解。">
+<meta name="twitter:image" content="https://hoppergithub.github.io/images/WX20190228-153412@2x.png">
 
 
 
@@ -342,9 +346,9 @@
 <h3 id="将训练样本（输入向量的集合）表示为一个矩阵"><a href="#将训练样本（输入向量的集合）表示为一个矩阵" class="headerlink" title="将训练样本（输入向量的集合）表示为一个矩阵"></a>将训练样本（输入向量的集合）表示为一个矩阵</h3><ul>
 <li><p>$x$ 表示一个 $n_x$ 维数据，为输入数据，维度为 $(n_x, 1)$<br>$X$ = $[x^{(1)}, x^{(1)},…, x^{(m)}]$<br>X.shape 是一条 Python命令，用于显示矩阵的规模，即X.shape等于$(n_x, m)$，X是一个规模为$n_x​$乘以m的矩阵</p>
 </li>
-<li><p>y 表示输出结果，取值为(0, 1)<br>$Y$ = $[y^{(1)}, y^{(1)},…, y^{(m)}]$<br>Y.shape 是一条 Python命令，用于显示矩阵的规模，即Y.shape等于（1, m），Y是一个规模为1乘以m的矩阵</p>
+<li><p>y 表示输出结果，取值为(0, 1)<br>$Y​$ = $[y^{(1)}, y^{(1)},…, y^{(m)}]​$<br>Y.shape 是一条 Python命令，用于显示矩阵的规模，即Y.shape等于（1, m），Y是一个规模为1乘以m的矩阵</p>
 </li>
-<li><p>一个好的符号约定能够将不同训练样本的数据很好地组织起来。而我所说的数据不仅包括$x$或者$y$ 还包括之后你会看到的其他的量。将不同的训练样本的数据提取出来，然后就像刚刚我们对$x$或者$y$ 所做的那样，将他们堆叠在矩阵的列中，形成我们之后会在逻辑回归和神经网络上要用到的符号表示。</p>
+<li><p>一个好的符号约定能够将不同训练样本的数据很好地组织起来。而我所说的数据不仅包括$x​$或者$y​$ 还包括之后你会看到的其他的量。将不同的训练样本的数据提取出来，然后就像刚刚我们对$x​$或者$y​$ 所做的那样，将他们堆叠在矩阵的列中，形成我们之后会在逻辑回归和神经网络上要用到的符号表示。</p>
 </li>
 </ul>
 <h2 id="2-2-逻辑回归-Logistic-Regression"><a href="#2-2-逻辑回归-Logistic-Regression" class="headerlink" title="2.2 逻辑回归(Logistic Regression)"></a>2.2 逻辑回归(Logistic Regression)</h2><h3 id="逻辑回归的Hypothesis-Function（假设函数）"><a href="#逻辑回归的Hypothesis-Function（假设函数）" class="headerlink" title="逻辑回归的Hypothesis Function（假设函数）"></a>逻辑回归的Hypothesis Function（假设函数）</h3><p>$\hat{y} = w^Tx + b$</p>
@@ -356,7 +360,7 @@
 <li><p>注意：事实上，$\hat{y} = w^Tx + b$这个线性函数对于二元分类问题不是一个太好的算法，因为$w^Tx + b$可能比1要大得多，或者是个负值。这是个需要解决的问题。</p>
 </li>
 </ul>
-<h3 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h3><p>sigmoid函数的公式： $\sigma{(z)} = \frac{1}{1 + e^{-z}} $</p>
+<h3 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h3><p>sigmoid函数的公式： $\sigma{(z)} = \frac{1}{1 + e^{-z}} ​$</p>
 <ul>
 <li><p>为了解决这个问题，需要将$w^Tx + b$作为sigmoid函数的一个自变量$z$, 用$z$来表示$w^Tx + b$的值，$z = w^Tx + b$，将线性函数转化为非线性函数。所以 $\hat{y} = \sigma{(w^Tx + b)}$相当于$\hat{y} = \sigma{(z)}$</p>
 </li>
@@ -369,7 +373,7 @@
 <h2 id="2-3-逻辑回归的代价函数（Logistic-Regression-Cost-Function）"><a href="#2-3-逻辑回归的代价函数（Logistic-Regression-Cost-Function）" class="headerlink" title="2.3 逻辑回归的代价函数（Logistic Regression Cost Function）"></a>2.3 逻辑回归的代价函数（Logistic Regression Cost Function）</h2><h3 id="为什么需要代价函数-也翻译作成本函数"><a href="#为什么需要代价函数-也翻译作成本函数" class="headerlink" title="为什么需要代价函数(也翻译作成本函数)"></a>为什么需要代价函数(也翻译作成本函数)</h3><p>$\hat{y}^{(i)} = \sigma{(w^Tx^{(i)} + b)}$, where $\sigma{(z)} = \frac{1}{1+e^{-z}}$</p>
 <p>$Given {(x^{(1)},y^{(1)}),…,(x^{(m)},y^{(m)})}$, want $\hat{y}^{(i)} \approx y^{(i)}$</p>
 <p>为了让模型通过学习调整参数，你需要给予一个样本的训练集，这会让你在训练集上找到参数和参数,，来得到你的输出。</p>
-<p>上标$(i)$来指明数据表示$x$或者$y$或者$z$或者其他数据的第$i$个训练样本，这就是上标$(i)$的含义。</p>
+<p>上标$(i)​$来指明数据表示$x​$或者$y​$或者$z​$或者其他数据的第$i​$个训练样本，这就是上标$(i)​$的含义。</p>
 <h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>损失函数又叫做误差函数，用来衡量算法的运行情况，Loss function:$L(\hat{y}, y)$</p>
 <p>通过这个称为$L$的损失函数，来衡量预测输出值和实际值有多接近。</p>
 <p>一般我们用预测值和实际值的平方差或者它们平方差的一半，但是通常在逻辑回归中我们不这么做，因为当我们在学习逻辑回归参数的时候，会发现我们的优化目标不是凸优化，只能找到多个局部最优值，梯度下降法很可能找不到全局最优值，虽然平方差是一个不错的损失函数，但是我们在逻辑回归模型中会定义另外一个损失函数。</p>
@@ -383,7 +387,7 @@
 <p>根据我们对逻辑回归算法的推导及对单个样本的损失函数的推导和针对算法所选用参数的总代价函数的推导，结果表明逻辑回归可以看做是一个非常小的神经网络。</p>
 <h2 id="2-4-梯度下降法（Gradient-Descent）"><a href="#2-4-梯度下降法（Gradient-Descent）" class="headerlink" title="2.4 梯度下降法（Gradient Descent）"></a>2.4 梯度下降法（Gradient Descent）</h2><h3 id="梯度下降法可以做什么？"><a href="#梯度下降法可以做什么？" class="headerlink" title="梯度下降法可以做什么？"></a>梯度下降法可以做什么？</h3><p>可以通过这个方法来找到全局最优解，也就是代价函数（成本函数）$J(w,b)$这个凸函数的最小值点。</p>
 <ul>
-<li><p>细节化说明（仅有一个参数。即代价函数为$J(w)$）<br>$w := w - \alpha(\frac{dJ(w)}{dw})$, <code>:=</code>表示迭代，即不断更新参数，重复执行</p>
+<li><p>细节化说明（仅有一个参数。即代价函数为$J(w)​$）<br>$w := w - \alpha(\frac{dJ(w)}{dw})​$, <code>:=</code>表示迭代，即不断更新参数，重复执行</p>
 <p>其中$\alpha$表示学习率（learning rate），用来控制步长（step），即向下走一步的长度$\frac{dJ(w)}{dw}$ 就是函数$J(w)$对$w$ 求导（derivative），在代码中使用$dw$表示这个结果。</p>
 <ul>
 <li><p>求导形象化的理解就是斜率（slope），如图该点的导数就是这个点相切于$J(w)$ 的小三角形的高除宽。假设我们以如图点为初始化点，该点处的斜率的符号是正的，即$\frac{dJ(w)}{dw} &gt; 0$，所以接下来会向左走一步。</p>
@@ -393,8 +397,31 @@
 <p>整个梯度下降法的迭代过程就是不断地向右走，即朝着最小值点方向走。</p>
 </li>
 </ul>
+<p>​       <img src="/images/WX20190228-153412@2x.png" alt="WX20190228-153412@2x"></p>
 </li>
 </ul>
+<h2 id="2-5-导数（Derivatives）"><a href="#2-5-导数（Derivatives）" class="headerlink" title="2.5 导数（Derivatives）"></a>2.5 导数（Derivatives）</h2><h3 id="什么是斜率？什么是导函数"><a href="#什么是斜率？什么是导函数" class="headerlink" title="什么是斜率？什么是导函数"></a>什么是斜率？什么是导函数</h3><p>一个函数$f(a)=3a​$，它是一条直线。假设$a=5​$ ，此时$f(a)=3a=15​$。 把$a​$右移一个很小的幅度，增加到5.001，$f(a)=3a=15.003​$。 即在$a=5​$ 时，斜率是3。</p>
+<p>这就是表示，当微小改变变量$a$的值，$f(a)$ 增加3倍（增加了一个非常非常小的值），求导表达式 $\frac{df(a)}{da}=3$ 。一个等价的导数表达式可以这样写$\frac{d}{da}f(a)=3$ ，不管你是否将放在上面或者放在右边都没有关系。那就是导数的正式定义。</p>
+<p>在更复杂的例子中，函数在不同点的斜率是可变的。</p>
+<h2 id="2-6-更多的导数例子（More-Derivative-Examples）"><a href="#2-6-更多的导数例子（More-Derivative-Examples）" class="headerlink" title="2.6 更多的导数例子（More Derivative Examples）"></a>2.6 更多的导数例子（More Derivative Examples）</h2><h3 id="导数就是斜率，而函数的斜率，在不同的点是不同的"><a href="#导数就是斜率，而函数的斜率，在不同的点是不同的" class="headerlink" title="导数就是斜率，而函数的斜率，在不同的点是不同的"></a>导数就是斜率，而函数的斜率，在不同的点是不同的</h3><h3 id="如果你想知道一个函数的导数，你可参考你的微积分课本或者维基百科，然后你应该就能找到这些函数的导数公式"><a href="#如果你想知道一个函数的导数，你可参考你的微积分课本或者维基百科，然后你应该就能找到这些函数的导数公式" class="headerlink" title="如果你想知道一个函数的导数，你可参考你的微积分课本或者维基百科，然后你应该就能找到这些函数的导数公式"></a>如果你想知道一个函数的导数，你可参考你的微积分课本或者维基百科，然后你应该就能找到这些函数的导数公式</h3><h2 id="2-7-计算图（Computation-Graph）"><a href="#2-7-计算图（Computation-Graph）" class="headerlink" title="2.7 计算图（Computation Graph）"></a>2.7 计算图（Computation Graph）</h2><h3 id="计算图是什么"><a href="#计算图是什么" class="headerlink" title="计算图是什么"></a>计算图是什么</h3><p>一个神经网络的计算，都是按照前向或反向传播过程组织的。</p>
+<p>首先我们计算出一个新的网络的输出（前向过程），紧接着进行一个反向传输操作。后者我们用来计算出对应的梯度或导数。</p>
+<p>计算图解释了为什么我们用这种方式组织这些计算过程。</p>
+<h3 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h3><p>尝试计算函数$J = 3(a+bc)​$, 分成3个步骤</p>
+<ol>
+<li>$u=bc$, 计算 $b$乘以$c$，把它储存在变量$u$中</li>
+<li>$v=a+u$</li>
+<li>$J=3v$</li>
+</ol>
+<p>概括一下：计算图组织计算的形式是用蓝色箭头从左到右的计算</p>
+<p><img src="/images/WX20190301-145856@2x.png" alt="WX20190301-145856@2x"></p>
+<h2 id="2-8-使用计算图求导数（Derivatives-with-a-Computation-Graph）"><a href="#2-8-使用计算图求导数（Derivatives-with-a-Computation-Graph）" class="headerlink" title="2.8 使用计算图求导数（Derivatives with a Computation Graph）"></a>2.8 使用计算图求导数（Derivatives with a Computation Graph）</h2><h3 id="如何进行反向红色箭头-也就是从右到左-的导数计算"><a href="#如何进行反向红色箭头-也就是从右到左-的导数计算" class="headerlink" title="如何进行反向红色箭头(也就是从右到左)的导数计算"></a>如何进行反向红色箭头(也就是从右到左)的导数计算</h3><p>$\frac{dJ}{du}=\frac{dJ}{dv}\frac{dv}{du}$, $\frac{dJ}{db}=\frac{dJ}{du}\frac{du}{db}$, $\frac{dJ}{da}=\frac{dJ}{du}\frac{du}{da}$</p>
+<p>清理一下2.7中的流程图</p>
+<p><img src="/images/WX20190301-161715@2x.png" alt="WX20190301-161715@2x"></p>
+<p>当计算所有这些导数时，最有效率的办法是从右到左计算，跟着这个红色箭头走。</p>
+<p>一个新的符号约定，当你编程实现反向传播时，通常会有一个最终输出值是你要关心的，最终的输出变量，你真正想要关心或者说优化的。在这种情况下最终的输出变量是J，就是流程图里最后一个符号，所以有很多计算尝试计算输出变量的导数，所以输出变量对某个变量的导数，我们就用$dvar$命名</p>
+<p>所以这是一个计算流程图，就是正向或者说从左到右的计算来计算成本函数J，你可能需要优化的函数，然后反向从右到左计算导数。如果你不熟悉微积分或链式法则，我知道这里有些细节讲的很快，但如果你没有跟上所有细节，也不用怕。在下一个视频中，我会再过一遍。在逻辑回归的背景下过一遍，并给你介绍需要做什么才能编写代码，实现逻辑回归模型中的导数计算。</p>
+<h2 id="2-9-逻辑回归中的梯度下降（Logistic-Regression-Gradient-Descent）"><a href="#2-9-逻辑回归中的梯度下降（Logistic-Regression-Gradient-Descent）" class="headerlink" title="2.9 逻辑回归中的梯度下降（Logistic Regression Gradient Descent）"></a>2.9 逻辑回归中的梯度下降（Logistic Regression Gradient Descent）</h2><h3 id="怎样通过计算偏导数来实现逻辑回归的梯度下降算法"><a href="#怎样通过计算偏导数来实现逻辑回归的梯度下降算法" class="headerlink" title="怎样通过计算偏导数来实现逻辑回归的梯度下降算法"></a>怎样通过计算偏导数来实现逻辑回归的梯度下降算法</h3><p>它的关键点是几个重要公式，其作用是用来实现逻辑回归中梯度下降算法。</p>
+<p>但是在本节视频中，我将使用计算图对梯度下降算法进行计算。我必须要承认的是，使用计算图来计算逻辑回归的梯度下降算法有点大材小用了。但是，我认为以这个例子作为开始来讲解，可以使你更好的理解背后的思想。从而在讨论神经网络时，你可以更深刻而全面地理解神经网络。</p>
 
       
     </div>
@@ -593,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-二分类-Binary-Classification"><span class="nav-number">1.</span> <span class="nav-text">2.1 二分类(Binary Classification)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何处理训练集"><span class="nav-number">1.1.</span> <span class="nav-text">如何处理训练集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向暂停-forward-pause"><span class="nav-number">1.1.1.</span> <span class="nav-text">前向暂停(forward pause)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向暂停-backward-pause"><span class="nav-number">1.1.2.</span> <span class="nav-text">反向暂停(backward pause)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么神经网络的训练过程可以分为前向传播和反向传播两个独立的部分"><span class="nav-number">1.2.</span> <span class="nav-text">为什么神经网络的训练过程可以分为前向传播和反向传播两个独立的部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用逻辑回归-logistic-regression-来传达这些想法，以使大家能够更加容易地理解这些概念"><span class="nav-number">1.3.</span> <span class="nav-text">使用逻辑回归(logistic regression)来传达这些想法，以使大家能够更加容易地理解这些概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将训练样本（输入向量的集合）表示为一个矩阵"><span class="nav-number">1.4.</span> <span class="nav-text">将训练样本（输入向量的集合）表示为一个矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-逻辑回归-Logistic-Regression"><span class="nav-number">2.</span> <span class="nav-text">2.2 逻辑回归(Logistic Regression)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的Hypothesis-Function（假设函数）"><span class="nav-number">2.1.</span> <span class="nav-text">逻辑回归的Hypothesis Function（假设函数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid函数"><span class="nav-number">2.2.</span> <span class="nav-text">sigmoid函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-逻辑回归的代价函数（Logistic-Regression-Cost-Function）"><span class="nav-number">3.</span> <span class="nav-text">2.3 逻辑回归的代价函数（Logistic Regression Cost Function）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要代价函数-也翻译作成本函数"><span class="nav-number">3.1.</span> <span class="nav-text">为什么需要代价函数(也翻译作成本函数)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">3.2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代价函数"><span class="nav-number">3.3.</span> <span class="nav-text">代价函数:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-梯度下降法（Gradient-Descent）"><span class="nav-number">4.</span> <span class="nav-text">2.4 梯度下降法（Gradient Descent）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降法可以做什么？"><span class="nav-number">4.1.</span> <span class="nav-text">梯度下降法可以做什么？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-二分类-Binary-Classification"><span class="nav-number">1.</span> <span class="nav-text">2.1 二分类(Binary Classification)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何处理训练集"><span class="nav-number">1.1.</span> <span class="nav-text">如何处理训练集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向暂停-forward-pause"><span class="nav-number">1.1.1.</span> <span class="nav-text">前向暂停(forward pause)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向暂停-backward-pause"><span class="nav-number">1.1.2.</span> <span class="nav-text">反向暂停(backward pause)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么神经网络的训练过程可以分为前向传播和反向传播两个独立的部分"><span class="nav-number">1.2.</span> <span class="nav-text">为什么神经网络的训练过程可以分为前向传播和反向传播两个独立的部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用逻辑回归-logistic-regression-来传达这些想法，以使大家能够更加容易地理解这些概念"><span class="nav-number">1.3.</span> <span class="nav-text">使用逻辑回归(logistic regression)来传达这些想法，以使大家能够更加容易地理解这些概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将训练样本（输入向量的集合）表示为一个矩阵"><span class="nav-number">1.4.</span> <span class="nav-text">将训练样本（输入向量的集合）表示为一个矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-逻辑回归-Logistic-Regression"><span class="nav-number">2.</span> <span class="nav-text">2.2 逻辑回归(Logistic Regression)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的Hypothesis-Function（假设函数）"><span class="nav-number">2.1.</span> <span class="nav-text">逻辑回归的Hypothesis Function（假设函数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid函数"><span class="nav-number">2.2.</span> <span class="nav-text">sigmoid函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-逻辑回归的代价函数（Logistic-Regression-Cost-Function）"><span class="nav-number">3.</span> <span class="nav-text">2.3 逻辑回归的代价函数（Logistic Regression Cost Function）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要代价函数-也翻译作成本函数"><span class="nav-number">3.1.</span> <span class="nav-text">为什么需要代价函数(也翻译作成本函数)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">3.2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代价函数"><span class="nav-number">3.3.</span> <span class="nav-text">代价函数:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-梯度下降法（Gradient-Descent）"><span class="nav-number">4.</span> <span class="nav-text">2.4 梯度下降法（Gradient Descent）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降法可以做什么？"><span class="nav-number">4.1.</span> <span class="nav-text">梯度下降法可以做什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-导数（Derivatives）"><span class="nav-number">5.</span> <span class="nav-text">2.5 导数（Derivatives）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是斜率？什么是导函数"><span class="nav-number">5.1.</span> <span class="nav-text">什么是斜率？什么是导函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-更多的导数例子（More-Derivative-Examples）"><span class="nav-number">6.</span> <span class="nav-text">2.6 更多的导数例子（More Derivative Examples）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导数就是斜率，而函数的斜率，在不同的点是不同的"><span class="nav-number">6.1.</span> <span class="nav-text">导数就是斜率，而函数的斜率，在不同的点是不同的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果你想知道一个函数的导数，你可参考你的微积分课本或者维基百科，然后你应该就能找到这些函数的导数公式"><span class="nav-number">6.2.</span> <span class="nav-text">如果你想知道一个函数的导数，你可参考你的微积分课本或者维基百科，然后你应该就能找到这些函数的导数公式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-计算图（Computation-Graph）"><span class="nav-number">7.</span> <span class="nav-text">2.7 计算图（Computation Graph）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算图是什么"><span class="nav-number">7.1.</span> <span class="nav-text">计算图是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举例说明"><span class="nav-number">7.2.</span> <span class="nav-text">举例说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-使用计算图求导数（Derivatives-with-a-Computation-Graph）"><span class="nav-number">8.</span> <span class="nav-text">2.8 使用计算图求导数（Derivatives with a Computation Graph）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何进行反向红色箭头-也就是从右到左-的导数计算"><span class="nav-number">8.1.</span> <span class="nav-text">如何进行反向红色箭头(也就是从右到左)的导数计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-9-逻辑回归中的梯度下降（Logistic-Regression-Gradient-Descent）"><span class="nav-number">9.</span> <span class="nav-text">2.9 逻辑回归中的梯度下降（Logistic Regression Gradient Descent）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#怎样通过计算偏导数来实现逻辑回归的梯度下降算法"><span class="nav-number">9.1.</span> <span class="nav-text">怎样通过计算偏导数来实现逻辑回归的梯度下降算法</span></a></li></ol></li></ol></div>
             
 
           </div>
