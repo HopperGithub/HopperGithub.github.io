@@ -86,19 +86,19 @@
 
 
 
-<meta name="description" content="child_process 模板一般用来实现子进程的调用，处理一些主进程以外的其他事物和调度。">
+<meta name="description" content="在 Node.js 中，只有一个主线程执行所有操作，当执行某个CPU密集型任务时，后续操作都需要等待，此时可以通过 child_process 模块开启多个子进程来通信、协作、执行其他任务，多个子进程间可以共享内存空间，也可以通过子进程的互相通信来实现信息的交换。熟悉 shell 的同学，也可以使用它来做很多有意思的事情或工具，比如批量替换、增量部署等等。">
 <meta name="keywords" content="Node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nodejs源码之 child_process">
 <meta property="og:url" content="https://hoppergithub.github.io/2019/03/18/190318_node_child_process/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
-<meta property="og:description" content="child_process 模板一般用来实现子进程的调用，处理一些主进程以外的其他事物和调度。">
+<meta property="og:description" content="在 Node.js 中，只有一个主线程执行所有操作，当执行某个CPU密集型任务时，后续操作都需要等待，此时可以通过 child_process 模块开启多个子进程来通信、协作、执行其他任务，多个子进程间可以共享内存空间，也可以通过子进程的互相通信来实现信息的交换。熟悉 shell 的同学，也可以使用它来做很多有意思的事情或工具，比如批量替换、增量部署等等。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-child_process.png">
-<meta property="og:updated_time" content="2019-07-22T03:54:04.349Z">
+<meta property="og:updated_time" content="2019-07-22T04:59:45.820Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nodejs源码之 child_process">
-<meta name="twitter:description" content="child_process 模板一般用来实现子进程的调用，处理一些主进程以外的其他事物和调度。">
+<meta name="twitter:description" content="在 Node.js 中，只有一个主线程执行所有操作，当执行某个CPU密集型任务时，后续操作都需要等待，此时可以通过 child_process 模块开启多个子进程来通信、协作、执行其他任务，多个子进程间可以共享内存空间，也可以通过子进程的互相通信来实现信息的交换。熟悉 shell 的同学，也可以使用它来做很多有意思的事情或工具，比如批量替换、增量部署等等。">
 <meta name="twitter:image" content="https://hoppergithub.github.io/images/img-node-child_process.png">
 
 
@@ -336,13 +336,18 @@
       
 
       
-        <p>　child_process 模板一般用来实现子进程的调用，处理一些主进程以外的其他事物和调度。</p>
+        <p>　 在 Node.js 中，只有一个主线程执行所有操作，当执行某个CPU密集型任务时，后续操作都需要等待，此时可以通过 child_process 模块开启多个子进程来通信、协作、执行其他任务，多个子进程间可以共享内存空间，也可以通过子进程的互相通信来实现信息的交换。熟悉 shell 的同学，也可以使用它来做很多有意思的事情或工具，比如批量替换、增量部署等等。</p>
 <a id="more"></a>
-<h1 id="child-process模块"><a href="#child-process模块" class="headerlink" title="child_process模块"></a>child_process模块</h1><h2 id="常用核心-API"><a href="#常用核心-API" class="headerlink" title="常用核心 API"></a>常用核心 API</h2><ul>
-<li>spawn &amp; spawnSync</li>
-<li>execFile &amp; execFileSync</li>
-<li>exec &amp; execSync</li>
-<li>fork</li>
+<h1 id="child-process模块"><a href="#child-process模块" class="headerlink" title="child_process模块"></a>child_process模块</h1><h2 id="常用核心-API"><a href="#常用核心-API" class="headerlink" title="常用核心 API"></a>常用核心 API</h2><h3 id="创建异步进程"><a href="#创建异步进程" class="headerlink" title="创建异步进程"></a>创建异步进程</h3><ul>
+<li>spawn(command[, args][, options])</li>
+<li>execFile(file[, args][, options][, callback])</li>
+<li>exec(command[, options][, callback])</li>
+<li>fork(modulePath[, args][, options])</li>
+</ul>
+<h3 id="创建同步进程"><a href="#创建同步进程" class="headerlink" title="创建同步进程"></a>创建同步进程</h3><ul>
+<li>spawnSync(command[, args][, options])</li>
+<li>execFileSync(file[, args][, options])</li>
+<li>execSync(command[, options])</li>
 </ul>
 <h2 id="API-关系图"><a href="#API-关系图" class="headerlink" title="API 关系图"></a>API 关系图</h2><p>以下为 child_process 核心 API 的调用栈关系图</p>
 <p><img src="/images/img-node-child_process.png" alt=""></p>
@@ -545,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#child-process模块"><span class="nav-number">1.</span> <span class="nav-text">child_process模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用核心-API"><span class="nav-number">1.1.</span> <span class="nav-text">常用核心 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API-关系图"><span class="nav-number">1.2.</span> <span class="nav-text">API 关系图</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#child-process模块"><span class="nav-number">1.</span> <span class="nav-text">child_process模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用核心-API"><span class="nav-number">1.1.</span> <span class="nav-text">常用核心 API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建异步进程"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建异步进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建同步进程"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建同步进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API-关系图"><span class="nav-number">1.2.</span> <span class="nav-text">API 关系图</span></a></li></ol></li></ol></div>
             
 
           </div>
