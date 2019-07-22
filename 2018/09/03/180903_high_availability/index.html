@@ -94,16 +94,16 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间，是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个总结吧。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hoppergithub.github.io/images/img-session-copy.png">
-<meta property="og:image" content="https://hoppergithub.github.io/images/img-session-bind.png">
-<meta property="og:image" content="https://hoppergithub.github.io/images/img-cookie-session.png">
-<meta property="og:image" content="https://hoppergithub.github.io/images/img-session-server.png">
-<meta property="og:image" content="https://hoppergithub.github.io/images/img-db-backup.jpg">
-<meta property="og:updated_time" content="2019-01-31T09:27:15.981Z">
+<meta property="og:image" content="https://hoppergithub.github.io/2018/09/03/images/img-session-copy.png">
+<meta property="og:image" content="https://hoppergithub.github.io/2018/09/03/images/img-session-bind.png">
+<meta property="og:image" content="https://hoppergithub.github.io/2018/09/03/images/img-cookie-session.png">
+<meta property="og:image" content="https://hoppergithub.github.io/2018/09/03/images/img-session-server.png">
+<meta property="og:image" content="https://hoppergithub.github.io/2018/09/03/images/img-db-backup.jpg">
+<meta property="og:updated_time" content="2019-07-22T03:43:04.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何设计高可用架构">
 <meta name="twitter:description" content="保证一个网站永远100%可用目前几乎难以达到，而网站的可用性至关重要，高可用HA（High Availability）通常指，通过设计减少系统不能提供服务的时间，是分布式系统架构设计中必须考虑的因素之一，身为一个工程师，这方面的相关资料也看过不少，做个总结吧。">
-<meta name="twitter:image" content="https://hoppergithub.github.io/images/img-session-copy.png">
+<meta name="twitter:image" content="https://hoppergithub.github.io/2018/09/03/images/img-session-copy.png">
 
 
 
@@ -383,19 +383,19 @@
 <li><p>应用服务器集群的 Session 管理：进行业务有状态服务的Session管理。Session 管理主要有这几种手段。</p>
 <ul>
 <li><p>Session 复制：早期企业通用手段，应用服务器开启 Web 容器的 Session 复制功能，在集群中的几台服务器之间同步 Session 对象，使得每台服务器上都保存所有用户的 Session 信息，这样任何一台机器宕机都不会导致 Session 数据的丢失，而服务器使用 Session 时，也只需要在本机获取即可。如下示图。</p>
-<p><img src="/images/img-session-copy.png" alt=""></p>
+<p><img src="../images/img-session-copy.png" alt=""></p>
 <p>评价：这种方案虽然简单，从本机读取 Session 信息也很快速，但只能使用在集群规模比较小的情况下。当集群规模较大时，集群服务器间需要大量的通信进行 Session 复制，占用服务器和网络的大量资源，系统不堪重负。而且由于所有用户的 Session 信息在每台服务器上都有备份，在大量用户访问的情况下，甚至会出现服务器内存不够 Session 使用的情况。而大型网站的核心应用集群就是数千台服务器，同时在线用户可达千万，因此并不适用这种方案。</p>
 </li>
 <li><p>Session 绑定：利用负载均衡的源地址 Hash 算法实现，负载均衡服务器总是将来源于同一 IP 的请求分发到同一台服务器上（也可以根据 Cookie 信息将同一个用户的请求总是分发到同一台服务器上，当然这时负载均衡服务器必须工作在 HTTP 协议层上。）这样在整个会话期间，用户所有的请求都在同一台服务器上处理，即 Session 绑定在某台特定服务器上，保证 Session 总能在这台服务器上获取。这种方法也被称作会话粘滞。如下示图。</p>
-<p><img src="/images/img-session-bind.png" alt=""></p>
+<p><img src="../images/img-session-bind.png" alt=""></p>
 <p>评价：Session 绑定的方案显然不符合我们对于系统高可用的需求，因为一旦某台服务器宕机，那么该机器上的 Session 也就不复存在了，用户请求切换到其他机器后因为没有 Session 而无法完成业务处理。因此虽然大部分负载均衡服务器都提供源地址负载均衡算法，但很少有网站利用这个算法进行 Session 管理。</p>
 </li>
 <li><p>利用 Cookie 记录 Session：早期的企业应用系统使用 C/S（客户端/服务器）架构，一种管理 Session 的方式是将 Session 记录在客户端，每次请求服务器的时候，将 Session 放在请求中发送给服务器，服务器处理完请求后再将修改过的 Session 响应给客户端。网站没有客户端，但是可以利用浏览器支持的 Cookie 记录 Session。如下示图。</p>
-<p><img src="/images/img-cookie-session.png" alt=""></p>
+<p><img src="../images/img-cookie-session.png" alt=""></p>
 <p>评价：受 Cookie 大小限制，能记录的信息有限。每次请求响应都需要传输 Cookie ，影响性能。如果用户关闭 Cookie ，访问就会不正常。但由于 Cookie 简单易用，可用性高，支持应用服务器的线性伸缩，而大部分应用需要记录的 Session 信息又比较小。因此事实上，许多网站都或多或少地使用 Cookie 记录 Session。</p>
 </li>
 <li><p>Session 服务器：一种可用性高、伸缩性好、性能不错，对信息大小又没有限制的服务器集群 Session 管理方案。利用独立部署的 Session 服务器（集群）统一管理 Session ，应用服务器每次读写 Session 时，都访问 Session 服务器。如下示图。</p>
-<p><img src="/images/img-session-server.png" alt=""></p>
+<p><img src="../images/img-session-server.png" alt=""></p>
 <p>评价：这种解决方案事实上是将应用服务器的状态分离，分为无状态的应用服务器和有状态的 Session 服务器，然后针对这两种服务器的不同特性分别设计其架构。对于有状态的 Session 服务器，一种比较简单的方法是利用分布式缓存、数据库等，在这些产品的基础上进行包装，使其符合 Session 的存储和访问要求。如果业务场景对 Session 管理有比较高的要求，比如利用 Session 服务集成单点登录（SSO）、用户服务等功能，则需要开发专门的 Session 服务管理平台。</p>
 </li>
 </ul>
@@ -416,7 +416,7 @@
 <h2 id="从数据层面保障高可用"><a href="#从数据层面保障高可用" class="headerlink" title="从数据层面保障高可用"></a>从数据层面保障高可用</h2><ul>
 <li><p>数据备份：又分为冷备份和热备份，冷备份是定期复制，不能保证数据可用性。热备份又分为异步热备和同步热备，异步热备是指多份数据副本的写入操作异步完成，而同步方式则是指多份数据副本的写入操作同时完成。</p>
 <p>关系数据库的热备机制就是通常所说的主从同步机制，实践中通常使用读写分离的方法来访问Master和Slave数据库，也就是说写操作只访问Master库，读操作均访问Slave库。如下图。</p>
-<p><img src="/images/img-db-backup.jpg" alt=""></p>
+<p><img src="../images/img-db-backup.jpg" alt=""></p>
 </li>
 <li><p>失效转移：若数据服务器集群中任何一台服务器宕机，那么应用程序针对这台服务器的所有读写操作都要重新路由到其他服务器，保证数据访问不会失败。</p>
 </li>
@@ -648,7 +648,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -659,7 +659,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>

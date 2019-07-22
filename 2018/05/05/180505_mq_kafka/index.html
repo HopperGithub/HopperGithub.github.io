@@ -94,12 +94,12 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。秉持按需学习，循序渐进的态度，逐步深入消息队列中间件的学习。本篇只是写下 Kafka 的基本原理、架构和概念。 回归正题，Kafka">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hoppergithub.github.io/images/img-kafka1.png">
-<meta property="og:updated_time" content="2019-01-31T09:25:00.465Z">
+<meta property="og:image" content="https://hoppergithub.github.io/2018/05/05/images/img-kafka1.png">
+<meta property="og:updated_time" content="2019-07-22T03:44:40.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MQ Middleware 之 Kafka 基础篇">
 <meta name="twitter:description" content="之前的项目要实现自动化营销流程，不可避免要考虑到消息队列中间件的选型，团队最开始使用的是 Kafka, 后来项目改造，由于不支持多租户、消息不好追踪、可靠性小于可用性等等因素，转到了 RabbitMQ，也因为需求的吞吐量不是非常大，RabbitMQ 完全可以胜任。秉持按需学习，循序渐进的态度，逐步深入消息队列中间件的学习。本篇只是写下 Kafka 的基本原理、架构和概念。 回归正题，Kafka">
-<meta name="twitter:image" content="https://hoppergithub.github.io/images/img-kafka1.png">
+<meta name="twitter:image" content="https://hoppergithub.github.io/2018/05/05/images/img-kafka1.png">
 
 
 
@@ -380,7 +380,7 @@
 <li><p>Replica：如果topic设置了replication，那意味着每个Partition都会有2个备份，对外提供服务的只有leader，follwer只是备份leader的数据；leader和follwer之间通过副本来选出leader,如果follwer跟不上leader就会被提出副本，如果leader不在，就会在副本中选取一个做为leader，如果所有的备份都down了，则选择最近down掉的一个备份作为leader</p>
 </li>
 </ul>
-<p><img src="/images/img-kafka1.png" alt=""></p>
+<p><img src="../images/img-kafka1.png" alt=""></p>
 
       
     </div>
@@ -518,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -529,7 +529,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
