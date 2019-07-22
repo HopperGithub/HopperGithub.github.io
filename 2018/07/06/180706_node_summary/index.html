@@ -94,20 +94,20 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-js-async.jpg">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-js-event-loop.png">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-node-event-loop.png">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-libuv.png">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-libuv-loop1.jpg">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-libuv-loop.jpeg">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-async-io.png">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-timer-event.png">
-<meta property="og:image" content="https://hoppergithub.github.io/2018/07/06/images/img-node-workflow.png">
-<meta property="og:updated_time" content="2019-07-22T03:44:01.925Z">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-js-async.jpg">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-js-event-loop.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-node-event-loop.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-libuv.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-libuv-loop1.jpg">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-libuv-loop.jpeg">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-async-io.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-timer-event.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-node-workflow.png">
+<meta property="og:updated_time" content="2019-07-22T04:06:23.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node 回顾与总结（一）">
 <meta name="twitter:description" content="Node.js 宣称其目标是“旨在提供一种简单的构建可伸缩网络程序的方法”，诞生自 2009 年，是有史以来发展最快的开发工具，它是运行环境而不是语言。如今 Node 的使用已经较为普遍，所在团队的后端微服务架构中，80% 都是 Node 服务，近一两年做了不少 Node 后端的开发，下一阶段学习计划是 Go 的学习和实践，所以有必要整理下Node的经历和累积。 为了简洁明了更加直观，采用互动">
-<meta name="twitter:image" content="https://hoppergithub.github.io/2018/07/06/images/img-js-async.jpg">
+<meta name="twitter:image" content="https://hoppergithub.github.io/images/img-js-async.jpg">
 
 
 
@@ -472,7 +472,7 @@
 <li><p>一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”中的事件，并执行事件对应的异步任务（回调函数），该异步任务结束等待状态，进入执行栈，开始执行。</p>
 </li>
 <li><p>主线程不断重复上面的第三步。如下图。</p>
-<p><img src="../images/img-js-async.jpg" alt=""></p>
+<p><img src="/images/img-js-async.jpg" alt=""></p>
 </li>
 </ol>
 <ul>
@@ -483,7 +483,7 @@
 <li><p>事件：除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。如果”定时器”存在，主线程可能首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
 </li>
 <li><p>事件循环：主线程从”任务队列”中读取事件，这个过程是循环不断的，所以这种运行机制就称为 Event Loop。主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。如下图。</p>
-<p> <img src="../images/img-js-event-loop.png" alt=""></p>
+<p> <img src="/images/img-js-event-loop.png" alt=""></p>
 </li>
 </ul>
 <h3 id="Q-Node-js的架构及运行机制是怎样的？"><a href="#Q-Node-js的架构及运行机制是怎样的？" class="headerlink" title="Q: Node.js的架构及运行机制是怎样的？"></a>Q: Node.js的架构及运行机制是怎样的？</h3><ol>
@@ -494,7 +494,7 @@
 <li><p>libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。</p>
 </li>
 <li><p>V8引擎再将结果返回给用户。如下图。</p>
-<p><img src="../images/img-node-event-loop.png" alt=""></p>
+<p><img src="/images/img-node-event-loop.png" alt=""></p>
 </li>
 </ol>
 <ul>
@@ -507,7 +507,7 @@
 <li><p>NodeAPI层：为上层模块提供系统调用，一般是由 C 语言来实现，和操作系统进行交互, 比如 net, buffer, child_process, file。</p>
 </li>
 <li><p>LIBUV层：是跨平台的底层封装，实现了事件循环、异步IO，如文件操作等，是 Node.js 实现异步的核心。（libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API，被很多编程语言引入，如 Rust），他的事件循环中宏、微任务执行机制，如下图。</p>
-<p><img src="../images/img-libuv.png" alt=""></p>
+<p><img src="/images/img-libuv.png" alt=""></p>
 <p>图解如下：</p>
 <ul>
 <li>上面每个阶段对应着一个事件队列，当EventLoop执行到某阶段时，执行对应的事件队列中的事件，当该队列执行完毕或者执行数量超过上限，EventLoop就会执行下一个阶段。</li>
@@ -521,7 +521,7 @@
 <li><p>libuv :实现 Node.js 事件循环和平台的所有异步行为的 C 函数库</p>
 </li>
 <li><p>事件循环, 大体上分为6个阶段，执行顺序及内容如下图，建议去通读一下<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">官方文档</a>。</p>
-<p><img src="../images/img-libuv-loop1.jpg" alt=""></p>
+<p><img src="/images/img-libuv-loop1.jpg" alt=""></p>
 <ul>
 <li><p>timers（定时器阶段）</p>
 <p>定时器用途是让指定的回调函数在某个阈值后会被执行，具体的执行时间并不一定是那个精确的阈值。（定时器的回调会在制定的时间过后尽快得到执行，然而，操作系统的计划或者其他回调的执行可能会延迟该回调的执行。）</p>
@@ -576,14 +576,14 @@
 </ul>
 <ul>
 <li><p>详细图解如下</p>
-<p><img src="../images/img-libuv-loop.jpeg" alt=""></p>
+<p><img src="/images/img-libuv-loop.jpeg" alt=""></p>
 </li>
 </ul>
 <h3 id="Q-Node-js的异步调用、线程池、事件循环之间关系是怎样的？（Node-异步-IO-处理流程）"><a href="#Q-Node-js的异步调用、线程池、事件循环之间关系是怎样的？（Node-异步-IO-处理流程）" class="headerlink" title="Q: Node.js的异步调用、线程池、事件循环之间关系是怎样的？（Node 异步 IO 处理流程）"></a>Q: Node.js的异步调用、线程池、事件循环之间关系是怎样的？（Node 异步 IO 处理流程）</h3><ul>
 <li><p>异步机制：Node.js 在主线程里维护了一个事件队列，当接到请求后，就将该请求作为一个事件放入这个队列中，然后继续接收其他请求。当主线程空闲时(没有请求接入时)，就开始循环事件队列，检查队列中是否有要处理的事件，这时要分两种情况：如果是非 I/O 任务，就亲自处理，并通过回调函数返回到上层调用；如果是 I/O 任务，就从 线程池 中拿出一个线程来处理这个事件，并指定回调函数，然后继续循环队列中的其他事件。</p>
 </li>
 <li><p>事件循环：当线程中的 I/O 任务完成以后，就执行指定的回调函数，并把这个完成的事件放到事件队列的尾部，等待事件循环，当主线程再次循环到该事件时，就直接处理并返回给上层调用。</p>
-<p> <img src="../images/img-async-io.png" alt=""></p>
+<p> <img src="/images/img-async-io.png" alt=""></p>
 </li>
 </ul>
 <h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h2><h3 id="Q-说下-Node-的四个定时器？"><a href="#Q-说下-Node-的四个定时器？" class="headerlink" title="Q: 说下 Node 的四个定时器？"></a>Q: 说下 Node 的四个定时器？</h3><ol>
@@ -617,7 +617,7 @@
 </li>
 </ol>
 <p>定时器在事件循环中的执行顺序如下图：</p>
-<p>   <img src="../images/img-timer-event.png" alt=""></p>
+<p>   <img src="/images/img-timer-event.png" alt=""></p>
 <h2 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h2><h3 id="Q：请说下现有Web服务器的高并发策略、优劣、工作流程？"><a href="#Q：请说下现有Web服务器的高并发策略、优劣、工作流程？" class="headerlink" title="Q：请说下现有Web服务器的高并发策略、优劣、工作流程？"></a>Q：请说下现有Web服务器的高并发策略、优劣、工作流程？</h3><ul>
 <li><p>经典服务器模型：</p>
 <ul>
@@ -629,7 +629,7 @@
 </li>
 <li><p>Node 服务器模型：</p>
 <p>事件驱动的方式处理请求，无须为每个请求创建额外的对应线程，省掉创建和销毁线程的开销，同时操作系统在调度任务时因为线程较少，上下文切换的代价很低。这使服务器能够有条不紊地处理请求，即使在大量连接的情况下，也不受线程上下文切换开销的影响，Node 采用这种策略。处理流程如下图。</p>
-<p><img src="../images/img-node-workflow.png" alt=""></p>
+<p><img src="/images/img-node-workflow.png" alt=""></p>
 </li>
 </ul>
 <h2 id="Node-优劣和适用场景"><a href="#Node-优劣和适用场景" class="headerlink" title="Node 优劣和适用场景"></a>Node 优劣和适用场景</h2><h3 id="Q-请说下-Node-的优劣势？"><a href="#Q-请说下-Node-的优劣势？" class="headerlink" title="Q: 请说下 Node 的优劣势？"></a>Q: 请说下 Node 的优劣势？</h3><ul>
