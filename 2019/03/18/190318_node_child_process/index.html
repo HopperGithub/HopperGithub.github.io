@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-child_process.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-event-loop.png">
-<meta property="og:updated_time" content="2019-07-23T10:55:38.680Z">
+<meta property="og:updated_time" content="2019-07-23T11:26:05.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nodejs源码解析之 child_process 实现原理">
 <meta name="twitter:description" content="在 Node.js 中，默认遵循单线程单进程模式，只有一个主线程执行所有操作。Node.js 擅长以事件驱动的方式处理 IO 等异步操作。但执行 CPU 密集型任务时，会阻塞主线程，后续操作都需要等待，此时可以通过 child_process 模块创建多个独立的子进程执行任务，多个子进程间可以共享内存空间，父子进程可以通过 IPC 通信。熟悉 shell 的同学，也可以使用它来做很多有意思的事情或">
@@ -398,7 +398,8 @@
 <li>如果存在ipc，则监听ipc数据进行相应的通信处理</li>
 <li>返回错误</li>
 </ol>
-<p>看到这里，js 作为一个主角的剧情，其实就基本结束了，但是我不能接受这般草率的结局，为此让我们开启 C++ 作为主演的新篇章。</p>
+<p>看到这里，其实 JS 作为女主的这台舞剧就基本结束了，但这个结局显然不容易被接受。</p>
+<p>所以接下来一起来看看，那个隐藏在幕后为她一直奉献的男人，C++，CC 导演是如何运筹帷幕，掌控全局的吧。</p>
 <p>源码详见 <a href="https://github.com/nodejs/node/blob/master/lib/internal/child_process.js" target="_blank" rel="noopener">child_process.js</a></p>
 <h2 id="JS-API-是如何与-Node-API-绑定的呢？"><a href="#JS-API-是如何与-Node-API-绑定的呢？" class="headerlink" title="JS_API 是如何与 Node_API 绑定的呢？"></a>JS_API 是如何与 Node_API 绑定的呢？</h2><h3 id="简单描述下-Node-js-的基础架构"><a href="#简单描述下-Node-js-的基础架构" class="headerlink" title="简单描述下 Node.js 的基础架构"></a>简单描述下 Node.js 的基础架构</h3><ol>
 <li><p>V8 引擎解析 JavaScript 脚本。</p>
@@ -467,7 +468,7 @@
 <p>源码详见 <a href="https://github.com/nodejs/node/blob/master/deps/uv/src/unix/process.c" target="_blank" rel="noopener">uv_spawn.c</a></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文介绍了 <code>child_process</code> 模块常用 API 以及其调用关系，简单扩展了 Node_API 是如何加载的，并通过简化后的源码，刨根问底，一路追溯到 <code>spawn_sync、process_wrap</code> 这两个 C++ 原生模块的实现，即通过 Node_API 与 <code>libuv</code> 的调用和交互，以 <code>uv_spawn</code> 函数实现上层进程的执行，并返回执行结果。</p>
 <p>看到这里，相信优秀的你已经对 <code>child_process</code> 实现原理、构造，以及<code>[ js &lt;-&gt; Node_API &lt;-&gt; libuv ]</code>之间的交互调用关系，有了更多的认识，接下来尝试自己解析下其他 Node 模块的源码实现吧~</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; spawn &#125; = <span class="built_in">require</span>(<span class="string">'child_process'</span>);</span><br><span class="line"><span class="keyword">const</span> theTechArticle = spawn(<span class="string">'bad_comment'</span>);</span><br><span class="line"></span><br><span class="line">theTechArticle.on(<span class="string">'close'</span>, (code) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (code !== <span class="string">'bad_feedback'</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`本文进程退出，欢迎各位大佬交流指正~ O(∩_∩)O `</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; spawn &#125; = <span class="built_in">require</span>(<span class="string">'child_process'</span>);</span><br><span class="line"><span class="keyword">const</span> theTechArticleFeedback = spawn(<span class="string">'technical_exchange'</span>);</span><br><span class="line"></span><br><span class="line">theTechArticleFeedback.on(<span class="string">'close'</span>, (code) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (code !== <span class="string">'criticism'</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`本文到此结束，欢迎各位大佬交流指正~ O(∩_∩)O `</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
       
     </div>
     
