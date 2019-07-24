@@ -89,16 +89,16 @@
 <meta name="description" content="在 Node.js 中，默认遵循单线程单进程模式，只有一个主线程执行所有操作。Node.js 擅长以事件驱动的方式处理 IO 等异步操作。但执行 CPU 密集型任务时，会阻塞主线程，后续操作都需要等待，此时可以通过 child_process 模块创建多个独立的子进程执行任务，多个子进程间可以共享内存空间，父子进程可以通过 IPC 通信。熟悉 shell 的同学，也可以使用它来做很多有意思的事情或">
 <meta name="keywords" content="Node">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nodejs源码解析之 child_process 实现原理">
+<meta property="og:title" content="Nodejs源码解读之 child_process 实现原理">
 <meta property="og:url" content="https://hoppergithub.github.io/2019/03/18/190318_node_child_process/index.html">
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="在 Node.js 中，默认遵循单线程单进程模式，只有一个主线程执行所有操作。Node.js 擅长以事件驱动的方式处理 IO 等异步操作。但执行 CPU 密集型任务时，会阻塞主线程，后续操作都需要等待，此时可以通过 child_process 模块创建多个独立的子进程执行任务，多个子进程间可以共享内存空间，父子进程可以通过 IPC 通信。熟悉 shell 的同学，也可以使用它来做很多有意思的事情或">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-child_process.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/img-node-event-loop.png">
-<meta property="og:updated_time" content="2019-07-24T04:32:00.942Z">
+<meta property="og:updated_time" content="2019-07-24T06:46:50.285Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nodejs源码解析之 child_process 实现原理">
+<meta name="twitter:title" content="Nodejs源码解读之 child_process 实现原理">
 <meta name="twitter:description" content="在 Node.js 中，默认遵循单线程单进程模式，只有一个主线程执行所有操作。Node.js 擅长以事件驱动的方式处理 IO 等异步操作。但执行 CPU 密集型任务时，会阻塞主线程，后续操作都需要等待，此时可以通过 child_process 模块创建多个独立的子进程执行任务，多个子进程间可以共享内存空间，父子进程可以通过 IPC 通信。熟悉 shell 的同学，也可以使用它来做很多有意思的事情或">
 <meta name="twitter:image" content="https://hoppergithub.github.io/images/img-node-child_process.png">
 
@@ -136,7 +136,7 @@
 
 
 
-  <title>Nodejs源码解析之 child_process 实现原理 | Hopper's Blog</title>
+  <title>Nodejs源码解读之 child_process 实现原理 | Hopper's Blog</title>
   
 
 
@@ -260,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Nodejs源码解析之 child_process 实现原理</h1>
+          <h1 class="post-title" itemprop="name headline">Nodejs源码解读之 child_process 实现原理</h1>
         
 
         <div class="post-meta">
@@ -521,7 +521,7 @@
 </blockquote>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文介绍了 <code>child_process</code> 模块常用 API 以及其调用关系，简单扩展了 Node_API 是如何加载的，原生模块是如何注册到链表的等等，并通过简化后的源码，刨根问底，一路追溯到 <code>spawn_sync、process_wrap</code> 这两个 C++ 原生模块的实现，即通过 Node_API 与 <code>libuv</code> 的调用和交互，以 <code>uv_spawn</code> 函数实现上层进程的执行，并返回执行结果。</p>
 <p>看到这里，相信优秀的你已经对 <code>child_process</code> 实现原理、构造，以及<code>[ js &lt;-&gt; Node_API &lt;-&gt; libuv ]</code>之间的交互调用关系，有了更多的认识，接下来尝试自己解析下其他 Node 模块的源码实现吧~</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; spawn &#125; = <span class="built_in">require</span>(<span class="string">'child_process'</span>);</span><br><span class="line"><span class="keyword">const</span> theTechArticleFeedback = spawn(<span class="string">'technical_exchange'</span>);</span><br><span class="line"></span><br><span class="line">theTechArticleFeedback.on(<span class="string">'close'</span>, (code) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (code !== <span class="string">'criticism'</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`本文到此结束，欢迎各位大佬交流指正~ O(∩_∩)O `</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; spawn &#125; = <span class="built_in">require</span>(<span class="string">'child_process'</span>);</span><br><span class="line"><span class="keyword">const</span> theTechArticle = spawn(<span class="string">'technical_exchange'</span>);</span><br><span class="line"></span><br><span class="line">theTechArticle.on(<span class="string">'close'</span>, (code) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (code !== <span class="string">'criticism'</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`本文到此结束，欢迎各位大佬交流指正~ O(∩_∩)O `</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -541,7 +541,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hoppergithub.github.io/2019/03/18/190318_node_child_process/" title="Nodejs源码解析之 child_process 实现原理">https://hoppergithub.github.io/2019/03/18/190318_node_child_process/</a>
+    <a href="https://hoppergithub.github.io/2019/03/18/190318_node_child_process/" title="Nodejs源码解读之 child_process 实现原理">https://hoppergithub.github.io/2019/03/18/190318_node_child_process/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
