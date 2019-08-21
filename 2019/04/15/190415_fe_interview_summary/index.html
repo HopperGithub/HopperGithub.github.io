@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Summary," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="为了准备对校招生进行摸底面试，搜集了一些前端相关的面试题目，以后会继续补充进来。">
+<meta name="keywords" content="Summary">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端开发面试题">
+<meta property="og:url" content="https://hoppergithub.github.io/2019/04/15/190415_fe_interview_summary/index.html">
+<meta property="og:site_name" content="Hopper&#39;s Blog">
+<meta property="og:description" content="为了准备对校招生进行摸底面试，搜集了一些前端相关的面试题目，以后会继续补充进来。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-21T11:45:14.494Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端开发面试题">
+<meta name="twitter:description" content="为了准备对校招生进行摸底面试，搜集了一些前端相关的面试题目，以后会继续补充进来。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoppergithub.github.io/2019/04/15/190415_fe_interview_summary/"/>
+
+
+
+
+
+  <title>前端开发面试题 | Hopper's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hopper's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活就像咖啡，酸楚苦涩却浓郁香醇、耐人回味，如果慢些喝，或许会发现，还是热的可口。。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2019/04/15/190415_fe_interview_summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hopper Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hopper's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端开发面试题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T00:00:00+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>为了准备对校招生进行摸底面试，搜集了一些前端相关的面试题目，以后会继续补充进来。</p>
+<a id="more"></a>
+<h1 id="前端开发面试题"><a href="#前端开发面试题" class="headerlink" title="前端开发面试题"></a>前端开发面试题</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><a name="list">目录</a></h2><ul>
+<li><a href="#html">HTML 部分</a></li>
+<li><a href="#css">CSS 部分</a></li>
+<li><a href="#js">JavaScript 部分</a></li>
+<li><a href="#framework">前端框架</a></li>
+<li><a href="#other">其他问题</a></li>
+<li><a href="#web">前端学习网站推荐</a></li>
+</ul>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a><a name="html">HTML</a></h2><ul>
+<li><p>Doctype 作用？严格模式与混杂模式如何区分？它们有何意义?</p>
+</li>
+<li><p>HTML5 为什么只需要写 &lt;!DOCTYPE HTML&gt;？</p>
+</li>
+<li><p>行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？</p>
+</li>
+<li><p>页面导入样式时，使用 link 和@import 有什么区别？</p>
+</li>
+<li><p>介绍一下你对浏览器内核的理解？</p>
+</li>
+<li><p>常见的浏览器内核有哪些？</p>
+</li>
+<li><p>html5 有哪些新特性、移除了那些元素？如何处理 HTML5 新标签的浏览器兼容问题？如何区分 HTML 和 HTML5？</p>
+</li>
+<li><p>简述一下你对 HTML 语义化的理解？</p>
+</li>
+<li><p>HTML5 的离线储存怎么使用，工作原理能不能解释一下？</p>
+</li>
+<li><p>浏览器是怎么对 HTML5 的离线储存资源进行管理和加载的呢？</p>
+</li>
+<li><p>请描述一下 cookies，sessionStorage 和 localStorage 的区别？</p>
+</li>
+<li><p>iframe 有那些缺点？</p>
+</li>
+<li><p>Label 的作用是什么？是怎么用的？（加 for 或 包裹）</p>
+</li>
+<li><p>HTML5 的 form 如何关闭自动完成功能？</p>
+</li>
+<li><p>如何实现浏览器内多个标签页之间的通信? (阿里)</p>
+</li>
+<li><p>webSocket 如何兼容低浏览器？(阿里)</p>
+</li>
+<li><p>页面可见性（Page Visibility API） 可以有哪些用途？</p>
+</li>
+<li><p>如何在页面上实现一个圆形的可点击区域？</p>
+</li>
+<li><p>实现不使用 border 画出 1px 高的线，在不同浏览器的 Quirksmode 和 CSSCompat 模式下都能保持同一效果。</p>
+</li>
+<li><p>网页验证码是干嘛的，是为了解决什么安全问题？</p>
+</li>
+<li><p>title 与 h1 的区别、b 与 strong 的区别、i 与 em 的区别？</p>
+</li>
+</ul>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a><a name="css">CSS</a></h2><ul>
+<li><p>介绍一下标准的 CSS 的盒子模型？低版本 IE 的盒子模型有什么不同的？</p>
+</li>
+<li><p>CSS 选择符有哪些？哪些属性可以继承？</p>
+</li>
+<li><p>CSS 优先级算法如何计算？</p>
+</li>
+<li><p>CSS3 新增伪类有那些？</p>
+</li>
+<li><p>如何居中 div？如何居中一个浮动元素？如何让绝对定位的 div 居中？</p>
+</li>
+<li><p>display 有哪些值？说明他们的作用。</p>
+</li>
+<li><p>position 的值 relative 和 absolute 定位原点是？</p>
+</li>
+<li><p>CSS3 有哪些新特性？</p>
+</li>
+<li><p>请解释一下 CSS3 的 Flexbox（弹性盒布局模型）,以及适用场景？</p>
+</li>
+<li><p>用纯 CSS 创建一个三角形的原理是什么？</p>
+</li>
+<li><p>css 多列等高如何实现？</p>
+</li>
+<li><p>一个满屏 品 字布局 如何设计?</p>
+</li>
+<li><p>经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧 ？</p>
+</li>
+<li><p>li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？</p>
+</li>
+<li><p>为什么要初始化 CSS 样式?</p>
+</li>
+<li><p>absolute 的 containing block 计算方式跟正常流有什么不同？</p>
+</li>
+<li><p>CSS 里的 visibility 属性有个 collapse 属性值是干嘛用的？在不同浏览器下以后什么区别？</p>
+</li>
+<li><p>position 跟 display、margin collapse、overflow、float 这些特性相互叠加后会怎么样？</p>
+</li>
+<li><p>对 BFC 规范(块级格式化上下文：block formatting context)的理解？</p>
+</li>
+<li><p>CSS 权重优先级是如何计算的？</p>
+</li>
+<li><p>请解释一下为什么需要清除浮动？清除浮动的方式</p>
+</li>
+<li><p>zoom:1 的清楚浮动原理?</p>
+</li>
+<li><p>移动端的布局用过媒体查询吗？</p>
+</li>
+<li><p>使用 CSS 预处理器吗？喜欢那个？</p>
+</li>
+<li><p>CSS 优化、提高性能的方法有哪些？</p>
+</li>
+<li><p>浏览器是怎样解析 CSS 选择器的？</p>
+</li>
+<li><p>在网页中的应该使用奇数还是偶数的字体？为什么呢？</p>
+</li>
+<li><p>margin 和 padding 分别适合什么场景使用？</p>
+</li>
+<li><p>抽离样式模块怎么写，说出思路，有无实践经验？[阿里航旅的面试题]</p>
+</li>
+<li><p>元素竖向的百分比设定是相对于容器的高度吗？</p>
+</li>
+<li><p>全屏滚动的原理是什么？用到了 CSS 的那些属性？</p>
+</li>
+<li><p>什么是响应式设计？响应式设计的基本原理是什么？如何兼容低版本的 IE？</p>
+</li>
+<li><p>视差滚动效果，如何给每页做不同的动画？（回到顶部，向下滑动要再次出现，和只出现一次分别怎么做？）</p>
+</li>
+<li><p>::before 和 :after 中双冒号和单冒号 有什么区别？解释一下这 2 个伪元素的作用。</p>
+</li>
+<li><p>如何修改 chrome 记住密码后自动填充表单的黄色背景 ？</p>
+</li>
+<li><p>你对 line-height 是如何理解的？</p>
+</li>
+<li><p>设置元素浮动后，该元素的 display 值是多少？（自动变成 display:block）</p>
+</li>
+<li><p>怎么让 Chrome 支持小于 12px 的文字？</p>
+</li>
+<li><p>让页面里的字体变清晰，变细用 CSS 怎么做？（-webkit-font-smoothing: antialiased;）</p>
+</li>
+<li><p>font-style 属性可以让它赋值为“oblique” oblique 是什么意思？</p>
+</li>
+<li><p>position:fixed;在 android 下无效怎么处理？</p>
+</li>
+<li><p>如果需要手动写动画，你认为最小时间间隔是多久，为什么？（阿里）</p>
+</li>
+<li><p>display:inline-block 什么时候会显示间隙？(携程)</p>
+</li>
+<li><p>overflow: scroll 时不能平滑滚动的问题怎么处理？</p>
+</li>
+<li><p>有一个高度自适应的 div，里面有两个 div，一个高度 100px，希望另一个填满剩下的高度。</p>
+</li>
+<li><p>png、jpg、gif 这些图片格式解释一下，分别什么时候用。有没有了解过 webp？</p>
+</li>
+<li><p>什么是 Cookie 隔离？（或者说：请求资源的时候不要让它带 cookie 怎么做）</p>
+</li>
+<li><p>style 标签写在 body 后与 body 前有什么区别？</p>
+</li>
+<li><p>什么是 CSS 预处理器 / 后处理器？</p>
+</li>
+<li><p>rem 布局的优缺点</p>
+</li>
+</ul>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a><a name="js">JavaScript</a></h2><ul>
+<li><p>介绍 JavaScript 的基本数据类型。</p>
+</li>
+<li><p>说说写 JavaScript 的基本规范？</p>
+</li>
+<li><p>JavaScript 原型，原型链 ? 有什么特点？</p>
+</li>
+<li><p>JavaScript 有几种类型的值？（堆：原始数据类型和 栈：引用数据类型），你能画一下他们的内存图吗？</p>
+</li>
+<li><p>Javascript 如何实现继承？</p>
+</li>
+<li><p>Javascript 创建对象的几种方式？</p>
+</li>
+<li><p>Javascript 作用链域?</p>
+</li>
+<li><p>谈谈 this 对象的理解。</p>
+</li>
+<li><p>eval 是做什么的？</p>
+</li>
+<li><p>什么是 window 对象? 什么是 document 对象?</p>
+</li>
+<li><p>null，undefined 的区别？</p>
+</li>
+<li><p>写一个通用的事件侦听器函数(机试题)。</p>
+</li>
+<li><p>[“1”, “2”, “3”].map(parseInt) 答案是多少？</p>
+</li>
+<li><p>关于事件，IE 与火狐的事件机制有什么区别？ 如何阻止冒泡？</p>
+</li>
+<li><p>什么是闭包（closure），为什么要用它？</p>
+</li>
+<li><p>javascript 代码中的”use strict”;是什么意思 ? 使用它区别是什么？</p>
+</li>
+<li><p>如何判断一个对象是否属于某个类？</p>
+</li>
+<li><p>new 操作符具体干了什么呢?</p>
+</li>
+<li><p>用原生 JavaScript 的实现过什么功能吗？</p>
+</li>
+<li><p>Javascript 中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？</p>
+</li>
+<li><p>对 JSON 的了解？</p>
+</li>
+<li><p><code>[].forEach.call($$(&quot;*&quot;),function(a){ a.style.outline=&quot;1px solid #&quot;+(~~(Math.random()*(1&lt;&lt;24))).toString(16) })</code> 能解释一下这段代码的意思吗？</p>
+</li>
+<li><p>js 延迟加载的方式有哪些？</p>
+</li>
+<li><p>Ajax 是什么? 如何创建一个 Ajax？</p>
+</li>
+<li><p>同步和异步的区别?</p>
+</li>
+<li><p>如何解决跨域问题?</p>
+</li>
+<li><p>页面编码和被请求的资源编码如果不一致如何处理？</p>
+</li>
+<li><p>服务器代理转发时，该如何处理 cookie？</p>
+</li>
+<li><p>模块化开发怎么做？</p>
+</li>
+<li><p>AMD（Modules/Asynchronous-Definition）、CMD（Common Module Definition）规范区别？</p>
+</li>
+<li><p>requireJS 的核心原理是什么？（如何动态加载的？如何避免多次加载的？如何<br>缓存的？）</p>
+</li>
+<li><p>JS 模块加载器的轮子怎么造，也就是如何实现一个模块加载器？</p>
+</li>
+<li><p>谈一谈你对 ECMAScript6 的了解？</p>
+</li>
+<li><p>ECMAScript6 怎么写 class，为什么会出现 class 这种东西?</p>
+</li>
+<li><p>异步加载的方式有哪些？</p>
+</li>
+<li><p>documen.write 和 innerHTML 的区别?</p>
+</li>
+<li><p>DOM 操作——怎样添加、移除、移动、复制、创建和查找节点?</p>
+</li>
+<li><p>.call() 和 .apply() 的作用和区别？</p>
+</li>
+<li><p>数组和对象有哪些原生方法，列举一下？</p>
+</li>
+<li><p>JS 怎么实现一个类。怎么实例化这个类</p>
+</li>
+<li><p>JavaScript 中的作用域与变量声明提升？</p>
+</li>
+<li><p>如何编写高性能的 Javascript？</p>
+</li>
+<li><p>那些操作会造成内存泄漏？</p>
+</li>
+<li><p>JQuery 的源码看过吗？能不能简单概况一下它的实现原理？</p>
+</li>
+<li><p>jQuery.fn 的 init 方法返回的 this 指的是什么对象？为什么要返回 this？</p>
+</li>
+<li><p>jquery 中如何将数组转化为 json 字符串，然后再转化回来？</p>
+</li>
+<li><p>jQuery 的属性拷贝(extend)的实现原理是什么，如何实现深拷贝？</p>
+</li>
+<li><p>jquery.extend 与 jquery.fn.extend 的区别？</p>
+</li>
+<li><p>jQuery 的队列是如何实现的？队列可以用在哪些地方？</p>
+</li>
+<li><p>谈一下 Jquery 中的 bind(),live(),delegate(),on()的区别？</p>
+</li>
+<li><p>JQuery 一个对象可以同时绑定多个事件，这是如何实现的？</p>
+</li>
+<li><p>是否知道自定义事件。jQuery 里的 fire 函数是什么意思，什么时候用？</p>
+</li>
+<li><p>jQuery 是通过哪个方法和 Sizzle 选择器结合的？（jQuery.fn.find()进入 Sizzle）</p>
+</li>
+<li><p>针对 jQuery 性能的优化方法？</p>
+</li>
+<li><p>Jquery 与 jQuery UI 有啥区别？</p>
+</li>
+<li><p>JQuery 的源码看过吗？能不能简单说一下它的实现原理？</p>
+</li>
+<li><p>jquery 中如何将数组转化为 json 字符串，然后再转化回来？</p>
+</li>
+<li><p>jQuery 和 Zepto 的区别？各自的使用场景？</p>
+</li>
+<li><p>针对 jQuery 的优化方法？</p>
+</li>
+<li><p>Zepto 的点透问题如何解决？</p>
+</li>
+<li><p>jQueryUI 如何自定义组件?</p>
+</li>
+<li><p>需求：实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？</p>
+</li>
+<li><p>如何判断当前脚本运行在浏览器还是 node 环境中？（阿里）</p>
+</li>
+<li><p>移动端最小触控区域是多大？</p>
+</li>
+<li><p>jQuery 的 slideUp 动画 ，如果目标元素是被外部事件驱动, 当鼠标快速地连续触发外部元素事件, 动画会滞后的反复执行，该如何处理呢?</p>
+</li>
+<li><p>把 Script 标签 放在页面的最底部的 body 封闭之前 和封闭之后有什么区别？浏览器会如何解析它们？</p>
+</li>
+<li><p>移动端的点击事件的有延迟，时间是多久，为什么会有？ 怎么解决这个延时？（click 有 300ms 延迟,为了实现 safari 的双击事件的设计，浏览器要知道你是不是要双击操作。）</p>
+</li>
+<li><p>知道各种 JS 框架(Angular, Backbone, Ember, React, Meteor, Knockout…)么? 能讲出他们各自的优点和缺点么?</p>
+</li>
+<li><p>Underscore 对哪些 JS 原生对象进行了扩展以及提供了哪些好用的函数方法？</p>
+</li>
+<li><p>解释 JavaScript 中的作用域与变量声明提升？</p>
+</li>
+<li><p>那些操作会造成内存泄漏？</p>
+</li>
+<li><p>JQuery 一个对象可以同时绑定多个事件，这是如何实现的？</p>
+</li>
+<li><p>Node.js 的适用场景？</p>
+</li>
+<li><p>(如果会用 node)知道 route, middleware, cluster, nodemon, pm2, server-side rendering 么?</p>
+</li>
+<li><p>解释一下 Backbone 的 MVC 实现方式？</p>
+</li>
+<li><p>什么是“前端路由”?什么时候适合使用“前端路由”? “前端路由”有哪些优点和缺点?</p>
+</li>
+<li><p>知道什么是 webkit 么? 知道怎么用浏览器的各种工具来调试和 debug 代码么?</p>
+</li>
+<li><p>如何测试前端代码么? 知道 BDD, TDD, Unit Test 么? 知道怎么测试你的前端工程么(mocha, sinon, jasmin, qUnit..)?</p>
+</li>
+<li><p>前端 templating(Mustache, underscore, handlebars)是干嘛的, 怎么用?</p>
+</li>
+<li><p>简述一下 Handlebars 的基本用法？</p>
+</li>
+<li><p>简述一下 Handlerbars 的对模板的基本处理流程， 如何编译的？如何缓存的？</p>
+</li>
+<li><p>用 js 实现千位分隔符?(来源：<a href="http://div.io/topic/744" target="_blank" rel="noopener">前端农民工</a>，提示：正则+replace)</p>
+</li>
+<li><p>检测浏览器版本版本有哪些方式？</p>
+</li>
+<li><p>What is a Polyfill?</p>
+</li>
+<li><p>做的项目中，有没有用过或自己实现一些 polyfill 方案（兼容性处理方案）？</p>
+</li>
+<li><p>我们给一个 dom 同时绑定两个点击事件，一个用捕获，一个用冒泡。会执行几次事件，会先执行冒泡还是捕获？</p>
+</li>
+<li><p>使用 JS 实现获取文件扩展名？</p>
+</li>
+<li><p>Webpack 热更新实现原理?</p>
+</li>
+<li><p>请介绍一下 JS 之事件节流？</p>
+</li>
+<li><p>什么是 JS 的函数防抖？</p>
+</li>
+</ul>
+<h4 id="ECMAScript6-相关"><a href="#ECMAScript6-相关" class="headerlink" title="ECMAScript6 相关"></a><a name="other">ECMAScript6 相关</a></h4><ul>
+<li><p>Object.is() 与原来的比较操作符“ ===”、“ ==”的区别？</p>
+</li>
+<li><p>ES6 是如何实现编译成 ES5 的？</p>
+</li>
+<li><p>css-loader 的原理？</p>
+</li>
+</ul>
+<h2 id="前端框架"><a href="#前端框架" class="headerlink" title="前端框架"></a><a name="framework">前端框架</a></h2><ul>
+<li><p>React 使用场景？</p>
+</li>
+<li><p>描述一下 React 生命周期</p>
+</li>
+<li><p>实现组件有哪些方式？</p>
+</li>
+<li><p>应该在 React 生命周期的什么阶段发出 ajax 请求，为什么？</p>
+</li>
+<li><p>shouldComponentUpdate 函数有什么作用？</p>
+</li>
+<li><p>当组件的 setState 函数被调用之后，发生了什么？</p>
+</li>
+<li><p>为什么循环产生的组件中要利用上 key 这个特殊的 prop？</p>
+</li>
+<li><p>React-router 路由的实现原理？</p>
+</li>
+<li><p>说说 React Native,Weex 框架的实现原理？</p>
+</li>
+<li><p>受控组件(Controlled Component)与非受控组件(Uncontrolled Component)的区别</p>
+</li>
+<li><p>refs 是什么?</p>
+</li>
+<li><p>React 为什么自己定义一套事件体系呢，与浏览器原生事件体系有什么关系？</p>
+</li>
+<li><p>什么时候应该选择用 class 实现一个组件，什么时候用一个函数实现一个组件？</p>
+</li>
+<li><p>什么是 HoC（Higher-Order Component）？适用于什么场景？</p>
+</li>
+<li><p>并不是父子关系的组件，如何实现相互的数据通信？</p>
+</li>
+<li><p>用过 React 技术栈中哪些数据流管理库？</p>
+</li>
+<li><p>Redux 是如何做到可预测呢？</p>
+</li>
+<li><p>Redux 将 React 组件划分为哪两种？</p>
+</li>
+<li><p>Redux 是如何将 state 注入到 React 组件上的？</p>
+</li>
+<li><p>请描述一次完整的 Redux 数据流</p>
+</li>
+<li><p>React 的批量更新机制 BatchUpdates？</p>
+</li>
+<li><p>React 与 Vue，各自的组件更新进行对比，它们有哪些区别？</p>
+</li>
+</ul>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a><a name="other">其他问题</a></h2><ul>
+<li><p>原来公司工作流程是怎么样的，如何与其他人协作的？如何跨部门合作的？</p>
+</li>
+<li><p>你遇到过比较难的技术问题是？你是如何解决的？</p>
+</li>
+<li><p>设计模式 知道什么是 singleton, factory, strategy, decrator 么?</p>
+</li>
+<li><p>常使用的库有哪些？常用的前端开发工具？开发过什么应用或组件？</p>
+</li>
+<li><p>页面重构怎么操作？</p>
+</li>
+<li><p>列举 IE 与其他浏览器不一样的特性？</p>
+</li>
+<li><p>99%的网站都需要被重构是那本书上写的？</p>
+</li>
+<li><p>什么叫优雅降级和渐进增强？</p>
+</li>
+<li><p>是否了解公钥加密和私钥加密。</p>
+</li>
+<li><p>WEB 应用从服务器主动推送 Data 到客户端有那些方式？</p>
+</li>
+<li><p>对 Node 的优点和缺点提出了自己的看法？</p>
+</li>
+<li><p>你有用过哪些前端性能优化的方法？</p>
+</li>
+<li><p>http 状态码有那些？分别代表是什么意思？</p>
+</li>
+<li><p>一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？（流程说的越详细越好）</p>
+</li>
+<li><p>部分地区用户反应网站很卡，请问有哪些可能性的原因，以及解决方法？</p>
+</li>
+<li><p>从打开 app 到刷新出内容，整个过程中都发生了什么，如果感觉慢，怎么定位问题，怎么解决?</p>
+</li>
+<li><p>第一次访问页面中时弹出引导，用户关闭引导，之后再次进入页面时不希望出现引导，如何实现？</p>
+</li>
+<li><p>除了前端以外还了解什么其它技术么？你最最厉害的技能是什么？</p>
+</li>
+<li><p>你用的得心应手用的熟练地编辑器&amp;开发环境是什么样子？</p>
+</li>
+<li><p>对前端界面工程师这个职位是怎么样理解的？它的前景会怎么样？</p>
+</li>
+<li><p>你怎么看待 Web App 、hybrid App、Native App？</p>
+</li>
+<li><p>你移动端前端开发的理解？（和 Web 前端开发的主要区别是什么？）</p>
+</li>
+<li><p>产品进行版本升级时，可能发生不兼容性问题，如何提前预防和解决？</p>
+</li>
+<li><p>你对加班的看法？</p>
+</li>
+<li><p>平时如何管理你的项目？</p>
+</li>
+<li><p>说说最近最流行的一些东西吧？常去哪些网站？</p>
+</li>
+<li><p>如何设计突发大规模并发架构？</p>
+</li>
+<li><p>说说最近最流行的一些东西吧？常去哪些网站？</p>
+</li>
+<li><p>是否了解开源的工具 bower、npm、yeoman、grunt、gulp，一个 npm 的包里的 package.json 具备的必要的字段都有哪些？（名称、版本号，依赖）</p>
+</li>
+<li><p>每个模块的代码结构都应该比较简单，且每个模块之间的关系也应该非常清晰，随着功能和迭代次数越来越多，你会如何去保持这个状态的？</p>
+</li>
+<li><p>Git 知道 branch, diff, merge 么?</p>
+</li>
+<li><p>如何设计突发大规模并发架构？</p>
+</li>
+<li><p>当团队人手不足，把功能代码写完已经需要加班的情况下，你会做前端代码的测试吗？</p>
+</li>
+<li><p>说说最近最流行的一些东西吧？平时常去哪些网站？</p>
+</li>
+<li><p>知道什么是 SEO 并且怎么优化么? 知道各种 meta data 的含义么?</p>
+</li>
+<li><p>移动端（Android IOS）怎么做好用户体验?</p>
+</li>
+<li><p>简单描述一下你做过的移动 APP 项目研发流程？</p>
+</li>
+<li><p>你在现在的团队处于什么样的角色，起到了什么明显的作用？</p>
+</li>
+<li><p>你认为怎样才是全端工程师（Full Stack developer）？</p>
+</li>
+<li><p>介绍一个你最得意的作品吧？</p>
+</li>
+<li><p>你有自己的技术博客吗，用了哪些技术？</p>
+</li>
+<li><p>对前端安全有什么看法？</p>
+</li>
+<li><p>是否了解 Web 注入攻击，说下原理，最常见的两种攻击（XSS 和 CSRF）了解到什么程度？</p>
+</li>
+<li><p>项目中遇到国哪些印象深刻的技术难题，具体是什么问题，怎么解决？。</p>
+</li>
+<li><p>最近在学什么东西？</p>
+</li>
+<li><p>你的优点是什么？缺点是什么？</p>
+</li>
+<li><p>如何管理前端团队?</p>
+</li>
+<li><p>最近在学什么？能谈谈你未来 3，5 年给自己的规划吗？</p>
+</li>
+</ul>
+<h2 id="前端学习网站推荐"><a href="#前端学习网站推荐" class="headerlink" title="前端学习网站推荐"></a><a name="web">前端学习网站推荐</a></h2><pre><code>1. 极客标签：     http://www.gbtags.com/
+
+2. 码农周刊：     http://weekly.manong.io/issues/
+
+3. 前端周刊：     http://www.feweekly.com/issues
+
+4. 慕课网：       http://www.imooc.com/
+
+5. div.io：         http://div.io
+
+6. Hacker News： https://news.ycombinator.com/news
+
+7. InfoQ：       http://www.infoq.com/
+
+8. w3cplus：     http://www.w3cplus.com/
+
+9. Stack Overflow： http://stackoverflow.com/
+
+10.w3school：    http://www.w3school.com.cn/
+
+11.mozilla：     https://developer.mozilla.org/zh-CN/docs/Web/
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Hopper Sun
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoppergithub.github.io/2019/04/15/190415_fe_interview_summary/" title="前端开发面试题">https://hoppergithub.github.io/2019/04/15/190415_fe_interview_summary/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Summary/" rel="tag"># Summary</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/18/190318_node_child_process/" rel="next" title="Nodejs源码解读之 child_process 实现原理">
+                <i class="fa fa-chevron-left"></i> Nodejs源码解读之 child_process 实现原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hopper Sun</p>
+              <p class="site-description motion-element" itemprop="description">双子座伪文艺男青年</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HopperGithub" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端开发面试题"><span class="nav-number">1.</span> <span class="nav-text">前端开发面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.2.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">1.3.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.4.</span> <span class="nav-text">JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ECMAScript6-相关"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">ECMAScript6 相关</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端框架"><span class="nav-number">1.5.</span> <span class="nav-text">前端框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他问题"><span class="nav-number">1.6.</span> <span class="nav-text">其他问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端学习网站推荐"><span class="nav-number">1.7.</span> <span class="nav-text">前端学习网站推荐</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hopper Sun</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
