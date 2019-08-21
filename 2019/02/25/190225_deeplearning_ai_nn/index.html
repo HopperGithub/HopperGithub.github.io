@@ -94,8 +94,8 @@
 <meta property="og:site_name" content="Hopper&#39;s Blog">
 <meta property="og:description" content="因为有 Python 编程基础，数学方面还没有完全还给老师，年前加入FE 的 AI 学习小组，开始学习吴恩达老师的DeepLearning课程，记个笔记、画个重点，总结一下，也方便和增强自己对该课程的进一步学习和理解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Complete_neuron_cell_diagram_zh.svg/600px-Complete_neuron_cell_diagram_zh.svg.png">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/9/97/Ncell.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/neuron_cell_diagram.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/Ncell.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/IMG-WX20190311-183600@2x.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/IMG-WX20190311-183613@2x.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/IMG-WX20190311-183532@2x.png">
@@ -109,11 +109,11 @@
 <meta property="og:image" content="https://hoppergithub.github.io/images/IMG-WX20190311-181754@2x.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/IMg-WX20190311-181803@2x.png">
 <meta property="og:image" content="https://hoppergithub.github.io/images/IMG-WX20190311-181731@2x.png">
-<meta property="og:updated_time" content="2019-07-22T04:04:59.615Z">
+<meta property="og:updated_time" content="2019-08-21T11:54:29.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习吴恩达老师的《神经网络与深度学习》微专业课程">
 <meta name="twitter:description" content="因为有 Python 编程基础，数学方面还没有完全还给老师，年前加入FE 的 AI 学习小组，开始学习吴恩达老师的DeepLearning课程，记个笔记、画个重点，总结一下，也方便和增强自己对该课程的进一步学习和理解。">
-<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Complete_neuron_cell_diagram_zh.svg/600px-Complete_neuron_cell_diagram_zh.svg.png">
+<meta name="twitter:image" content="https://hoppergithub.github.io/images/neuron_cell_diagram.png">
 
 
 
@@ -355,10 +355,10 @@
 <h1 id="理清神经网络的基础"><a href="#理清神经网络的基础" class="headerlink" title="理清神经网络的基础"></a>理清神经网络的基础</h1><h2 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h2><p>感知器（英语：Perceptron）是Frank Rosenblatt在1957年就职于康奈尔航空实验室（Cornell Aeronautical Laboratory）时所发明的一种人工神经网络。它可以被视为一种最简单形式的前馈神经网络，是一种二元线性分类器。  </p>
 <p>Frank Rosenblatt给出了相应的感知机学习算法，常用的有感知机学习、最小二乘法和梯度下降法。譬如，感知机利用梯度下降法对损失函数进行极小化，求出可将训练数据进行线性划分的分离超平面，从而求得感知机模型。</p>
 <h3 id="生物学-神经细胞"><a href="#生物学-神经细胞" class="headerlink" title="生物学-神经细胞"></a>生物学-神经细胞</h3><p>神经细胞结构示意图</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Complete_neuron_cell_diagram_zh.svg/600px-Complete_neuron_cell_diagram_zh.svg.png" width="400" alt="图片名称"></p>
+<p><img src="/images/neuron_cell_diagram.png" alt=""></p>
 <p>感知机是生物神经细胞的简单抽象。神经细胞结构大致可分为：树突、突触、细胞体及轴突。单个神经细胞可被视为一种只有两种状态的机器——激动时为‘是’，而未激动时为‘否’。神经细胞的状态取决于从其它的神经细胞收到的输入信号量，及突触的强度（抑制或加强）。当信号量总和超过了某个阈值时，细胞体就会激动，产生电脉冲。电脉冲沿着轴突并通过突触传递到其它神经元。为了模拟神经细胞行为，与之对应的感知机基础概念被提出，如权量（突触）、偏置（阈值）及激活函数（细胞体）。</p>
 <h3 id="人工神经元"><a href="#人工神经元" class="headerlink" title="人工神经元"></a>人工神经元</h3><p>神经元结构示意图</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Ncell.png" width="400" alt="图片名称"></p>
+<p><img src="/images/Ncell.png" alt=""></p>
 <p>在人工神经网络领域中，感知机也被指为单层的人工神经网络，以区别于较复杂的多层感知机（Multilayer Perceptron）。作为一种线性分类器，（单层）感知机可说是最简单的前向人工神经网络形式。尽管结构简单，感知机能够学习并解决相当复杂的问题。感知机主要的本质缺陷是它不能处理线性不可分问题。</p>
 <p><em>以上内容摘自维基百科</em></p>
 <h3 id="单层感知机的适用和缺陷"><a href="#单层感知机的适用和缺陷" class="headerlink" title="单层感知机的适用和缺陷"></a>单层感知机的适用和缺陷</h3><ul>
