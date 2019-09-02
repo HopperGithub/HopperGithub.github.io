@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Summary," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="从 CentOS 7 开始，自带的数据库就变成 MariaDB 了，yum 安装的 mariadb 默认版本是 5.5 ，实际开发中一些 SQL 特性和语法支持的不是太好，本文记录的是平滑升级 MariaDB 5.5 到 10.x 新版本的实践操作过程。">
+<meta name="keywords" content="Summary">
+<meta property="og:type" content="article">
+<meta property="og:title" content="升级 mariadb 版本">
+<meta property="og:url" content="https://hoppergithub.github.io/2019/05/23/190523_mysql_upgrade/index.html">
+<meta property="og:site_name" content="Hopper&#39;s Blog">
+<meta property="og:description" content="从 CentOS 7 开始，自带的数据库就变成 MariaDB 了，yum 安装的 mariadb 默认版本是 5.5 ，实际开发中一些 SQL 特性和语法支持的不是太好，本文记录的是平滑升级 MariaDB 5.5 到 10.x 新版本的实践操作过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-version.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-db0.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-vim.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-clean.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-cache.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-cache1.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-install.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-install1.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-install2.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-upgrade.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-enable.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-check.png">
+<meta property="og:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-db.png">
+<meta property="og:updated_time" content="2019-09-02T05:25:06.956Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="升级 mariadb 版本">
+<meta name="twitter:description" content="从 CentOS 7 开始，自带的数据库就变成 MariaDB 了，yum 安装的 mariadb 默认版本是 5.5 ，实际开发中一些 SQL 特性和语法支持的不是太好，本文记录的是平滑升级 MariaDB 5.5 到 10.x 新版本的实践操作过程。">
+<meta name="twitter:image" content="https://hoppergithub.github.io/images/img-mysql-upgrade-version.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoppergithub.github.io/2019/05/23/190523_mysql_upgrade/"/>
+
+
+
+
+
+  <title>升级 mariadb 版本 | Hopper's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hopper's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活就像咖啡，酸楚苦涩却浓郁香醇、耐人回味，如果慢些喝，或许会发现，还是热的可口。。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoppergithub.github.io/2019/05/23/190523_mysql_upgrade/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hopper Sun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hopper's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">升级 mariadb 版本</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-23T00:00:00+08:00">
+                2019-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/" itemprop="url" rel="index">
+                    <span itemprop="name">Database</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从 CentOS 7 开始，自带的数据库就变成 MariaDB 了，yum 安装的 mariadb 默认版本是 5.5 ，实际开发中一些 SQL 特性和语法支持的不是太好，本文记录的是平滑升级 MariaDB 5.5 到 10.x 新版本的实践操作过程。</p>
+<a id="more"></a>
+<h1 id="升级-mariadb-版本"><a href="#升级-mariadb-版本" class="headerlink" title="升级 mariadb 版本"></a>升级 mariadb 版本</h1><p>确认已安装的数据库版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql --version</span><br></pre></td></tr></table></figure>
+<p><img src="/images/img-mysql-upgrade-version.png" alt=""></p>
+<p>确定当前数据库数据</p>
+<p><img src="/images/img-mysql-upgrade-db0.png" alt=""></p>
+<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><p>备份非常重要！备份非常重要！备份非常重要！<br>升级前一定要注意备份，除非你不在乎数据库中的数据或配置。</p>
+<h3 id="备份数据库到-backup-sql-文件"><a href="#备份数据库到-backup-sql-文件" class="headerlink" title="备份数据库到 backup.sql 文件"></a>备份数据库到 backup.sql 文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysqldump -u root -p --all-databases &gt; ~/myConf/backup.sql</span><br></pre></td></tr></table></figure>
+<h3 id="也可以备份一下数据库配置（如果需要保留-my-cnf）"><a href="#也可以备份一下数据库配置（如果需要保留-my-cnf）" class="headerlink" title="也可以备份一下数据库配置（如果需要保留 my.cnf）"></a>也可以备份一下数据库配置（如果需要保留 my.cnf）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mv /etc/my.cnf /etc/my.cnf.bak</span><br></pre></td></tr></table></figure>
+<h3 id="停止数据库运行"><a href="#停止数据库运行" class="headerlink" title="停止数据库运行"></a>停止数据库运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">systemctl stop mariadb</span><br></pre></td></tr></table></figure>
+<h2 id="添加-MariaDB-Yum-源"><a href="#添加-MariaDB-Yum-源" class="headerlink" title="添加 MariaDB Yum 源"></a>添加 MariaDB Yum 源</h2><p>建议使用 MariaDB 官方推荐的 stable 稳定版：</p>
+<p><a href="https://downloads.mariadb.org/mariadb/" target="_blank" rel="noopener">MariaDB 官方下载</a></p>
+<p><a href="http://yum.mariadb.org/" target="_blank" rel="noopener">Yum 官方下载</a></p>
+<h3 id="新建并添加-MariaDB-官方源"><a href="#新建并添加-MariaDB-官方源" class="headerlink" title="新建并添加 MariaDB 官方源"></a>新建并添加 MariaDB 官方源</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">vi /etc/yum.repos.d/MariaDB.repo</span><br></pre></td></tr></table></figure>
+<h3 id="复制粘贴以下内容"><a href="#复制粘贴以下内容" class="headerlink" title="复制粘贴以下内容"></a>复制粘贴以下内容</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span> MariaDB 10.3 CentOS repository list</span><br><span class="line"><span class="meta">#</span> http://downloads.mariadb.org/mariadb/repositories/</span><br><span class="line">[mariadb]</span><br><span class="line">name = MariaDB</span><br><span class="line">baseurl = http://yum.mariadb.org/10.3/centos7-amd64</span><br><span class="line">gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</span><br><span class="line">gpgcheck=1</span><br></pre></td></tr></table></figure>
+<h3 id="检查是否添加成功"><a href="#检查是否添加成功" class="headerlink" title="检查是否添加成功"></a>检查是否添加成功</h3><p><img src="/images/img-mysql-upgrade-vim.png" alt=""></p>
+<h3 id="清除-yum-源缓存"><a href="#清除-yum-源缓存" class="headerlink" title="清除 yum 源缓存"></a>清除 yum 源缓存</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yum clean all</span><br></pre></td></tr></table></figure>
+<p><img src="/images/img-mysql-upgrade-clean.png" alt=""></p>
+<h3 id="建立新的-yum-源缓存"><a href="#建立新的-yum-源缓存" class="headerlink" title="建立新的 yum 源缓存"></a>建立新的 yum 源缓存</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<p><img src="/images/img-mysql-upgrade-cache.png" alt=""><br><img src="/images/img-mysql-upgrade-cache1.png" alt=""></p>
+<h2 id="升级已有数据库"><a href="#升级已有数据库" class="headerlink" title="升级已有数据库"></a>升级已有数据库</h2><h3 id="安装-MariaDB-新版本"><a href="#安装-MariaDB-新版本" class="headerlink" title="安装 MariaDB 新版本"></a>安装 MariaDB 新版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yum install mariadb mariadb-server</span><br></pre></td></tr></table></figure>
+<p><img src="/images/img-mysql-upgrade-install.png" alt=""><br><img src="/images/img-mysql-upgrade-install1.png" alt=""><br><img src="/images/img-mysql-upgrade-install2.png" alt=""></p>
+<h3 id="启动新版-MariaDB"><a href="#启动新版-MariaDB" class="headerlink" title="启动新版 MariaDB"></a>启动新版 MariaDB</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">systemctl start mariadb</span><br></pre></td></tr></table></figure>
+<h3 id="升级已有数据库-1"><a href="#升级已有数据库-1" class="headerlink" title="升级已有数据库"></a>升级已有数据库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql_upgrade -uroot -p --force</span><br></pre></td></tr></table></figure>
+<p><img src="/images/img-mysql-upgrade-upgrade.png" alt=""></p>
+<h3 id="配置服务自启动"><a href="#配置服务自启动" class="headerlink" title="配置服务自启动"></a>配置服务自启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">systemctl enable mariadb</span><br></pre></td></tr></table></figure>
+<p><img src="/images/img-mysql-upgrade-enable.png" alt=""></p>
+<h3 id="登录数据库验证"><a href="#登录数据库验证" class="headerlink" title="登录数据库验证"></a>登录数据库验证</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p><img src="/images/img-mysql-upgrade-check.png" alt=""></p>
+<h3 id="查看当前版本并检查数据是否丢失"><a href="#查看当前版本并检查数据是否丢失" class="headerlink" title="查看当前版本并检查数据是否丢失"></a>查看当前版本并检查数据是否丢失</h3><p><img src="/images/img-mysql-upgrade-db.png" alt=""></p>
+<h2 id="恢复数据"><a href="#恢复数据" class="headerlink" title="恢复数据"></a>恢复数据</h2><h3 id="查看原用户是否存在、原用户密码是否存在"><a href="#查看原用户是否存在、原用户密码是否存在" class="headerlink" title="查看原用户是否存在、原用户密码是否存在"></a>查看原用户是否存在、原用户密码是否存在</h3><p>如果原用户不存在，就重写创建用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">use mysql;</span><br><span class="line">update user set password=password("xxxxxxx") where user="root" and host='localhost'; </span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<h3 id="恢复数据库"><a href="#恢复数据库" class="headerlink" title="恢复数据库"></a>恢复数据库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql -u root -p &lt; ~/myConf/backup.sql</span><br></pre></td></tr></table></figure>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p><a href="https://mariadb.com/kb/en/library/upgrading-from-mariadb-55-to-mariadb-100/" target="_blank" rel="noopener">Mariadb 5.5 upgrade to 10.0 需知</a></p>
+<p><a href="https://mariadb.org/" target="_blank" rel="noopener">Mariadb 官网</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Hopper Sun
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoppergithub.github.io/2019/05/23/190523_mysql_upgrade/" title="升级 mariadb 版本">https://hoppergithub.github.io/2019/05/23/190523_mysql_upgrade/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Summary/" rel="tag"># Summary</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/190415_fe_interview_summary/" rel="next" title="前端开发面试题">
+                <i class="fa fa-chevron-left"></i> 前端开发面试题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hopper Sun</p>
+              <p class="site-description motion-element" itemprop="description">双子座伪文艺男青年</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HopperGithub" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#升级-mariadb-版本"><span class="nav-number">1.</span> <span class="nav-text">升级 mariadb 版本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#备份"><span class="nav-number">1.1.</span> <span class="nav-text">备份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#备份数据库到-backup-sql-文件"><span class="nav-number">1.1.1.</span> <span class="nav-text">备份数据库到 backup.sql 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#也可以备份一下数据库配置（如果需要保留-my-cnf）"><span class="nav-number">1.1.2.</span> <span class="nav-text">也可以备份一下数据库配置（如果需要保留 my.cnf）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止数据库运行"><span class="nav-number">1.1.3.</span> <span class="nav-text">停止数据库运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加-MariaDB-Yum-源"><span class="nav-number">1.2.</span> <span class="nav-text">添加 MariaDB Yum 源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建并添加-MariaDB-官方源"><span class="nav-number">1.2.1.</span> <span class="nav-text">新建并添加 MariaDB 官方源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制粘贴以下内容"><span class="nav-number">1.2.2.</span> <span class="nav-text">复制粘贴以下内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查是否添加成功"><span class="nav-number">1.2.3.</span> <span class="nav-text">检查是否添加成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除-yum-源缓存"><span class="nav-number">1.2.4.</span> <span class="nav-text">清除 yum 源缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立新的-yum-源缓存"><span class="nav-number">1.2.5.</span> <span class="nav-text">建立新的 yum 源缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级已有数据库"><span class="nav-number">1.3.</span> <span class="nav-text">升级已有数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-MariaDB-新版本"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装 MariaDB 新版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动新版-MariaDB"><span class="nav-number">1.3.2.</span> <span class="nav-text">启动新版 MariaDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级已有数据库-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">升级已有数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置服务自启动"><span class="nav-number">1.3.4.</span> <span class="nav-text">配置服务自启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录数据库验证"><span class="nav-number">1.3.5.</span> <span class="nav-text">登录数据库验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看当前版本并检查数据是否丢失"><span class="nav-number">1.3.6.</span> <span class="nav-text">查看当前版本并检查数据是否丢失</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#恢复数据"><span class="nav-number">1.4.</span> <span class="nav-text">恢复数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看原用户是否存在、原用户密码是否存在"><span class="nav-number">1.4.1.</span> <span class="nav-text">查看原用户是否存在、原用户密码是否存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复数据库"><span class="nav-number">1.4.2.</span> <span class="nav-text">恢复数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">1.5.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hopper Sun</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
